@@ -1,0 +1,196 @@
+<ion-content overflow-scroll="false">
+  <app-sidebars></app-sidebars>
+  <main id="main" class="main">
+  
+    <div class="pagetitle">
+      <h1 style="color:orangered; ">Add Customer</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a>Dashboard</a></li>
+          <li class="breadcrumb-item active">Customer</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+  <section class="col-lg-12">
+    <div class="card">
+      <div class="card-body">
+
+        <!-- General Form Elements -->
+
+        <form #userPost="ngForm" (ngSubmit)="onSubmit(userPost.value)">
+          <div class="row mb-3">
+            <label for="inputEmail" class=" col-form-label">AVN</label>
+            <div class="col-sm-12">
+              <span class="{{validating}}">
+                validating avn <img src="assets/img/ajax_clock_small.gif" alt="">
+              </span>
+              <input type="text" class="form-control" placeholder="Please Enter Customers AVN"
+                (mouseout)="avncheck($event)" name="avn" ngModel>
+            </div>
+          </div>
+          <div class="row mb-3 {{d}}">
+            <label for="inputEmail" class=" col-form-label">Name</label>
+            <div class="col-sm-12">
+              <input type="text" class="form-control " placeholder="Please Enter Name" name="name" ngModel>
+            </div>
+          </div>
+          <div class="row mb-3 {{d}}">
+            <label class=" col-form-label">Gender</label>
+            <div class="col-sm-12">
+              <select class="form-select" aria-label="Default select example" name="gender" ngModel>
+                <option selected="selected" disabled>--Select Gender--</option>
+                <option value="male"> Male</option>
+                <option value="female">Female</option>
+              </select>
+
+            </div>
+          </div>
+          <div class="row mb-3 {{d}}">
+            <label for="inputEmail" class=" col-form-label">Email</label>
+            <div class="col-sm-12">
+              <input type="email" class="form-control" placeholder="Please Enter Email" name="email" ngModel>
+            </div>
+          </div>
+
+          <div class="row mb-3 {{d}}">
+            <label for="inputEmail" class=" col-form-label">Phone Number</label>
+            <div class="col-sm-12">
+              <div class="row">
+                <div class="col-lg-1">
+                  <input type="text" disabled class="form-control" value="+234">
+                </div>
+                <div class="col-lg-11">
+                  <input type="text" class="form-control" placeholder="Please Enter Phone Number" name="phone" ngModel>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-3 {{d}}">
+            <label for="inputEmail" class=" col-form-label">DOB</label>
+            <div class="col-sm-12">
+              <input type="date" class="form-control" name="dob" ngModel>
+            </div>
+          </div>
+
+          <div class="row mb-3 {{d}}">
+            <label for="inputEmail" class=" col-form-label">Home Address</label>
+            <div class="col-sm-12">
+              <input type="text" class="form-control" placeholder="Please Enter Home Address" name="address" ngModel>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label class=" col-form-label">Account Type</label>
+            <div class="col-sm-12">
+              <select class="form-select" (change)="accType($event)" aria-label="Default select example" name="acc_type"
+                ngModel>
+                <option selected="selected" disabled>--Select Account Type--</option>
+                <option value="savings">Savings</option>
+                <option value="contribution">Contribution</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row mb-3 {{ savings }}">
+            <label class=" col-form-label">Saving Type</label>
+            <div class="col-sm-12">
+              <select class="form-select" aria-label="Default select example" name="sub_acc_type" ngModel>
+                <option selected="selected" disabled (change)="saving()">--Select Savings Type--</option>
+                <option value="regular">Regular Saving</option>
+                <option value="365">365 Saving</option>
+                <option value="target">Target Saving</option>
+                <option value="mychild">Mychild Saving</option>
+              </select>
+            </div>
+          </div>
+
+
+          <div class="row mb-3  {{ contribute  }}">
+            <label class=" col-form-label">Contribution Type</label>
+            <div class="col-sm-12">
+              <select class="form-select" (change)="personal($event)" aria-label="Default select example"
+                name="sub_acc_type" ngModel>
+                <option selected="selected" disabled>--Select Contribution Type--</option>
+                <option value="group">Group Contribution</option>
+                <option value="personal">Personal Contribution</option>
+                <option value="Regular Fixed">Reqular Fixed Deposit</option>
+              </select>
+            </div>
+          </div>
+          <div class="row mb-3 {{ forsavings }}">
+            <label for="inputEmail" class="col-form-label">Deposit Amount</label>
+            <div class="col-sm-12">
+              <input type="number" class="form-control" placeholder="Please Enter Amount" name="reg_fee" ngModel>
+            </div>
+          </div>
+
+          <div class="row mb-3 {{ forpersonal }}">
+            <label for="inputEmail" class=" col-form-label">Rates</label>
+            <div class="col-sm-12">
+              <input type="number" class="form-control" placeholder="Please Enter Amount" name="rate" ngModel>
+            </div>
+          </div>
+          <div class="row mb-3 {{ forpersonal }}">
+            <label for="inputEmail" class=" col-form-label">Amount In Days</label>
+            <div class="col-sm-12">
+              <input type="number" class="form-control" placeholder="Enter Days(3*rates(500))" name="reg_fee" ngModel>
+            </div>
+          </div>
+          <div class="row mb-3 {{ rfd }}">
+            <label for="inputEmail" class=" col-form-label">Account Duration</label>
+            <div class="col-sm-12">
+              <select name="durations" id="" class="form-control" ngModel>
+                <option value="8">8 Month</option>
+                <option value="12">12 Month</option>
+              </select>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label class=" col-form-label">Assign To Thrift Officer</label>
+            <div class="col-sm-12">
+              <select class="form-select" aria-label="Default select example" name="ass_id" ngModel>
+                <option *ngFor="let i of thrift" value="{{i.id}}">{{i.name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label class=" col-form-label">Assign To Account Officer</label>
+            <div class="col-sm-12">
+              <select class="form-select" aria-label="Default select example" name="acc_off" ngModel>
+                <option *ngFor="let i of marketer" value="{{i.name}}">{{i.name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row mb-3 {{d}}">
+            <label for="passport" class=" col-form-label">Passport <br>
+              <img [src]="urlpass" alt="" height="200" width="200">
+            </label>
+            <div class="col-sm-3">
+              <input type="file" class="form-control d-none" id="passport" (change)="getpassport($event)"
+                name="passport" ngModel>
+            </div>
+          </div>
+
+          <div class="row mb-3 {{d}}">
+            <label for="signature" class=" col-form-label">Signature <br>
+              <img [src]="url" alt="" height="50" width="200">
+            </label>
+            <div class="col-sm-3">
+              <input type="file" class="form-control d-none" id="signature" (change)="getsignature($event)"
+                name="signature" ngModel>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-sm-12">
+              <button type="submit" class="btn btn-dark">Open Account</button>
+            </div>
+          </div>
+
+        </form><!-- End General Form Elements -->
+
+      </div>
+    </div>
+  </section>
+  </main>
+</ion-content>

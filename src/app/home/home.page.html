@@ -1,0 +1,249 @@
+  <ion-content overflow-scroll="false">
+    <app-sidebars></app-sidebars>
+    <main id="main" class="main">
+
+      <div class="pagetitle">
+        <h1 style="color:orangered; ">Dashboard</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a>Home</a></li>
+            <li class="breadcrumb-item active">Dashboard</li>
+          </ol>
+        </nav>
+      </div><!-- End Page Title -->
+      <section class="section dashboard">
+        <div class="row">
+          <!-- Left side columns -->
+          <div class="col-lg-12">
+            <div class="row">
+
+              <!-- Sales Card -->
+              <div class=" col-md-3">
+                <div class="card info-card sales-card">
+
+                  <div class="filter">
+                    <a class="icon" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                      <li class="dropdown-header text-start">
+                        <h6>Filter</h6>
+                      </li>
+                      <li><a class="dropdown-item" (click)="peroid('All Time')">All Time</a></li>
+                      <li><a class="dropdown-item" (click)="peroid('Today')">Today</a></li>
+                      <li><a class="dropdown-item" (click)="peroid('This Month')">This Month</a></li>
+                      <li><a class="dropdown-item" (click)="peroid('This Year')">This Year</a></li>
+                    </ul>
+                  </div>
+
+                  <div class="card-body">
+                    <h5 class="card-title">Deposit <span>| {{check_peroid?check_peroid:'All Time'}}</span></h5>
+
+                    <div class="d-flex align-items-center">
+                      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                        <i style="color:orangered" class="bi bi-arrow-down"></i>
+                      </div>
+                      <div class="ps-3">
+                        <h6>&#8358;{{ deposit }}</h6>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div><!-- End Sales Card -->
+
+              <!-- Revenue Card -->
+              <div class=" col-lg-3">
+                <div class="card info-card revenue-card">
+
+                  <div class="filter">
+                    <a class="icon" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                      <li class="dropdown-header text-start">
+                        <h6>Filter</h6>
+                      </li>
+                      <li><a class="dropdown-item" (click)="peroid('All Time')">All Time</a></li>
+                      <li><a class="dropdown-item" (click)="peroid('Today')">Today</a></li>
+                      <li><a class="dropdown-item" (click)="peroid('This Month')">This Month</a></li>
+                      <li><a class="dropdown-item" (click)="peroid('This Year')">This Year</a></li>
+                    </ul>
+                  </div>
+
+                  <div class="card-body">
+                    <h5 class="card-title">withdrawal <span>| {{check_peroid?check_peroid:'All Time'}}</span></h5>
+
+                    <div class="d-flex align-items-center">
+                      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                        <i style="color:orangered" class="bi bi-arrow-up"></i>
+                      </div>
+                      <div class="ps-3">
+                        <h6>&#8358;{{ withdraw }}</h6>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div><!-- End Revenue Card -->
+              <div class=" col-lg-3">
+                <div class="card info-card sales-card">
+
+                  <div class="filter">
+                    <a class="icon" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                      <li class="dropdown-header text-start">
+                        <h6>Filter</h6>
+                      </li>
+                      <li><a class="dropdown-item" (click)="peroid('All Time')">All Time</a></li>
+                      <li><a class="dropdown-item" (click)="peroid('Today')">Today</a></li>
+                      <li><a class="dropdown-item" (click)="peroid('This Month')">This Month</a></li>
+                      <li><a class="dropdown-item" (click)="peroid('This Year')">This Year</a></li>
+                    </ul>
+                  </div>
+
+                  <div class="card-body">
+                    <h5 class="card-title">Balance <span>| {{check_peroid?check_peroid:'All Time'}}</span></h5>
+
+                    <div class="d-flex align-items-center">
+                      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                        <i style="color:orangered" class="bi bi-cash"></i>
+                      </div>
+                      <div class="ps-3">
+                        <h6>&#8358;{{ deposit-withdraw }}</h6>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div><!-- End Sales Card -->
+              <!-- Sales Card -->
+              <div class=" col-lg-3">
+                <div class="card info-card sales-card">
+
+                  <div class="filter">
+                    <a class="icon" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                      <li class="dropdown-header text-start">
+                        <h6>Filter</h6>
+                      </li>
+                      <li><a class="dropdown-item" (click)="peroid('All Time')">All Time</a></li>
+                      <li><a class="dropdown-item" (click)="peroid('Today')">Today</a></li>
+                      <li><a class="dropdown-item" (click)="peroid('This Month')">This Month</a></li>
+                      <li><a class="dropdown-item" (click)="peroid('This Year')">This Year</a></li>
+                    </ul>
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title">Revenue <span>| {{check_peroid?check_peroid:'All Time'}}</span></h5>
+
+                    <div class="d-flex align-items-center">
+                      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                        <i style="color:orangered" class="bi bi-cash"></i>
+                      </div>
+                      <div class="ps-3">
+                        <h6>&#8358;{{ inc }}</h6>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div><!-- End Sales Card -->
+              <!-- Sales Card -->
+              <div class=" col-lg-3">
+                <div class="card info-card sales-card">
+
+                  <div class="filter">
+                    <a class="icon" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                      <li class="dropdown-header text-start">
+                        <h6>Filter</h6>
+                      </li>
+                      <li><a class="dropdown-item" (click)="peroid('All Time')">All Time</a></li>
+                      <li><a class="dropdown-item" (click)="peroid('Today')">Today</a></li>
+                      <li><a class="dropdown-item" (click)="peroid('This Month')">This Month</a></li>
+                      <li><a class="dropdown-item" (click)="peroid('This Year')">This Year</a></li>
+                    </ul>
+                  </div>
+
+                  <div class="card-body">
+                    <h5 class="card-title">Expenses <span>| {{check_peroid?check_peroid:'All Time'}}</span></h5>
+
+                    <div class="d-flex align-items-center">
+                      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                        <i style="color:orangered" class="bi bi-cash"></i>
+                      </div>
+                      <div class="ps-3">
+                        <h6>&#8358;{{ exp }}</h6>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div><!-- End Sales Card -->
+              <!-- Sales Card -->
+              <div class=" col-md-3">
+                <div class="card info-card sales-card">
+
+
+                  <div class="card-body">
+                    <h5 class="card-title">No. Customer <span>| All Time</span></h5>
+
+                    <div class="d-flex align-items-center">
+                      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                        <i style="color:orangered" class="bi bi-people"></i>
+                      </div>
+                      <div class="ps-3">
+                        <h6>{{ amount }}</h6>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div><!-- End Sales Card -->
+              <!-- Sales Card -->
+              <div class=" col-md-3">
+                <div class="card info-card sales-card">
+                  <div class="card-body">
+                    <h5 class="card-title"> <i class="text-success">*</i> Act. Customer <span>| All Time</span></h5>
+
+                    <div class="d-flex align-items-center">
+                      <div style="color:orangered"
+                        class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                        <i class="bi bi-people"></i>
+                      </div>
+                      <div class="ps-3">
+                        <h6>{{ amounts }}</h6>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div><!-- End Sales Card -->
+
+              <!-- Sales Card -->
+              <div class=" col-md-3">
+                <div class="card info-card sales-card">
+                  <div class="card-body">
+                    <h5 class="card-title"> <i class="text-success">*</i> Number Of Staffs <span>| All Time</span></h5>
+
+                    <div class="d-flex align-items-center">
+                      <div style="color:orangered"
+                        class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                        <i class="bi bi-people"></i>
+                      </div>
+                      <div class="ps-3">
+                        <h6>{{ staff }}</h6>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div><!-- End Sales Card -->
+            </div>
+          </div><!-- End Left side columns -->
+
+
+
+
+        </div>
+      </section>
+
+    </main><!-- End #main -->
+
+  </ion-content>

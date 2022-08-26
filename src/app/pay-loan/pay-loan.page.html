@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>pay-loan</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+
+    <ion-item>
+      <ion-label position="stacked">Amount</ion-label>
+      <ion-input [(ngModel)]="amount" type="number" placeholder="Enter amount" ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Description</ion-label>
+      <ion-input [(ngModel)]="description" type="text" placeholder="Enter description" ></ion-input>
+    </ion-item>
+
+    <ion-button (click)="pay_loan()" expand="block">Pay</ion-button>
+  </ion-list>
+
+</ion-content>

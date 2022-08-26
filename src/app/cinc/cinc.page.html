@@ -1,0 +1,89 @@
+<ion-header>
+  <ion-toolbar>
+    <span class="card-header" style="color:orange;"><span class="btn btn-dark text-white"
+      (click)="backtohome()"><i class="bi bi-arrow-left"></i></span> <span  style=" float: right;">Modify Income</span></span>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <section class="container col-lg-6">
+        <div class="card">
+          <div class="card-body">
+           
+            <!-- General Form Elements -->
+            
+            <form #userPost="ngForm" (ngSubmit)="onSubmit(userPost.value)">
+              <div class=" mb-3 ">
+                <label for="inputEmail" class=" col-form-label">Income Type</label>
+                <div class="col-sm-10">
+                  <select name="type" class="form-select" ngModel>
+                    <option value="" selected disabled>Select Income</option>
+                    <option  *ngFor="let i of sm" value="{{i}}">{{i}}</option>
+                  </select>
+                </div>
+             </div>
+             <div class=" mb-3 ">
+              <label for="inputEmail" class=" col-form-label">Income Amount</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control " placeholder="Please Enter Amount" name="amount" ngModel>
+              </div>
+            </div>
+            <div class=" mb-3 ">
+                <label for="inputEmail" class=" col-form-label">Income Date</label>
+                <div class="col-sm-10">
+                  <input type="date" class="form-control "  name="date" ngModel>
+                </div>
+             </div>
+             <div class=" mb-3 ">
+              <label for="inputEmail" class=" col-form-label">Re-occuring?</label>
+              <div class="row col-sm-10">
+                <div class="col-4">
+                  <input type="radio"  class="form-radio" (change)="reoccure($event)"  name="reoccurring" value="no" ngModel>No
+                </div>
+                <div class="col-4">
+                  <input type="radio"  class="form-radio" (change)="reoccure($event)" name="reoccurring" value="yes" ngModel>Yes
+                </div>
+              </div>
+           </div>
+           <div class=" mb-3 {{display}} ">
+            <label for="inputEmail" class=" col-form-label">Re-occurring Peroid(optional)</label>
+            <div class="col-sm-10">
+              <select name="peroid" class="form-select" id="" ngModel>
+                <option  *ngFor="let i of peroids" value="{{i}}">Day ({{i}}) Monthly</option>
+              </select>
+            </div>
+            </div>
+              <div class=" mb-3">
+                <label class=" col-form-label">Branch(optional)</label>
+                <div class="col-sm-10">
+                  <select class="form-select" aria-label="Default select example" name="branch" ngModel>
+                    <option selected="selected" disabled>--Select Branch--</option>
+                    <option  *ngFor="let item of branchlist;" value="{{ 'No.'+item.number+', '+ item.address+', '+item.state}}">{{ 'No.'+item.number+', '+ item.address+', '+item.state}}</option>
+                  </select>
+                 </div>
+              </div>
+              
+              <div class=" mb-3 ">
+                <label for="inputEmail" class=" col-form-label">Income Description(optional)</label>
+                <div class="col-sm-10">
+                  <textarea name="desc" class="form-control" cols="30" s="10" ngModel></textarea>
+                </div>
+             </div>
+             <div class=" mb-3 ">
+              <label for="inputEmail" class=" col-form-label">Income Receipt(optional)</label>
+              <div class="col-sm-10">
+                <input  (change)="icons($event)" type="file" class="form-control"  name="receipt" ngModel>
+              </div>
+           </div>
+           
+              <div class=" mb-3">
+                <div class="col-sm-10">
+                  <button type="submit" class="btn btn-dark">Save</button>
+                </div>
+              </div>
+  
+            </form><!-- End General Form Elements -->
+  
+          </div>
+        </div>
+  </section>
+  </ion-content>

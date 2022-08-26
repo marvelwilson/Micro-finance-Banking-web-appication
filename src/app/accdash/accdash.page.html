@@ -1,0 +1,204 @@
+<ion-content overflow-scroll="false">
+  <app-sidebars></app-sidebars>
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1 style="color:orangered;">Dashboard</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a>Accounting</a></li>
+          <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+    <section class="section dashboard mt-5">
+      <div class="col-lg-12 ">
+        <h2 class="card-title text-dark">Dashboard</h2>
+        <div class="col-12 mb-3">
+          <form #searchUser="ngForm" (ngSubmit)="Search(searchUser.value)">
+            <div class="row">
+              <div class="col-lg-3">
+                <input type="date" class="form-control" placeholder="Search" name="search" ngModel>
+              </div>
+              <div class="col-lg-3">
+                <input type="date" class="form-control" placeholder="Search" name="search" ngModel>
+              </div>
+              <div class="col-1">
+                <button class="btn btn-dark">
+                  Filter</button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="row">
+
+          <div class="col-lg-6">
+            <div class="col-lg-12">
+
+              <div class="card recent-sales overflow-auto">
+
+                <div class="card-body">
+                  <div class="row">
+                    <h1 class="col-1 mt-3 ">
+                      <ion-icon name="server" class="h1"></ion-icon>
+                    </h1>
+                  </div>
+                  <div class="text-center">
+                    <p class="title h4">
+                      Assets
+                    </p>
+                    <p class="count h3">
+                      &#8358;{{assets_total}}
+                    </p>
+                  </div>
+                  <hr>
+                  <div class="row" *ngFor="let a of main_assets;">
+                    <div class="col-10">{{a.name}}</div>
+                    <div class="col-2">{{a.amount}}</div>
+
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="card recent-sales overflow-auto">
+
+                <div class="card-body">
+                  <div class="row">
+                    <h1 class="col-1 mt-3 ">
+                      <ion-icon name="server" class="h1"></ion-icon>
+                    </h1>
+                  </div>
+                  <div class="text-center">
+                    <p class="title h4">
+                      Liabilties
+                    </p>
+                    <p class="count h3">
+                      &#8358;{{lia_total}}
+                    </p>
+                  </div>
+                  <hr>
+                  <div class="row" *ngFor="let a of main_lia;">
+                    <div class="col-10">{{a.name}}</div>
+                    <div class="col-2">{{a.amount}}</div>
+
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="card recent-sales overflow-auto">
+
+                <div class="card-body">
+                  <div class="row">
+                    <h1 class="col-1 mt-3 ">
+                      <ion-icon name="server" class="h1"></ion-icon>
+                    </h1>
+                  </div>
+                  <div class="text-center">
+                    <p class="title h4">
+                      Equity
+                    </p>
+                    <p class="count h3">
+                      &#8358;{{equity_amount}}
+                    </p>
+                  </div>
+                  <hr>
+                  <div class="row" *ngFor="let a of equity;">
+                    <div class="col-10">{{a.name}}</div>
+                    <div class="col-2">{{a.amount}}</div>
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="col-lg-12">
+              <div class="col-lg-12">
+                <div class="card recent-sales overflow-auto">
+
+                  <div class="card-body">
+                    <div class="row">
+                      <h1 class="col-1 mt-3 ">
+                        <ion-icon name="server" class="h1"></ion-icon>
+                      </h1>
+                    </div>
+                    <div class="text-center">
+                      <p class="title h4">
+                        Income
+                      </p>
+                      <p class="count h3">
+                        &#8358;{{dinc_amount}}
+                      </p>
+                    </div>
+                    <hr>
+                    <div class="row" *ngFor="let a of income_amount;">
+                      <div class="col-10">{{a.name}}</div>
+                      <div class="col-2">{{a.amount}}</div>
+
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div class="card recent-sales overflow-auto">
+
+                  <div class="card-body">
+                    <div class="row">
+                      <h1 class="col-1 mt-3 ">
+                        <ion-icon name="server" class="h1"></ion-icon>
+                      </h1>
+                    </div>
+                    <div class="text-center">
+                      <p class="title h4">
+                        Expenses
+                      </p>
+                      <p class="count h3">
+                        &#8358;{{dexp_amount}}
+                      </p>
+                    </div>
+                    <hr>
+                    <div class="row" *ngFor="let a of expenses_amount;">
+                      <div class="col-10">{{a.name}}</div>
+                      <div class="col-2">{{a.amount}}</div>
+
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div class="card recent-sales overflow-auto">
+
+                  <div class="card-body">
+                    <div class="row">
+                      <h1 class="col-1 mt-3 ">
+                        <ion-icon name="server" class="h1"></ion-icon>
+                      </h1>
+                    </div>
+                    <div class="text-center">
+                      <p class="title h4">
+                        Net {{exp_amount-inc_amount>0?'Loss':'Profit'}}
+                      </p>
+                      <p class="count h3">
+                        &#8358;{{nets}}
+                      </p>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+</ion-content>

@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>virtual-account</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-list>
+      <ion-item>
+        <ion-label position="stacked">First ame</ion-label>
+        <ion-input [(ngModel)]="name" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Last name</ion-label>
+        <ion-input [(ngModel)]="lname" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Gender</ion-label>
+        <ion-select [(ngModel)]="gender" value="Single">
+          <ion-select-option value="Male">Male</ion-select-option>
+          <ion-select-option value="Female">Female</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Email</ion-label>
+        <ion-input [(ngModel)]="email" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Phone [Format : 0903000000000 not +234930000]</ion-label>
+        <ion-input [(ngModel)]="phone" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">NIN - Optional</ion-label>
+        <ion-input [(ngModel)]="nin" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Address</ion-label>
+        <ion-input [(ngModel)]="address" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Account type</ion-label>
+        <ion-select [(ngModel)]="account_type" value="Single">
+          <ion-select-option value="Savings">Savings</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Bank</ion-label>
+        <ion-select [(ngModel)]="bank" value="Single">
+          <ion-select-option value="access-bank">Access</ion-select-option>
+          <ion-select-option value="wema-bank">Wema</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">D.O.B</ion-label>
+        <ion-input [(ngModel)]="dob" type="date"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Bank Verification Number (BVN) - optional</ion-label>
+        <ion-input [(ngModel)]="bvn" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Branch</ion-label>
+        <ion-select [(ngModel)]="branch" value="Single">
+          <ion-select-option value="Address 1">Address 1</ion-select-option>
+          <ion-select-option value="Address 2">Address 2</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Send sms</ion-label>
+        <ion-select [(ngModel)]="bank" value="Single">
+          <ion-select-option value="yes">Yes</ion-select-option>
+          <ion-select-option value="no">No</ion-select-option>
+        </ion-select>
+      </ion-item>
+  
+      <ion-button (click)="open_account()" expand="block">Calculate</ion-button>
+      
+    </ion-list>
+  </ion-card>
+</ion-content>

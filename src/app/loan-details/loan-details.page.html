@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>loan-details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <section class="section dashboard">
+    <div class="col-lg-12">
+      <div class="row">
+        <div class="col-12">
+
+          <div class="card recent-sales overflow-auto">
+
+            <div class="card-body" style="padding-bottom: 100px;">
+              <h5 class="card-title text-dark">All loans</h5>
+              
+              <table class="table table-borderless datatable">
+                <thead>
+                  <tr>
+                    <th scope="col">S/N</th>
+                    <th scope="col">Due date</th>
+                    <th scope="col">Principal</th>
+                    <th scope="col">Due</th>
+                    <th scope="col">Interest</th>
+                    <th scope="col">Default</th>
+                    <th scope="col">Loan Plus Interest</th>
+                    <th scope="col">Amount Paid</th>
+                    <th scope="col">Balance</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of payments;let i = index;">
+                    <td> {{ i + 1 }}</td>
+                    <td> {{ item.due_date }}</td>
+                    <td> {{ loan_amount }}</td>
+                    <td> {{ item.si }}</td>
+                    <td> {{ item.interest }}</td>
+                    <td>  <span *ngIf="today > item.d_date && item.status != 'Paid'" >{{ ((loan.loan_penalty * (item.si + item.interest)) / 100) * ((today - item.d_date) / 86400000) | number : '1.2-2' }}</span></td>
+
+                    <td>
+                      <span *ngIf="today > item.d_date && item.status != 'Paid'" >{{ ((loan.loan_penalty * (item.si + item.interest)) / 100) * ((today - item.d_date) / 86400000) + (item.si + item.interest) | number : '1.2-2' }}</span>
+                      <span *ngIf="today < item.d_date" >{{ item.si + item.interest }}</span> </td>
+                    <td> {{ item.amount_paid }}</td>
+                    <td> {{ item.balance }}</td>
+                    
+                    <td>
+                      <span *ngIf="today < item.d_date" >To pay</span>
+                      <span style="color: red;" *ngIf="today > item.d_date && item.status == 'To pay'" >Missed</span>
+                      <span *ngIf="item.status == 'Paid'" >Paid</span>
+                    </td>
+                    <td><button (click)="pay_loan(item.id)" class="btn btn-warning btn-sm">PAY</button></td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</ion-content>

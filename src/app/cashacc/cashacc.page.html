@@ -1,0 +1,43 @@
+<ion-content overflow-scroll="false">
+  <app-sidebars></app-sidebars>
+  <main id="main" class="main">
+  
+    <div class="pagetitle">
+      <h1>Cash</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a>Accounting</a></li>
+          <li class="breadcrumb-item active">Cash Accounts</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+      <button class="btn btn-light mb-5" (click)="open_staff()">New Account</button>
+      
+      <div class="card recent-sales overflow-auto">
+
+        <div class="card-body">
+          <table small="true" class="table table-sm">
+            <thead>
+              <tr>
+                <td scope="col" class="ng-star-inserted">
+                  Name
+                </td>
+                <td scope="col" class="ng-star-inserted">
+                  Balance
+                </td>
+                 <td scope="col" class="ng-star-inserted">
+                  Action
+                </td>
+              </tr>
+              <tr class="ng-start-inserted" *ngFor="let i of items;">
+                 <td>{{i.name}}</td>
+                 <td>&#8358;{{i.wallet==null?0:i.wallet}}</td>
+                 <td><button class="btn btn-light" (click)="open_staff()">Edit</button></td>
+
+              </tr>
+            </thead>
+          </table>
+      </div>
+    </div>
+</main>
+</ion-content>

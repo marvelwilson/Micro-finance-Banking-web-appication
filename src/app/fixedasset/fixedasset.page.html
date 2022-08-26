@@ -1,0 +1,168 @@
+<ion-content overflow-scroll="false">
+  <app-sidebars></app-sidebars>
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Fixed Asset</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a>Accounting</a></li>
+          <li class="breadcrumb-item active">Fixed Asset</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+    <button class="btn btn-light mb-5 small" (click)="modals('newbank')">Fixed Asset Account</button>
+    <div class="modal fade show mt-5 {{newbank}}" id="scrollingModal" tabindex="-1" aria-modal="true" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title small">Create New Fixed Asset</h5>
+            <button type="button" (click)="close()" class="btn-close" data-bs-dismiss="modal"
+              aria-label="Close"></button>
+          </div>
+          <div class="modal-body ">
+
+
+            <form #userPost="ngForm" (ngSubmit)="onSubmit(userPost.value)">
+              <div class="row mb-1">
+                <label for="inputEmail" class=" col-form-label">Name</label>
+                <div class="col-sm-12">
+                  <input name="name" class="form-control" placeholder='Please Enter Name' ngModel>
+                </div>
+              </div>
+              <div class="row mb-1">
+                <div class="col-sm-12">
+                  <label for="amount">Description</label>
+                  <input type="text" class="form-control" name="desc" placeholder="Please Enter Description" ngModel>
+                </div>
+              </div>
+              <div class="row mb-1">
+                <div class="col-sm-12">
+                  <label for="amount">Acquisition Cost</label>
+                  <input type="number" class="form-control" name="acc_cost" (input)="getValue('acc_cost', $event)"
+                    placeholder="Please Enter Amount" ngModel>
+                </div>
+              </div>
+
+              <div class="row mb-1">
+                <div class="col-sm-12">
+                  <label for="amount">Accumulated Description</label>
+                  <input type="number" class="form-control" name="de_cost" (input)="getValue('ad', $event)"
+                    placeholder="Please Enter Amount" ngModel>
+                </div>
+              </div>
+
+              <div class="row mb-1">
+                <div class="col-sm-12">
+                  <span>Book Value:&#8358; {{amount==''?0:amount}}</span>
+                </div>
+              </div>
+              <div class="row mb-1">
+                <div class="col-sm-12">
+                  <button type="submit" class="btn btn-dark ">Create</button>
+                </div>
+              </div>
+
+            </form><!-- End General Form Elements -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="card recent-sales overflow-auto">
+
+      <div class="card-body">
+        <table small="true" class="table table-sm">
+          <thead>
+            <tr>
+              <td scope="col" class="ng-star-inserted">
+                Name
+              </td>
+              <td scope="col" class="ng-star-inserted">
+                Acquisition Cost
+              </td>
+              <td scope="col" class="ng-star-inserted">
+                Accumulated Depreciation
+              </td>
+              <td scope="col" class="ng-star-inserted">
+                Description
+              </td>
+              <td scope="col" class="ng-star-inserted">
+                Book Value
+              </td>
+              <td scope="col" class="ng-star-inserted">
+                Action
+              </td>
+            </tr>
+            <tr class="ng-start-inserted" *ngFor="let i of items;">
+              <td>{{i.name}}</td>
+              <td>&#8358;{{i.acc_cost}}</td>
+              <td>&#8358;{{i.de_cost}}</td>
+              <td>&#8358;{{i.book_value}}</td>
+              <td> <button class="btn btn-success">Active</button> </td>
+              <td><button class="btn btn-light" value="{{i.id}}" (click)="modals('edit', $event)">Edit</button></td>
+            </tr>
+          </thead>
+        </table>
+      </div>
+      <div class="modal fade show mt-5 {{updatebank}}" id="scrollingModal" tabindex="-1" aria-modal="true"
+        role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title small">Update Fixed Asset</h5>
+              <button type="button" (click)="close()" class="btn-close" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+            </div>
+            <div class="modal-body ">
+
+
+              <form>
+                <div class="row mb-1">
+                  <label for="inputEmail" class=" col-form-label">Name</label>
+                  <div class="col-sm-12">
+                    <input name="name" class="form-control" placeholder='Please Enter Name' [(ngModel)]="name">
+                  </div>
+                </div>
+                <div class="row mb-1">
+                  <div class="col-sm-12">
+                    <label for="amount">Description</label>
+                    <input type="text" class="form-control" name="desc" placeholder="Please Enter Description"
+                      [(ngModel)]="desc">
+                  </div>
+                </div>
+                <div class="row mb-1">
+                  <div class="col-sm-12">
+                    <label for="amount">Acquisition Cost</label>
+                    <input type="number" class="form-control" name="acc_cost" (input)="getValue('acc_cost', $event)"
+                      placeholder="Please Enter Amount" [(ngModel)]="acc_cost">
+                  </div>
+                </div>
+
+                <div class="row mb-1">
+                  <div class="col-sm-12">
+                    <label for="amount">Accumulated Description</label>
+                    <input type="number" class="form-control" name="de_cost" (input)="getValue('ad', $event)"
+                      placeholder="Please Enter Amount" [(ngModel)]="de_cost">
+                  </div>
+                </div>
+
+                <div class="row mb-1">
+                  <div class="col-sm-12">
+                    <span>Book Value:&#8358; {{amount==''?0:amount}}</span>
+                  </div>
+                </div>
+                <div class="row mb-1">
+                  <button type="submit" (click)="modals('update')" class="btn btn-light col-lg-3">Update</button>
+                  <button type="submit" (click)="modals('delete')" class="btn btn-danger col-lg-3">Delete</button>
+                </div>
+
+              </form><!-- End General Form Elements -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</ion-content>

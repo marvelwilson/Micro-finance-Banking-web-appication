@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>new-loan</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <section class="section dashboard">
+    <div class="col-lg-12">
+      <div class="row">
+        <div class="col-12">
+
+          <div class="card recent-sales overflow-auto">
+
+            <div class="card-body">
+              <h5 class="card-title text-dark">Customers</h5>
+              <div class="col-12 ">
+                <form #searchUser="ngForm" (ngSubmit)="Search(searchUser.value)">
+                  <div class="row">
+                    <div class="col-6">
+                      <input type="search" class="form-control" placeholder="Search" name="search" ngModel>
+                    </div>
+                    <!-- <label for="">Search Type</label> -->
+                    <div class="col-4">
+                      <select class="form-select mb-2" name="search_type" ngModel>
+                        <option value="avn">Avn</option>
+                        <option value="phone">Phone Number</option>
+                        <option value="acc_num">Account Number</option>
+                      </select>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <table class="table table-borderless datatable">
+                <thead>
+                  <tr>
+
+                    <th scope="col">Full Name</th>
+                    <th scope="col">Phone Number</th>
+                    <th scope="col">Account Number</th>
+                    <th scope="col">Balance</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of items;let i = index;">
+
+                    <td> {{ item.name }}</td>
+                    <td> {{ item.phone}}</td>
+                    <td> {{ item.acc_num}}</td>
+                    <td> {{ item.balance}}</td>
+                    <td> {{ item.status}}</td>
+                    <td><button (click)="open_apply_loan(item.id)" class="btn btn-warning btn-sm" style="background-color:orangered;">single loan</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</ion-content>

@@ -1,0 +1,207 @@
+<ion-content overflow-scroll="false">
+  <app-sidebars></app-sidebars>
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1 style="color:orangered;">Staffs</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a>Dashboard</a></li>
+          <li class="breadcrumb-item active">Staffs</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+    <section class="section dashboard">
+      <div class="col-lg-12">
+        <div class="row">
+          <div class="col-xxl-4 col-xl-12">
+
+            <div class="card info-card customers-card">
+              <div class="card-body">
+
+
+              </div>
+            </div>
+
+          </div>
+          <div class="col-12">
+
+            <div class="card recent-sales overflow-auto">
+
+              <div class="card-body">
+                <h5 class="card-title text-dark">Staffs</h5>
+                <div class="col-12 ">
+                  <form #searchUser="ngForm" (ngSubmit)="Search(searchUser.value)">
+                    <div class="row">
+                      <div class="col-6">
+                        <input type="search" class="form-control" placeholder="Search" name="search" ngModel>
+                      </div>
+                      <!-- <label for="">Search Type</label> -->
+                      <div class="col-4">
+                        <select class="form-select mb-2" name="search_type" ngModel>
+                          <option value="name">Staff Name</option>
+                          <option value="phone">Phone Number</option>
+                          <option value="email">Email Address</option>
+                        </select>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <table class="table table-borderless datatable">
+                  <thead>
+                    <tr>
+                      <th scope="col">ID</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Phone Number</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Role</th>
+                      <th scope="col">View cv</th>
+                      <th scope="col">Edit</th>
+                      <th scope="col">Delete</th>
+                      <th scope="col">Block</th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of items;let i = index;">
+
+                      <td> #{{ item.id }}</td>
+                      <td> {{ item.name}}</td>
+                      <td> {{ item.phone}}</td>
+                      <td> {{ item.email}}</td>
+                      <td> {{ item.acc_type=='Thrift'?'Thrift Officer':(item.acc_type=='Cso'?'Customers Service
+                        Officer':(item.acc_type=='Credit&Marketing'?'Credit And Marketing Officer':item.acc_type))}}</td>
+                      <td>
+                        <button class="btn btn-light bi bi-eye" value="{{item.cv}}" (click)="view($event)">
+
+                        </button>
+                        <div class="modal fade show mt-5 {{display}}" id="scrollingModal" tabindex="-1"
+                          aria-modal="true" role="dialog">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title">View CV</h5>
+                                <button type="button" (click)="close()" class="btn-close" data-bs-dismiss="modal"
+                                  aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body" style="min-height: 100vh;">
+                                <img src="{{url+cv}}" alt="">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <button class="btn btn-light bi bi-check" value="{{item.id}}" (click)="edit($event)"> </button>
+                        <div class="modal fade show mt-5 {{dis}}" id="scrollingModal" tabindex="-1" aria-modal="true"
+                          role="dialog">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title">Edit Account</h5>
+                                <button type="button" (click)="close()" class="btn-close" data-bs-dismiss="modal"
+                                  aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body" style="min-height: 100vh;">
+
+                                <form>
+                                  <div class="row mb-3">
+                                    <label for="inputText" class="text-dark col-form-label">Staff's Profile</label>
+                                    <div class="col-sm-12">
+                                      <img src="{{url+profile}}" alt="" width="200" height="200">
+                                    </div>
+                                  </div>
+                                  <div class="row mb-3">
+                                    <label for="inputEmail" class="text-dark col-form-label">Full Name</label>
+                                    <div class="col-sm-12">
+                                      <input type="text" class="form-control" placeholder="Please Enter Name"
+                                        [(ngModel)]="name" name="name">
+                                    </div>
+                                  </div>
+                                  <div class="row mb-3">
+                                    <label for="inputEmail" class="text-dark col-form-label">Email</label>
+                                    <div class="col-sm-12">
+                                      <input type="email" class="form-control" placeholder="Please Enter Name"
+                                        [(ngModel)]="email" name="email">
+                                    </div>
+                                  </div>
+
+                                  <div class="row mb-3">
+                                    <label for="inputEmail" class="text-dark col-form-label">Phone Number</label>
+                                    <div class="col-sm-12">
+                                      <input type="number" class="form-control" placeholder="Please Enter Name"
+                                        [(ngModel)]="phone" name="phone">
+                                    </div>
+                                  </div>
+
+                                  <div class="row mb-3">
+                                    <label class="text-dark col-form-label">Gender</label>
+                                    <div class="col-sm-12">
+                                      <select class="form-select" aria-label="Default select example"
+                                        [(ngModel)]="gender" name="gender">
+                                        <option selected="">Select a Gender</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <div class="row mb-3">
+                                    <label class="text-dark col-form-label">Change branches</label>
+                                    <div class="col-sm-12">
+                                      <select class="form-select" aria-label="Default select example"
+                                        [(ngModel)]="branch" name="branch">
+                                        <option selected="">Select a branch</option>
+                                        <option *ngFor="let i of branchlist" value="{{i.id}}">{{ 'No.'+i.number+', '+
+                                          i.address+',
+                                          '+i.state}}</option>
+                                      </select>
+                                    </div>
+                                  </div>
+
+                                  <div class="row mb-3">
+                                    <label class="text-dark col-form-label">Change Position</label>
+                                    <div class="col-sm-12">
+                                      <select class="form-select" aria-label="Default select example" [(ngModel)]="role"
+                                        name="role">
+                                        <option selected disabled>Select a Position</option>
+                                        <option value="Thrift">Thrift officer</option>
+                                        <option value="Cashier">Cashier</option>
+                                        <option value="Manager">Manager</option>
+                                        <option value="Credit&Marketing">Credit And Marketing Officer</option>
+                                        <option value="Cso">Customer Support Officer</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <div class="row mb-3">
+                                    <div class="col-sm-12">
+                                      <button type="submit" (click)="onSubmit()" class="btn btn-dark">Save</button>
+                                    </div>
+                                  </div>
+
+                                </form><!-- End General Form Elements -->
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <button class="btn btn-danger bi bi-trash" value="{{item.id}}"
+                          (click)="confirm($event)"></button>
+                      </td>
+                      <td>
+                        <button class="{{ item.status=='block'?'btn btn-warning':'btn btn-danger'}}" value="{{item.id}}"
+                          (click)="bunb($event)">{{ item.status=='block'?'unblock':'block'}}</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</ion-content>

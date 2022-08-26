@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>On-going loans</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <section class="section dashboard">
+    <div class="col-lg-12">
+      <div class="row">
+        <div class="col-12">
+
+          <div class="card recent-sales overflow-auto">
+
+            <div class="card-body" style="padding-bottom: 100px;">
+              <h5 class="card-title text-dark">All pending loans</h5>
+              
+              <table class="table table-borderless datatable">
+                <thead>
+                  <tr>
+
+                    <th scope="col">Loan type</th>
+                    <th scope="col">Branch</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Loan product</th>
+                    <th scope="col">Loan amount</th>
+                    <th scope="col">Loan period</th>
+                    <th scope="col">Payment schedule</th>
+                    <th scope="col">Period</th>
+                    <th scope="col">Loan penalty</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of items;let i = index;">
+
+                    <td> {{ item.loan_type }}</td>
+                    <td> {{ item.branch}}</td>
+                    <td> {{ item.category}}</td>
+                    <td> {{ item.loan_product}}</td>
+                    <td> {{ item.loan_amount}}</td>
+                    <td> {{ item.loan_period }}</td>
+                    <td> {{ item.payment_schedule}}</td>
+                    <td> {{ item.period}}</td>
+                    <td> {{ item.loan_penalty}}</td>
+                    <td> {{ item.status}}</td>
+                    <td>
+                      <a class="btn btn-warning btn-sm" data-bs-toggle="dropdown">Action</a>
+                      <ul class="dropdown-menu dropdown-menu-arrow">
+                        <li><a class="dropdown-item" >Pay Loan</a></li>
+                        <li><a class="dropdown-item" >Roll over</a></li>
+                        <li><a class="dropdown-item" >View Details</a></li>
+                        <li><a class="dropdown-item" >View progress</a></li>
+                        <li><a class="dropdown-item" >Payment History</a></li>
+                        <li><a class="dropdown-item" >Print Details Letter</a></li>
+                        <li><a class="dropdown-item" >Write Off</a></li>
+                      </ul>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</ion-content>

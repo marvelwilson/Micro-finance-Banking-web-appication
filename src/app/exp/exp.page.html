@@ -1,0 +1,125 @@
+<ion-content overflow-scroll="false">
+  <app-sidebars></app-sidebars>
+  <main id="main" class="main">
+  
+    <div class="pagetitle">"
+      <h1 style="color:orangered; ">Expense Managment</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a>Accounting</a></li>
+          <li class="breadcrumb-item active">Expense Managment</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+  <section class="section dashboard">
+    <div class="col-lg-12">
+      <div class="row">
+        <div class="col-xxl-4 col-xl-12">
+
+          <div class="card info-card customers-card">
+            <div class="card-body">
+
+
+            </div>
+          </div>
+
+        </div>
+        <div class="col-12">
+
+          <div class="card recent-sales overflow-auto">
+
+            <div class="card-body">
+              <h5 class="card-title text-dark">Expenses</h5>
+              <div class="col-lg-12 ">
+                <div class="btn btn-light mb-3" (click)="createExp()">Create Expense</div>
+                <form #searchUser="ngForm" (ngSubmit)="SearchID(searchUser.value)">
+                  <div class="row">
+                    <div class="col-5 pb-2">
+                      <input type="text" class="form-control col-lg-3" placeholder="Enter Expenses Type" name="search" ngModel>
+                    </div>
+                    <button type="submit" class="btn btn-dark mb-3 col-sm-2">Search</button>
+                  </div>
+                </form>
+              </div>
+              <table class="table table-borderless datatable">
+                <thead>
+                  <tr>
+                    <th scope="col">Exp. Type</th>
+                    <th scope="col">Exp. Amount</th>
+                    <th scope="col">Exp. Date</th>
+                    <th scope="col">Exp. Peroid</th>
+                    <th scope="col">Re-occurring</th>
+                    <th scope="col">Exp. Receipt</th>
+                    <th scope="col">Receipt</th>
+                    <th scope="col">View</th>
+                    <th scope="col">Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of items;">
+
+                    <td> {{item.expType}}</td>
+                    <td> {{item.expAmount}}</td>
+                    <td> {{item.expDate}}</td>
+                    <td> {{item.period==null?'0':'Day ('+ item.period +') Monthly'}}</td>
+                    <td> {{item.repeat}}</td>
+                    <td><img class="{{item.receipt==null?'d-none':''}}" src="{{url+item.receipt}}" alt="" width="100"
+                        height="50"><span class="{{item.receipt==null?'d-block':'d-none'}}">No Receipt</span></td>
+                    <td>
+                      <button class="btn btn-light bi bi-receipt" value="{{item.id}}" (click)="fund($event)">
+
+                      </button>
+                    </td>
+                    <td>
+                      <button class="btn btn-light bi bi-key" value="{{item.id}}" (click)="withdraw($event)">
+
+                      </button>
+                      <div class="modal fade show {{diss}}" id="verticalycentered" tabindex="-1" aria-modal="true"
+                        role="dialog">
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title text-dark">Reset</h5>
+                              <button type="button" (click)="close1()" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                            </div>
+                              <div class="modal-body {{edituser.period==''?'d-none':'d-block'}}">
+                                <button value="{{edituser.repeat=='yes'?'no':'yes'}}" (click)="change($event)" class="btn {{edituser.repeat=='yes'?'btn-danger':'btn-warning'}}">{{edituser.repeat=='yes'?'Stop':'Start'}}</button>
+                              </div>
+                            <form #userPost="ngForm" (ngSubmit)="wtrw(userPost.value)">
+
+                              <div class="modal-body">
+                                <input type="number" class="form-control text-dark" value="{{edituser.amount}}" name="amount" placeholder="Enter Amount" ngModel>
+                              </div>
+                              <div class="modal-footer">
+                                 <button type="button" (click)="close1()" class="btn btn-dark"
+                                  data-bs-dismiss="modal">Close</button>
+                                 <button type="submit" class="btn"
+                                  style="background-color: orange;">reset</button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <button class="btn btn-danger bi bi-trash" value="{{item.id}}" (click)="del($event)">
+
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div>
+                <button type="submit" class="btn btn-light mb-3  col-sm-2"
+                  (click)="printStatement()">Print <i class="bi bi-printer"></i></button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  </main>
+</ion-content>

@@ -1,0 +1,272 @@
+<ion-content overflow-scroll="false" id="onPrint">
+    <app-sidebars></app-sidebars>
+    <main id="main" class="main">
+        <div class="pagetitle">
+            <h1 style="color:orangered; ">Transactions History</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a>Home</a></li>
+                    <li class="breadcrumb-item active">Transactions</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
+        <section class="section dashboard">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        <div class="card info-card customers-card">
+                            <div class="card-body">
+                                <h5 class="card-title text-dark">Transactions</h5>
+                                <div class="col-lg-12 ">
+                                    <form #searchUser="ngForm" (ngSubmit)="SearchID(searchUser.value)">
+                                        <div class="row">
+                                            <div class="col-lg-4 pb-2">
+                                                <label for="">From</label>
+                                                <input type="datetime-local" class="form-control"
+                                                    placeholder="Enter From Date" name="from" ngModel>
+                                            </div>
+                                            <div class="col-lg-4 pb-2">
+                                                <label for="">To</label>
+                                                <input type="datetime-local" class="form-control"
+                                                    placeholder="Enter To Data" name="to" ngModel>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <button type="submit" class="btn btn-dark mt-4">Filter</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-2">
+                                        <label for="">Transaction</label>
+                                        <select class="form-select mb-2" (change)="modals('transtype', $event)"
+                                            name="transtype" ngModel>
+                                            <option
+                                                *ngFor="let i of ['Deposit','Withdraw','Overdraft','Head Office','Refund']"
+                                                value="{{i}}">{{i}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <label for="">Officer</label>
+                                        <select class="form-select mb-2" (change)="modals('Officer', $event)"
+                                            name="transh" ngModel>
+                                            <option *ngFor="let i of thrift" value="{{i.name}}">{{i.name}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <label for="">Account Type</label>
+                                        <select class="form-select mb-2" (change)="modals('acc_type', $event)"
+                                            name="acc_type" ngModel>
+                                            <option
+                                                *ngFor="let i of ['Regular Savings','365 Savings','Target Savings','Mychild Savings','Group Contribution','Personal Contribution','Regular Fixed contribution']"
+                                                value="{{i}}">{{i}}</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-lg-2">
+                                        <button class="btn btn-light" (click)="modals('reset', $event)">Reset</button>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <button (click)="revert('reverse', $event)"
+                                            class="btn btn-light">Reverse</button>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    {{sumer}}
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="card recent-sales overflow-auto"  id="printStatement">
+                            <div class="card-body">
+                                <table class="table datatable">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Trans(Date/Time)</th>
+                                            <th scope="col">Receipt</th>
+                                            <th scope="col">Account Number</th>
+                                            <th scope="col">Trans ID</th>
+                                            <th scope="col">Trans Type</th>
+                                            <th scope="col">Amount</th>
+                                            <th scope="col">Balance</th>
+                                            <th scope="col">Account Type</th>
+                                            <th scope="col">Office</th>
+                                            <th scope="col">Review</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr *ngFor="let item of sm;let i = index; let isEven=even; let isOdd=odd;">
+
+                                            <td> {{item.created_at}}</td>
+                                            <td><img class="{{(item.receipt==null || item.receipt=='' )?'d-none':''}}"
+                                                    src="{{url+item.receipt}}" alt="" width="100" height="50"><span
+                                                    class="{{(item.receipt==null || item.receipt=='' )?'d-block':'d-none'}}">No
+                                                    Receipt</span></td>
+                                            <td> {{item.acc_num}}</td>
+                                            <td> {{item.transid}}</td>
+                                            <td> {{item.transType}}</td>
+                                            <td> {{item.amount}}</td>
+                                            <td> {{item.balance}}</td>
+                                            <td> {{item.accType}}</td>
+                                            <td> {{item.staff_name}}</td>
+
+                                            <td>
+                                                <button class="btn btn-secondary bi bi-eye"
+                                                    value="{{item.userid}}h{{item.customerid}}h{{item.id}}h"
+                                                    (click)="deposit($event)">
+
+                                                </button>
+                                                <div class="modal fade show d-none " tabindex="-1"
+                                                    id="modalsid_{{item.id}}" aria-modal="true" role="dialog">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <div class="modal-body" id="printreceipt">
+                                                                <div class="col-lg-12">
+
+                                                                    <h5 class=" text-center"><b>RECEIPT
+                                                                            #{{item.transid}}</b></h5>
+                                                                    <p><b>--------------------------------------------------------------------------------------------------------------------</b>
+                                                                    </p>
+
+                                                                    <div class="row">
+                                                                        <div style="display:flex; justify-content: space-between;">
+                                                                            <p class="col-lg-7">
+                                                                                {{staff.acc_type}}</p>
+                                                                            <p class="col-lg-5">
+                                                                                {{item.staff_name}}</p>
+                                                                        </div>
+
+                                                                        <div style="display:flex; justify-content: space-between;">
+                                                                            <p class="col-lg-7">Transaction
+                                                                                Date</p>
+                                                                            <p class="col-lg-5">
+                                                                                {{item.created_at}}</p>
+                                                                        </div>
+                                                                        <div style="display:flex; justify-content: space-between;">
+                                                                            <p class="col-lg-7">Issuer</p>
+                                                                            <p class="col-lg-5">AgilFinance
+                                                                            </p>
+
+                                                                        </div>
+                                                                        <div style="display:flex; justify-content: space-between;">
+                                                                            <p class="col-lg-7">Branch</p>
+                                                                            <p class="col-lg-5">{{
+                                                                                'No.'+addr.number+', '+
+                                                                                addr.address+',
+                                                                                '+addr.state}}</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <p><b>__ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __</b>
+                                                                </p>
+                                                                <center>
+                                                                    <div class="center">
+                                                                        <span>Amount</span>.............................................................................................<span>{{item.amount}}</span><br>
+                                                                        <span>Bal.</span>................................................................................................<span>{{item.balance}}</span>
+                                                                    </div>
+                                                                </center>
+                                                                <p><b>--------------------------------------------------------------------------------------------------------------------</b>
+                                                                </p>
+                                                                <div class="row">
+                                                                    <div style="display:flex; justify-content: space-between;">
+                                                                    <p class="col-lg-7">Receipiant Name
+                                                                    </p>
+                                                                    <p class="col-lg-5">{{cust.name}}
+                                                                    </p>
+                                                                </div>
+                                                                <div style="display:flex; justify-content: space-between;">
+                                                                    <p class="col-lg-7">Account number
+                                                                    </p>
+                                                                    <p class="col-lg-5">{{item.acc_num}}
+                                                                    </p>
+                                                                </div>
+                                                                <div style="display:flex; justify-content: space-between;">
+                                                                    <p class="col-lg-7">Account Type</p>
+                                                                    <p class="col-lg-5">
+                                                                        {{item.accType.toUpperCase()}}
+                                                                    </p>
+                                                                </div>
+                                                                <div  style="display:flex; justify-content: space-between;">
+                                                                    <p class="col-lg-7">Transaction Type
+                                                                    </p>
+                                                                    <p class="col-lg-5">
+                                                                        {{item.transType.toUpperCase()}}
+                                                                    </p>
+                                                                </div>
+                                                                <div  style="display:flex; justify-content: space-between;">
+                                                                    <p class="col-lg-7">Transaction Detail
+                                                                    </p>
+                                                                    <p class="col-lg-5">
+                                                                        {{item.transD}}
+                                                                    </p>
+                                                                </div>
+                                                                </div>
+                                                                <p><b>--------------------------------------------------------------------------------------------------------------------</b>
+                                                                </p>
+                                                                <span class="text-center">
+                                                                    <h5>Thanks For Choosing Us!</h5>
+                                                                </span>
+                                                                <center>
+                                                                    Contanct Support On
+                                                                    <b>AgilFinance.ng</b>
+                                                                </center>
+                                                            </div>
+                                                            <div class="modal-footer btnprint">
+                                                                <button type="button" value="{{item.id}}"
+                                                                    (click)="close($event)" class="btn btn-dark"
+                                                                    data-bs-dismiss="modal">Close</button>
+                                                                <button type="button" printSectionId="printreceipt"
+                                                                    styleSheetFile="assets/vendor/bootstrap/css/bootstrap.min.css"
+                                                                    ngxPrint class="btn btn-primary"
+                                                                    style="background-color: orange;">Print <i
+                                                                        class="bi bi-printer"></i></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div>
+                                    <button type="submit" class="btn text-white mb-3 col-lg-4"
+                                        printSectionId="printStatement" styleSheetFile="assets/vendor/bootstrap/css/bootstrap.min.css" ngxPrint
+                                        style="background-color: darkorange;">Print <i
+                                            class="bi bi-printer"></i></button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <div class="modal fade show {{rev}}" tabindex="-1" aria-modal="true" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-dark">Revert</h5>
+                    <button type="button" (click)="close()" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="number" class="form-control text-dark" [(ngModel)]="transID" name="transID"
+                        placeholder="Enter Transaction ID">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" (click)="close()" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                    <button type="button" (click)="revert('run')" class="btn btn-light">Revert</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ion-content>

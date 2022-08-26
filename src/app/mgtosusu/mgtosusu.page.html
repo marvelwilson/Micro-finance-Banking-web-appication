@@ -1,0 +1,442 @@
+<ion-content overflow-scroll="false">
+  <app-sidebars></app-sidebars>
+  <main id="main" class="main">
+  
+  <section class="section dashboard">
+    <div class="col-lg-12">
+      <div class="row">
+        <div class="col-xxl-4 col-xl-12">
+
+          <div class="card info-card customers-card">
+            <div class="card-body">
+
+
+            </div>
+          </div>
+
+        </div>
+        <div class="col-12">
+
+          <div class="card recent-sales overflow-auto">
+
+            <div class="card-body">
+              <h5 class="card-title text-dark">Personal</h5>
+              <div class="col-lg-12 ">
+                <form #searchUser="ngForm" (ngSubmit)="SearchID(searchUser.value)">
+                  <div class="row">
+                    <div class="col-5 pb-2">
+                      <input type="text" class="form-control" placeholder="Enter Account Number" name="search" ngModel>
+                    </div>
+                    <div class="col-3">
+                      <button type="submit" class="btn btn-dark">Search</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <table class="table ">
+                <thead>
+                  <tr>
+                    <th scope="col" class="ng-star-inserted">Full Name</th>
+                    <th scope="col" class="ng-star-inserted">Account Number</th>
+                    <th scope="col" class="ng-star-inserted">Rate</th>
+                    <th scope="col" class="ng-star-inserted">Reg. Date</th>
+                    <th scope="col" class="ng-star-inserted">Expected Balance</th>
+                    <th scope="col" class="ng-star-inserted">Prev. Card</th>
+                    <th scope="col" class="ng-star-inserted">Todays Card</th>
+                    <th scope="col" class="ng-star-inserted">Circle Out</th>
+                    <th scope="col" class="ng-star-inserted">Runing Balance</th>
+                    <th scope="col" class="ng-star-inserted">Withdrawable Balance</th>
+                    <th scope="col" class="ng-star-inserted">O/D Amount</th>
+                    <th scope="col" class="ng-star-inserted">Missed Days</th>
+                    <th scope="col" class="ng-star-inserted">Actions</th>
+                    <th scope="col" class="ng-star-inserted">History</th>
+                    <th scope="col" class="ng-star-inserted">Reset</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr *ngFor="let item of items;let i = index;" class="{{item.m_d!=0?'bg-danger text-white':''}}{{item.o_d>0?'bg-warning text-white':''}}">
+                    <td scope="col" class="ng-star-inserted"> {{item.name}}</td>
+                    <td scope="col" class="ng-star-inserted"> {{item.acc_num}}</td>
+                    <td scope="col" class="ng-star-inserted"> {{item.rate}}</td>
+                    <td scope="col" class="ng-star-inserted"> {{item.created_at}}</td>
+                    <td scope="col" class="ng-star-inserted"> {{item.rate*30}}</td>
+                    <td scope="col" class="ng-star-inserted"> {{31-item.duration-item.debit>0?31-item.duration-item.debit:0}} </td>
+                    <td scope="col" class="ng-star-inserted"> {{item.debit}} </td>
+                    <td scope="col" class="ng-star-inserted"> {{item.credits}}</td>
+                    <td scope="col" class="ng-star-inserted"> {{item.balance}}</td>
+                    <td scope="col" class="ng-star-inserted"> {{item.wallet}}</td>
+                    <td scope="col" class="ng-star-inserted"> {{item.o_d}}</td>
+                    <td scope="col" class="ng-star-inserted"> {{item.m_d}}</td>
+                    <td>
+                      <button class="btn btn-light bi bi-cash" value="{{item.id}}" (click)="fund($event)">
+
+                      </button>
+                      <div class="modal fade show mt-5 {{acc_dis}}" id="scrollingModal" tabindex="-1" aria-modal="true"
+                        role="dialog">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">Account Preview</h5>
+                              <button type="button" (click)="close()" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                            </div>
+                            <section class="section profile">
+                              <div class="row">
+                                <div class="col-xl-12">
+
+                                  <div class="card">
+                                    <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+
+                                      <img src="{{url+edituser.passport}}" alt="Profile" width="200" height="100">
+                                      <h2>{{edituser.name}}</h2>
+                                      <button class="btn btn-light {{ edituser.days>3?'d-none':'d-block'}}"
+                                        value="{{edituser.id}}" (click)="extend($event)">
+                                        +14
+                                      </button>
+                                      <button style="background:darkorange" class="btn bi bi-arrow-down mt-2"
+                                        value="{{edituser.id}}" (click)="deposit($event)">
+                                        Deposit
+                                      </button>
+                                      <div class="modal fade show {{dis}}" id="verticalycentered" tabindex="-1"
+                                        aria-modal="true" role="dialog">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                              <h5 class="modal-title text-dark">Deposit</h5>
+                                              <button type="button" (click)="close1()" class="btn-close"
+                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                              <input type="number" class="form-control text-dark" [(ngModel)]="amount"
+                                                name="amount" placeholder="Enter Number Of Days(Days*Rate)">
+                                            </div>
+                                            <div class="modal-body">
+                                              <label for="" class="text-dark">Payment Method</label>
+                                              <select id="" class="form-control text-dark" (change)="receipts($event)"
+                                                [(ngModel)]="payment" name="payment">
+                                                <option value="cash">Cash Payment</option>
+                                                <option value="transfer">Bank Transfer</option>
+                                              </select>
+                                            </div>
+                                            <div class="modal-body {{pro_show}}">
+                                              <label for="" class="text-dark">Transfer Receipt </label>
+                                              <input type="file" class="form-control text-dark "
+                                                (change)="provider($event)" [(ngModel)]="receipt" name="receipt">
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" (click)="close1()" class="btn btn-dark"
+                                                data-bs-dismiss="modal">Close</button>
+                                              <button type="button" (click)="depo()" class="btn btn-primary"
+                                                style="background-color: orange;">Deposit</button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <button class="btn btn-danger bi bi-arrow-up mt-2" value="{{edituser.id}}"
+                                        (click)="withdraw($event)"> Withdraw </button>
+                                      <div class="modal fade show {{diss}}" id="verticalycentered" tabindex="-1"
+                                        aria-modal="true" role="dialog">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                              <h5 class="modal-title text-dark">Withdraw</h5>
+                                              <button type="button" (click)="close1()" class="btn-close"
+                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                              <input type="number" class="form-control text-dark" [(ngModel)]="amount"
+                                                name="amount" placeholder="Enter Amount">
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" (click)="close1()" class="btn btn-dark"
+                                                data-bs-dismiss="modal">Close</button>
+                                              <button type="button" (click)="wtrw()" class="btn"
+                                                style="background-color: orange;">Withdraw</button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <button class="btn btn-danger bi bi-arrow-up mt-2" value="{{edituser.id}}"
+                                        (click)="over($event)">Apply Over Draft </button>
+                                      <div class="modal fade show {{od}}" id="verticalycentered" tabindex="-1"
+                                        aria-modal="true" role="dialog">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                              <h5 class="modal-title text-dark">Over Draft</h5>
+                                              <button type="button" (click)="close1()" class="btn-close"
+                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                              <input type="number" disabled class="form-control text-dark" [(ngModel)]="amount"
+                                                name="amount" placeholder="Enter Amount">
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" (click)="close1()" class="btn btn-dark"
+                                                data-bs-dismiss="modal">Close</button>
+                                              <button type="button" (click)="o_d()" class="btn"
+                                                style="background-color: orange;">Apply</button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                </div>
+
+                                <div class="col-xl-12">
+
+                                  <div class="card">
+                                    <div class="card-body pt-3">
+
+                                      <div class="tab-content pt-2">
+
+                                        <div class="tab-pane fade profile-overview active show" id="profile-overview">
+                                          <h5 class="card-title text-black">Profile Details</h5>
+
+                                          <div class="row">
+                                            <div class="col-lg-3 col-md-4 label  text-black">Full Name</div>
+                                            <div class="col-lg-9 col-md-8 text-black">{{edituser.name}}</div>
+                                          </div>
+
+                                          <div class="row">
+                                            <div class="col-lg-3 col-md-4 label text-black">Account Type</div>
+                                            <div class="col-lg-9 col-md-8  text-black">{{edituser.sub_acc+'
+                                              '+edituser.acc_type}}
+                                            </div>
+                                          </div>
+                                          <div class="row">
+                                            <div class="col-lg-3 col-md-4 label  text-black">Runing Balance</div>
+                                            <div class="col-lg-9 col-md-8 text-black">{{edituser.balance}}</div>
+                                          </div>
+                                          <div class="row">
+                                            <div class="col-lg-3 col-md-4 label text-black">Withdrawable balance</div>
+                                            <div class="col-lg-9 col-md-8 text-black">{{edituser.wallet}}</div>
+                                          </div>
+                                          <div class="row">
+                                            <div class="col-lg-3 col-md-4 label text-black">O/D Amount</div>
+                                            <div class="col-lg-9 col-md-8 text-black">{{edituser.o_d}}</div>
+                                          </div>
+                                          <div class="row">
+                                            <div class="col-lg-3 col-md-4 label text-black">Missed Days</div>
+                                            <div class="col-lg-9 col-md-8 text-black">{{edituser.m_d}}</div>
+                                          </div>
+                                          <div class="row">
+                                            <div class="col-lg-3 col-md-4 label text-black">Payment Rate</div>
+                                            <div class="col-lg-9 col-md-8 text-black">{{edituser.rate}}</div>
+                                          </div>
+                                          <div class="row">
+                                            <div class="col-lg-3 col-md-4 label text-black">Thrift</div>
+                                            <div class="col-lg-9 col-md-8 text-black">{{staffname}}</div>
+                                          </div>
+                                          <div class="row">
+                                            <div class="col-lg-3 col-md-4 label text-black">Status</div>
+                                            <div class="col-lg-9 col-md-8 text-black">{{edituser.status}}</div>
+                                          </div>
+                                          <div class="row">
+                                            <div class="col-lg-3 col-md-4 label text-black">Address</div>
+                                            <div class="col-lg-9 col-md-8 text-black">{{edituser.address}}</div>
+                                          </div>
+
+                                        </div>
+
+                                      </div><!-- End Bordered Tabs -->
+
+                                    </div>
+                                  </div>
+
+                                </div>
+                              </div>
+                            </section>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <button class="btn btn-light bi bi-eye" value="{{item.id}}" (click)="view($event)"></button>
+                      <div class="modal fade show mt-5 {{display}} col-lg-12" id="scrollingModal" tabindex="-1"
+                        aria-modal="true" role="dialog">
+                        <div class="">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">Account Statement</h5>
+                              <button type="button" (click)="close()" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body" style="min-height: 100vh;">
+                              <div class="card recent-sales overflow-auto">
+                                <div class="card-body {{statecon}}">
+                                  <div class="col-lg-12 ">
+                                    <form #searchUser="ngForm" (ngSubmit)="SearchState(searchUser.value)">
+                                      <div class="row">
+                                        <label for="">From</label>
+                                        <div class="col-4 pb-2">
+                                          <input type="datetime-local" class="form-control"
+                                            placeholder="Enter From Date" name="from" ngModel>
+                                        </div>
+                                        <label for="">To</label>
+                                        <div class="col-4 pb-2">
+                                          <input type="datetime-local" class="form-control" placeholder="Enter To Date"
+                                            name="to" ngModel>
+                                        </div>
+                                       
+                                        <div class="col-4">
+                                          <button type="submit" class="btn btn-dark mb-3 col-sm-2">Filter</button>
+                                        </div>
+                                        <div class="col-4">
+                                          <select class="form-control" name="trans_type" (change)="getTrans($event)" ngModel>
+                                             <option value="Deposit">Deposit</option>
+                                             <option value="Withdraw">Withdraw</option>
+                                             <option value="Head Office">Head Office</option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                    </form>
+                                    <div class="card">
+                                      <div class="card-body">
+                                        <div class="content row text-dark">
+                                          <div class="col-6">
+                                            <u>Staff's</u><br>
+                                            Name : {{ staff.name }}<br> Phone Number :{{ staff.phone }}<br> Email: {{
+                                            staff.email }}<br>
+                                            Role :{{ staff.acc_type }}<br> Address :{{ staff.address }}
+                                          </div>
+                                          <div class="col-6 pl-3">
+                                            <u>Customer's</u>
+                                            Name :{{ edituser.name }} <br> Phone Number :{{ edituser.phone }} <br>
+                                            Account Number:{{ edituser.acc_num }} <br>
+                                            Address : {{ edituser.address }}
+                                          </div>
+                                        </div>
+                                        {{sumer}}
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <table class="table table-borderless datatable" id="statement">
+
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">Trans(Date/Time)</th>
+                                        <th scope="col">Account Number</th>
+                                        <th scope="col">Trans ID</th>
+                                        <th scope="col">Trans Type</th>
+                                        <th scope="col">Amount</th>
+                                        <th scope="col">Balance</th>
+                                        <th scope="col">Trans Details</th>
+                                        <th scope="col">Staff Name</th>
+
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr *ngFor="let item of sm;">
+
+                                        <td> {{item.created_at}}</td>
+                                        <td> {{item.acc_num}}</td>
+                                        <td> {{item.transid}}</td>
+                                        <td> {{item.transType}}</td>
+                                        <td> {{item.amount}}</td>
+                                        <td> {{item.balance}}</td>
+                                        <td> {{item.transD}}</td>
+                                        <td> {{item.staff_name}}</td>
+                                        <td *ngIf="item.receipt!=''">
+                                          <button class="btn btn-secondary" value="{{item.receipt}}"
+                                            (click)="pre_rec($event)">View</button>
+                                          <div class="modal fade show {{recpre}}" id="verticalycentered" tabindex="-1"
+                                            aria-modal="true" role="dialog">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                              <div class="modal-content">
+                                                <div class="modal-header">
+                                                  <h5 class="modal-title text-dark">Receipt Preview</h5>
+                                                  <button type="button" (click)="rec()" class="btn-close"
+                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                  <img src="{{re_pre}}" alt="Receipt..." width="100">
+                                                </div>
+                                                <div class="modal-footer">
+                                                  <button type="button" (click)="rec()" class="btn btn-dark"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </td>
+
+                                      </tr>
+                                      <div class="text-left" *ngFor="let sum of sums;">
+                                        
+                                        <th>Credits:</th>
+                                        <th>{{sum.credits}}</th><br>
+                                        <th>Debits:</th>
+                                        <th>{{sum.debits}}</th><br>
+                                        <th>Balance:</th>
+                                        <th>{{sum.balance}}</th>
+                                      </div>
+                                      <tr>
+                                        <td> ____________________ <br>
+                                          Customer's Signature
+                                        </td>
+                                        <td></td>
+                                        <td> </td>
+                                        <td> </td>
+                                        <td> </td>
+                                        <td> </td>
+                                        <td> ____________________ <br>
+                                          Staff's Signature
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                  <div>
+                                    <button type="submit" class="btn text-white mb-3 col-12"
+                                      style="background-color: darkorange;" (click)="printStatement()">Print <i
+                                        class="bi bi-printer"></i></button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <button class="btn btn-light bi bi-cash" value="{{item.id}}" (click)="reset($event)">
+
+                      </button>
+                      <div class="modal fade show mt-5 {{disser}}" id="scrollingModal" tabindex="-1" aria-modal="true"
+                        role="dialog">
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title text-dark">Reset Rate</h5>
+                              <button type="button" (click)="close1()" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <input type="number" class="form-control text-dark" [(ngModel)]="amount" name="amount"
+                                placeholder="Enter Amount">
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" (click)="close1()" class="btn btn-dark"
+                                data-bs-dismiss="modal">Close</button>
+                              <button type="button" (click)="edits()" class="btn"
+                                style="background-color: orange;">Reset</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  </main>
+</ion-content>

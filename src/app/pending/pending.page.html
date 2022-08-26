@@ -1,0 +1,183 @@
+<ion-content overflow-scroll="false">
+  <app-sidebars></app-sidebars>
+  <main id="main" class="main">
+  
+    <div class="pagetitle">
+      <h1 style="color:orangered;">Pending Customers</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a>Dashboard</a></li>
+          <li class="breadcrumb-item active">Pending Customers</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+  <section class="section dashboard">
+    <div class="col-lg-12">
+      <div class="row">
+        <div class="col-xxl-4 col-xl-12">
+
+          <div class="card info-card customers-card">
+            <div class="card-body">
+
+
+            </div>
+          </div>
+
+        </div>
+        <div class="col-12">
+
+          <div class="card recent-sales overflow-auto">
+
+            <div class="card-body">
+              <h5 class="card-title text-dark">Pending</h5>
+              <div class="col-12 ">
+                <form #searchUser="ngForm" (ngSubmit)="Search(searchUser.value)">
+                  <div class="row">
+                  <div class="col-6">
+                    <input type="search" class="form-control" placeholder="Search" name="search" ngModel>
+                  </div>
+                    <!-- <label for="">Search Type</label> -->
+                  <div class="col-4">
+                    <select class="form-select mb-2" name="search_type" ngModel>
+                      <option value="avn">Avn</option>
+                      <option value="phone">Phone Number</option>
+                      <option value="acc_num">Account Number</option>
+                    </select>
+                  </div>
+                  </div>
+                </form> 
+              </div>
+              <table class="table table-borderless datatable">
+                <thead>
+                  <tr>
+                    <th scope="col">Full Name</th>
+                    <th scope="col">Phone Number</th>
+                    <th scope="col">Account Number</th>
+                    <th scope="col">Account Type</th>
+                    <th scope="col">Sub Account Type</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">View Profile</th>
+                    <th scope="col">Activate</th>
+                    <th scope="col">Delete</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of items;let i = index;">
+                    <td> {{ item.name}}</td>
+                    <td> {{ item.phone}}</td>
+                    <td> {{ item.acc_num}}</td>
+                    <td> {{ item.acc_type}}</td>
+                    <td> {{ item.sub_acc_type}}</td>
+                    <td> <button class="btn btn-danger">{{ item.status}}</button></td>
+                    <td>
+                      <button class="btn btn-success bi bi-eye" value="{{item.id}}" (click)="view($event)"> </button>
+                      <div class="modal fade show mt-5 {{dis}}" id="scrollingModal" tabindex="-1" aria-modal="true"
+                        role="dialog">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">{{'Preview Account'}}</h5>
+                              <button type="button" (click)="close()" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                            </div>
+                            <section class="section profile">
+                              <div class="row">
+                                <div class="col-xl-4">
+                        
+                                  <div class="card">
+                                    <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+                        
+                                      <img src="{{url+edituser.passport}}" alt="Profile" width="100" height="100">
+                                      <h2>{{edituser.name}}</h2>
+                                      <h3 class="text-dark">{{edituser.email}}</h3>
+                                    </div>
+                                  </div>
+                        
+                                </div>
+                        
+                                <div class="col-xl-8">
+                        
+                                  <div class="card">
+                                    <div class="card-body pt-3">
+                                 
+                                      <div class="tab-content pt-2">
+                        
+                                        <div class="tab-pane fade profile-overview active show" id="profile-overview">
+                                          <h5 class="card-title">Signature</h5>
+                                          <img src="{{url+edituser.signature}}" alt="" width="200" height="50">
+                                          <h5 class="card-title">Profile Details</h5>
+                        
+                                          <div class="row" style="background:black; border-radius:5%;">
+                                            <div class="col-lg-3 col-md-4 label  text-white">Full Name</div>
+                                            <div class="col-lg-9 col-md-8 text-white">{{edituser.name}}</div>
+                                          </div>
+                        
+                                          <div class="row" style="background:orange; border-radius:5%;">
+                                            <div class="col-lg-3 col-md-4 label">Account Type</div>
+                                            <div class="col-lg-9 col-md-8 ">{{edituser.acc_type+' '+edituser.sub_acc}}</div>
+                                          </div>
+                        
+                                          <div class="row" style="background:black; border-radius:5%;">
+                                            <div class="col-lg-3 col-md-4 label text-white">dob</div>
+                                            <div class="col-lg-9 col-md-8 text-white">{{edituser.dob}}</div>
+                                          </div>
+                        
+                                          <div class="row" style="background:orange; border-radius:5%;">
+                                            <div class="col-lg-3 col-md-4 label">Gender</div>
+                                            <div class="col-lg-9 col-md-8">{{edituser.gender}}</div>
+                                          </div>
+                                          <div class="row" style="background:black; border-radius:5%;">
+                                            <div class="col-lg-3 col-md-4 label text-white">Status</div>
+                                            <div class="col-lg-9 col-md-8 text-white">{{edituser.status}}</div>
+                                          </div>
+                                          <div class="row"style="background:orange; border-radius:5%;">
+                                            <div class="col-lg-3 col-md-4 label">Address</div>
+                                            <div class="col-lg-9 col-md-8">{{edituser.address}}</div>
+                                          </div>
+                        
+                                          <div class="row" style="background:black; border-radius:5%;">
+                                            <div class="col-lg-3 col-md-4 label text-white">Phone</div>
+                                            <div class="col-lg-9 col-md-8 text-white">{{edituser.phone}}</div>
+                                          </div>
+                        
+                                          <div class="row" style="background:orange; border-radius:5%;">
+                                            <div class="col-lg-3 col-md-4 label">Email</div>
+                                            <div class="col-lg-9 col-md-8">{{edituser.email}}</div>
+                                          </div>
+                        
+                                        </div>
+                        
+                                      </div><!-- End Bordered Tabs -->
+                        
+                                    </div>
+                                  </div>
+                        
+                                </div>
+                              </div>
+                            </section>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <button class="btn btn-success bi bi-check" value="{{item.id}}" (click)="activate($event)">
+
+                      </button>
+                    </td>
+                    <td>
+                      <button class="btn btn-danger bi bi-trash" value="{{item.id}}" (click)="confirm($event)"></button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  </main>
+</ion-content>

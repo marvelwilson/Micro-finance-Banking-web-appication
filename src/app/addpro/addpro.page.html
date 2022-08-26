@@ -1,0 +1,58 @@
+<ion-content>
+  <section class="container col-lg-6">
+    <div class="card">
+      <span class="card-header" style="color:orange;"><span class="btn btn-dark text-white"
+        (click)="backtohome()"><i class="bi bi-arrow-left"></i></span> <span  style=" float: right;">Add Product</span></span>
+      <div class="card-body">
+
+        <form #userPost="ngForm" (ngSubmit)="onSubmit(userPost.value)">
+          <div class="row mb-3">
+            <label class=" col-form-label">Product Category</label>
+            <div class="col-sm-12">
+              <input type="text" name="pcat" class="form-control " placeholder="Enter Product Category" ngModel>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <label for="inputEmail" class=" col-form-label">Product Type</label>
+            <div class="col-sm-12">
+              <input type="text" name="ptype" class="form-control " placeholder="Enter Product Type" ngModel>
+            </div>
+          </div>
+         
+          <div class="row mb-3">
+            <label class=" col-form-label">Product Brand</label>
+            <div class="col-sm-12">
+              <input type="text" name="pbrand" class="form-control " placeholder="Enter Product Brand" ngModel>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label class=" col-form-label">Product Name</label>
+            <div class="col-sm-12">
+              <input type="text" name="pname" class="form-control " placeholder="Enter Product Name" ngModel>
+            </div>
+          </div>
+          <div class="row mb-3 ">
+            <label class=" col-form-label">Amount</label>
+            <div class="col-sm-12">
+              <input type="text" name="amount" class="form-control " placeholder="Enter Amount" ngModel>
+            </div>
+          </div>
+          <div class="row mb-3 ">
+            <label class=" col-form-label">Product Image</label>
+            <div class="col-sm-12">
+              <input type="file" (change)="pimage($event)" name="pimage" class="form-control " ngModel>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-sm-12">
+              <button type="submit" class="btn btn-dark">Add</button>
+            </div>
+          </div>
+
+        </form><!-- End General Form Elements -->
+
+      </div>
+    </div>
+  </section>
+</ion-content>

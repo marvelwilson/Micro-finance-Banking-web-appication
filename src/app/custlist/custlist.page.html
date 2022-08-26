@@ -1,0 +1,236 @@
+<ion-content overflow-scroll="false">
+  <app-sidebars></app-sidebars>
+  <main id="main" class="main">
+  
+    <div class="pagetitle">
+      <h1 style="color:orangered; ">Customer's List</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a>Dashboard</a></li>
+          <li class="breadcrumb-item active">Customer</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+  <section class="section dashboard">
+    <div class="col-lg-12">
+      <div class="row">
+        <div class="col-xxl-4 col-xl-12">
+
+          <div class="card info-card customers-card">
+            <div class="card-body">
+
+
+            </div>
+          </div>
+
+        </div>
+        <div class="col-lg-12">
+
+          <div class="card recent-sales overflow-auto">
+
+            <div class="card-body">
+              <h5 class="card-title text-dark">Customers</h5>
+              <div class="col-lg-12 ">
+                <form #searchUser="ngForm" (ngSubmit)="Search(searchUser.value)">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <input type="search" class="form-control" placeholder="Search" name="search" ngModel>
+                    </div>
+                    <!-- <label for="">Search Type</label> -->
+                  </div>
+                </form>
+                <div class="row">
+                  <div class="col-lg-2">
+                    <label for="">Thrift Officer</label>
+                    <select class="form-select mb-2" (change)="modals('th_off', $event)" name="th_off" ngModel>
+                      <option *ngFor="let i of th_off" value="{{i.id}}">{{i.name}}</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-2">
+                    <label for="">Account Officer</label>
+                    <select class="form-select mb-2" (change)="modals('acc_off', $event)" name="acc_off" ngModel>
+                      <option *ngFor="let i of acc_off" value="{{i.name}}">{{i.name}}</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-2">
+                    <label for="">Messaging</label>
+                    <select class="form-select mb-2"  (change)="modals('messaging', $event)"  name="messaging" ngModel>
+                      <option value="sms">Sms</option>
+                      <option value="email">Email</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-2">
+                    <button class="btn btn-light" (click)="modals('reset', $event)">Reset</button>
+                  </div>
+                </div>
+                </div>
+                
+              <table class="table table-borderless datatable">
+                <thead>
+                  <tr>
+
+                    <th scope="col">Reg Date</th>
+                    <th scope="col">Full Name</th>
+                    <th scope="col">Phone Number</th>
+                    <th scope="col">Account Number</th>
+                    <th scope="col">Account Type</th>
+                    <th scope="col">AVN Number</th>
+                    <th scope="col">Balance</th>
+                    <th scope="col">wallet</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of items;let i = index;">
+                    <td> {{ item.created_at }}</td>
+                    <td> {{ item.name }}</td>
+                    <td> {{ item.phone}}</td>
+                    <td> {{ item.acc_num}}</td>
+                    <td> {{ (item.sub_acc_type[0].toUpperCase()+item.sub_acc_type.split(item.sub_acc_type[0]).splice(1,1).toString())+' '+(item.acc_type[0].toUpperCase()+item.acc_type.split(item.acc_type[0]).splice(1,1).toString())}}</td>
+                    <td> {{ item.avn}}</td>
+                    <td> {{ item.acc_type=='contribution'?(item.balance-1)+(item.wallet-1)+2:item.balance }}</td>
+                    <td> {{ item.status}}</td>
+                    <td><button class="{{ item.stats=='block'?'btn btn-warning':'btn btn-danger'}}" value="{{item.id}}"
+                        (click)="bunb($event)">{{ item.stats=='block'?'unblock':'block'}}</button>
+                    </td>
+                    <td>
+                      <button class="btn btn-light bi bi-check" value="{{item.id}}" (click)="edit($event)"> </button>
+                      <div class="modal fade show mt-5 {{dis}}" id="scrollingModal" tabindex="-1" aria-modal="true"
+                        role="dialog">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">Member Details</h5>
+                              <button type="button" (click)="close()" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body col-lg-12" style="min-height: 100vh;">
+
+                              <div class="row">
+                                <div class="col-lg-12" style="display:flex">
+                                  <div class="col-sm-4">
+                                    <div class="col-sm-12">
+                                      <label for="passport">Passport <br>
+                                      <img src="{{urlpass}}" alt="" width="100">
+                                      </label>
+                                      <input type="file" id="passport" class="d-none" (change)="getpassport($event)"  [(ngModel)]="passport" name="passport" >
+                                    </div>
+                                    <div class="col-sm-12">
+                                      <label for="signature">Signature <br>
+                                      <img src="{{sig}}" alt="" width="100" height="50">
+                                      </label>
+                                      <input type="file" class="d-none" id="signature" (change)="getsignature($event)" [(ngModel)]="signature" name="signature">
+                                    </div>
+                                  </div>
+
+                                  <div class="col-sm-4">
+                                    <h3>Member Detail</h3>
+                                    <span><b>Fullname</b>: {{name}}</span><br>
+                                    <span><b>Email</b>: {{email}}</span><br>
+                                    <span><b>Phone</b>: {{phone}}</span><br>
+                                    <span><b>Gender</b>: {{gender}}</span><br>
+                                    <span><b>Address</b>: {{address}}</span><br>
+                                    <span><b>DOB</b>: {{dob}}</span><br>
+                                    <span><b>Account Officer</b>: {{officer}}</span><br>
+
+                                  </div>
+                                  <div class="col-sm-4">
+                                    <h3>Account Detail</h3>
+                                    <span><b>Account Number</b>: {{acc_num}}</span><br>
+                                    <span><b>Account Type</b>: {{acc_type}}</span><br>
+                                    <span><b>Membership Type</b>: {{sub_acc_type}}</span><br>
+                                    <span><b>Reg Date</b>: {{created_at}}</span><br>
+                                    <span><b>Account Balance</b>: {{balance}}</span><br>
+                                    <span><b>Thrift Officer</b>: {{Thrift}}</span><br>
+                                  </div>
+                                </div>
+
+                              </div>
+
+                              <form class="{{specific}}">
+                                <h2>Update Info</h2>
+                                <div class="row mb-1">
+                                  <label for="inputEmail" class=" col-form-label">Full Name</label>
+                                  <div class="col-sm-12">
+                                    <input type="text" class="form-control" value="{{name}}"
+                                      placeholder="Please Enter Name" [(ngModel)]="name" name="name">
+                                  </div>
+                                </div>
+                                <div class="row mb-1">
+                                  <label for="inputEmail" class=" col-form-label">Email</label>
+                                  <div class="col-sm-12">
+                                    <input type="email" class="form-control" value="{{email}}"
+                                      placeholder="Please Enter Name" [(ngModel)]="email" name="email">
+                                  </div>
+                                </div>
+
+                                <div class="row mb-1">
+                                  <label for="inputEmail" class=" col-form-label">Phone Number</label>
+                                  <div class="col-sm-12">
+                                    <input type="number" class="form-control" value="{{phone}}"
+                                      placeholder="Please Enter Name" [(ngModel)]="phone" name="phone">
+                                  </div>
+                                </div>
+
+                                <div class="row mb-1">
+                                  <label class=" col-form-label">Gender</label>
+                                  <div class="col-sm-12">
+                                    <select class="form-select" aria-label="Default select example" [(ngModel)]="gender"
+                                      name="gender">
+                                      <option selected="">Select a Gender</option>
+                                      <option value="male">Male</option>
+                                      <option value="female">Female</option>
+                                    </select>
+                                  </div>
+                                </div>
+                                <div class="row mb-1">
+                                  <label class=" col-form-label">Change Address</label>
+                                  <div class="col-sm-12">
+                                    <input class="form-control" aria-label="Default select example"
+                                      [(ngModel)]="address" name="address">
+                                  </div>
+                                </div>
+
+                                <div class="row mb-1">
+                                  <label class=" col-form-label">Re-assign Thrift Officer</label>
+                                  <div class="col-sm-12">
+                                    <select class="form-select" id="thrift" aria-label="Default select example"
+                                      (change)="ass($event)" [(ngModel)]="ass_id" name="ass_id">
+                                      <option *ngFor="let a of thrift" value="{{a.id}}">{{a.name}}</option>
+                                    </select>
+                                  </div>
+                                </div>
+                                <div class="row mb-1">
+                                  <label class=" col-form-label">Re-assign Account Officer</label>
+                                  <div class="col-sm-12">
+                                    <select class="form-select" id="acc_off" aria-label="Default select example"
+                                      (change)="ass($event)" [(ngModel)]="officer" name="officer">
+                                      <option *ngFor="let a of acc_off" value="{{a.name}}">{{a.name}}</option>
+                                    </select>
+                                  </div>
+                                </div>
+                                <div class="row mb-1">
+                                  <div class="col-sm-12">
+                                    <button type="submit" (click)="updateCust()" class="btn btn-dark">Save</button>
+                                  </div>
+                                </div>
+                              </form><!-- End General Form Elements -->
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  </main>
+</ion-content>

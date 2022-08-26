@@ -1,0 +1,287 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Approve loan</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-list>
+      <ion-item>
+        <ion-label position="stacked">Loan type</ion-label>
+        <ion-select [(ngModel)]="loan_type" value="Single">
+          <ion-select-option value="Single">Single</ion-select-option>
+          <ion-select-option value="Group">Group</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Branch</ion-label>
+        <ion-select [(ngModel)]="branch" value="Single">
+          <ion-select-option value="Branch 1">Branch 1</ion-select-option>
+          <ion-select-option value="Branch 2">Branch 2</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Category</ion-label>
+        <ion-select [(ngModel)]="category" value="Single">
+          <ion-select-option value="Flat">Flat</ion-select-option>
+          <ion-select-option value="Reducing balance">Reducing balance</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Loan product</ion-label>
+        <ion-select [(ngModel)]="loan_product" value="Single">
+          <ion-select-option value="Business daily loan">Business daily loan</ion-select-option>
+          <ion-select-option value="Business weekly loan">Business weekly loan</ion-select-option>
+          <ion-select-option value="MSS">MSS loan</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Loan amount</ion-label>
+        <ion-input [(ngModel)]="loan_amount" type="number"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Loan period</ion-label>
+        <ion-select [(ngModel)]="loan_period">
+          <ion-select-option *ngIf="loan_product == 'Business daily loan'" value="Daily">Daily</ion-select-option>
+          <ion-select-option *ngIf="loan_product == 'Business weekly loan'" value="Weekly">Weekly</ion-select-option>
+          <ion-select-option *ngIf="loan_product == 'MSS'" value="Biweekly">Monthly</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Payment schedule</ion-label>
+        <ion-select [(ngModel)]="payment_schedule">
+          <ion-select-option value="Manual">Manual</ion-select-option>
+          <ion-select-option value="Automatic">Automatic</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Loan duration</ion-label>
+        <ion-select [(ngModel)]="period">
+          <div *ngIf="loan_product == 'Business daily loan'">
+            <ion-select-option value="30---10">30 days</ion-select-option>
+            <ion-select-option value="45---15">45 days</ion-select-option>
+            <ion-select-option value="60---20">60 days</ion-select-option>
+            <ion-select-option value="75---25">75 days</ion-select-option>
+            <ion-select-option value="90---30">90 days</ion-select-option>
+            <ion-select-option value="105---35">105 days</ion-select-option>
+            <ion-select-option value="120---40">120 days</ion-select-option>
+          </div>
+          <div *ngIf="loan_product == 'Business weekly loan'">
+            <ion-select-option value="12---20">12 weeks</ion-select-option>
+            <ion-select-option value="16---20">16 weeks</ion-select-option>
+            <ion-select-option value="20---25">20 weeks</ion-select-option>
+            <ion-select-option value="24---30">24 weeks</ion-select-option>
+          </div>
+          <div *ngIf="loan_product == 'MSS'">
+            <ion-select-option value="1---3">1 months</ion-select-option>
+            <ion-select-option value="2---6">2 months</ion-select-option>
+            <ion-select-option value="3---9">3 months</ion-select-option>
+            <ion-select-option value="4---12">4 months</ion-select-option>
+            <ion-select-option value="5---15">5 months</ion-select-option>
+            <ion-select-option value="6---15">6 months</ion-select-option>
+            <ion-select-option value="7---15">7 months</ion-select-option>
+            <ion-select-option value="8---15">8 months</ion-select-option>
+            <ion-select-option value="9---15">9 months</ion-select-option>
+            <ion-select-option value="10---15">10 months</ion-select-option>
+            <ion-select-option value="11---15">11 months</ion-select-option>
+            <ion-select-option value="12---15">12 months</ion-select-option>
+          </div>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Loan penalty</ion-label>
+        <ion-input [(ngModel)]="loan_penalty" type="number"></ion-input>
+      </ion-item>
+  
+      <ion-button (click)="calculate_interest()" expand="block">Calculate</ion-button>
+      <div *ngIf="show_calc">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Loan amount: <span>NGN {{loan_amount}}</span></ion-card-title>
+            <ion-card-title>Interest: <span>NGN {{interest}}</span></ion-card-title>
+            <ion-card-title>Total: <span>NGN {{total_amount}}</span></ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </div>
+    </ion-list>
+  </ion-card>
+
+
+  <ion-list>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label position="stacked">Do you have a guarantor?</ion-label>
+            <ion-select [(ngModel)]="hasguarantor" (ngModelChange)="check('a')">
+              <ion-select-option value="internal">Yes(internal)</ion-select-option>
+              <ion-select-option value="external">Yes(external)</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label position="stacked">Do you have a guarantor?</ion-label>
+            <ion-select [(ngModel)]="hasguarantorb" (ngModelChange)="check('b')">
+              <ion-select-option value="internal">Yes(internal)</ion-select-option>
+              <ion-select-option value="external">Yes(external)</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+          <div *ngIf="hasguarantor == 'internal'">
+            <div class="row">
+              <div class="col-12">
+      
+                <div style="padding-top: 15px;" class="card recent-sales overflow-auto">
+      
+                  <div class="card-body">
+                    <div class="col-12">
+                      <form #searchUser="ngForm"  (ngSubmit)="Search(searchUser.value, 'a')">
+                        <div class="row">
+                          <div class="col-6">
+                            <input type="search" class="form-control" placeholder="Search" name="search" ngModel>
+                          </div>
+                          <!-- <label for="">Search Type</label> -->
+                          <div class="col-4">
+                            <select class="form-select mb-2" name="search_type" ngModel>
+                              <option value="avn">Avn</option>
+                              <option value="phone">Phone Number</option>
+                              <option value="acc_num">Account Number</option>
+                            </select>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+      
+                  </div>
+      
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+
+          
+          <div>
+            <ion-item>
+              <ion-label position="stacked">Guarantors name</ion-label>
+              <ion-input [(ngModel)]="guarantor_name" type="text"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Guarantors BVN</ion-label>
+              <ion-input [(ngModel)]="guarantor_bvn" type="number"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Guarantors relationship</ion-label>
+              <ion-input [(ngModel)]="guarantor_relationship" type="text"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Guarantors phone</ion-label>
+              <ion-input [(ngModel)]="guarantor_phone" type="number"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Guarantors address</ion-label>
+              <ion-input [(ngModel)]="guarantor_address" type="text"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Guarantors occupation</ion-label>
+              <ion-input [(ngModel)]="guarantor_occupation" type="text"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Guarantors passport</ion-label>
+              <ion-input type="file" (change)="getpass($event)"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Guarantors ID</ion-label>
+              <ion-input type="file" (change)="getid($event)"></ion-input>
+            </ion-item>
+          </div>
+        </ion-col>
+        <ion-col size="6">
+          <div *ngIf="hasguarantorb == 'internal'">
+            <div class="row">
+              <div class="col-12">
+      
+                <div style="padding-top: 15px;" class="card recent-sales overflow-auto">
+      
+                  <div class="card-body">
+                    <div class="col-12 ">
+                      <form #searchUser="ngForm" (ngSubmit)="Search(searchUser.value, 'b')">
+                        <div class="row">
+                          <div class="col-6">
+                            <input type="search" class="form-control" placeholder="Search" name="search" ngModel>
+                          </div>
+                          <!-- <label for="">Search Type</label> -->
+                          <div class="col-4">
+                            <select class="form-select mb-2" name="search_type" ngModel>
+                              <option value="avn">Avn</option>
+                              <option value="phone">Phone Number</option>
+                              <option value="acc_num">Account Number</option>
+                            </select>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+      
+                  </div>
+      
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div>
+            <ion-item>
+              <ion-label position="stacked">Guarantors name</ion-label>
+              <ion-input [(ngModel)]="guarantor_nameb" type="text"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Guarantors BVN</ion-label>
+              <ion-input [(ngModel)]="guarantor_bvnb" type="number"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Guarantors relationship</ion-label>
+              <ion-input [(ngModel)]="guarantor_relationshipb" type="text"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Guarantors phone</ion-label>
+              <ion-input [(ngModel)]="guarantor_phoneb" type="number"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Guarantors address</ion-label>
+              <ion-input [(ngModel)]="guarantor_addressb" type="text"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Guarantors occupation</ion-label>
+              <ion-input [(ngModel)]="guarantor_occupationb" type="text"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Guarantors passport</ion-label>
+              <ion-input type="file" (change)="getpassb($event)"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Guarantors ID</ion-label>
+              <ion-input type="file" (change)="getidb($event)"></ion-input>
+            </ion-item>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    
+
+    
+
+    <ion-button (click)="approve_loan()" expand="block">Approve loan</ion-button>
+  </ion-list>
+
+</ion-content>

@@ -1,0 +1,71 @@
+<ion-content overflow-scroll="false">
+  <app-sidebars></app-sidebars>
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1 style="color:orangered; ">Created Fixed Deposit</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a>Home</a></li>
+          <li class="breadcrumb-item active">Fixed Deposit</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+  <section class=" col-lg-12 ">
+    <div class="card">
+      <div class="card-body">
+
+        <!-- General Form Elements -->
+         <div class="card {{preview}}" >
+           <div class="card-body">
+              Name: {{ name }} <br>
+             Account Type: {{ acc_type }}<br>
+             Balance: NGN{{ wallet }}<br>
+             Total Sum of Interest Rate: NGN{{ rate }}<br>
+           </div>
+         </div>
+         <span class="{{validating}}">
+          validating Account Number <img src="assets/img/ajax_clock_small.gif" alt="">
+        </span>
+        <form #userPost="ngForm" (ngSubmit)="onSubmit(userPost.value)">
+          <div class="row mb-3 {{d}}">
+            <label class=" col-form-label">Regular Account Number</label>
+            <div class="col-sm-12">
+              <input type="text" name="acc_num" (mouseout)="onMouseout($event)" class="form-control " placeholder="Please Enter Regular Account Number" ngModel>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <label for="inputEmail" class=" col-form-label">Durations</label>
+            <div class="col-sm-12">
+            
+              <select class="form-control" name="duration" required="" ngModel>
+                <option value="">--Select Duration---</option>
+                <option  value="5">3 Months</option>
+                <option  value="11">6 Months</option>
+                <option  value="23">12 Month</option>
+                <option  value="47">24 Months</option>
+                <option  value="95">48 Months</option>
+              </select>
+            </div>
+          </div>
+         
+          <div class="row mb-3 {{d}}">
+            <label class=" col-form-label">Amount</label>
+            <div class="col-sm-12">
+              <input type="number" name="amount" class="form-control " placeholder="Please Enter Amount" ngModel>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-sm-12">
+              <button type="submit" class="btn btn-dark">Create Account</button>
+            </div>
+          </div>
+
+        </form><!-- End General Form Elements -->
+
+      </div>
+    </div>
+  </section>
+  </main>
+</ion-content>

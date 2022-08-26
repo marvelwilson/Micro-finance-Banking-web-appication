@@ -1,0 +1,178 @@
+<ion-content overflow-scroll="false">
+  <app-sidebars></app-sidebars>
+  <main id="main" class="main">
+  
+    <div class="pagetitle">
+      <h1>Inter-Bank</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a>Accounting</a></li>
+          <li class="breadcrumb-item active">Inter-Bank</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+      <button class="btn btn-light mb-5" (click)="modals('newbank')">New Transfer</button>
+      <div class="modal fade show mt-5 {{newbank}}" id="scrollingModal" tabindex="-1" aria-modal="true"
+        role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Create New Transfer</h5>
+              <button type="button" (click)="close()" class="btn-close" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+            </div>
+            <div class="modal-body " >
+
+              
+              <form #userPost="ngForm" (ngSubmit)="onSubmit(userPost.value)">
+                <div class="row mb-1">
+                  <label for="inputEmail" class=" col-form-label">Received In</label>
+                  <div class="col-sm-12">
+                    <select name="recieved_in" class="form-control" ngModel>
+                      <option *ngFor="let a of items" value="{{a.name}}">{{a.name}}</option>
+                   </select>
+                  </div>
+                </div>
+                <div class="row mb-1">
+                  <label for="inputEmail" class=" col-form-label">Payer</label>
+                  <div class="col-sm-12">
+                    <select name="payer" class="form-control" (change)="modals('payer', $event)"  ngModel>
+                       <option value="Bank">Bank</option>
+                       <option value="Cashier">Cashier</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="row mb-1">
+                  <label for="inputEmail" class=" col-form-label">Payer Name</label>
+                  <div class="col-sm-12">
+                    <select name="payer_name" class="form-control" (change)="modals('payer_name', $event)" ngModel>
+                      <option *ngFor="let a of payer_names" value="{{a.id}}">{{a.name}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row mb-1">
+                  <div class="col-sm-12">
+                  <label for="amount">Description</label>
+                    <input type="text" class="form-control" name="desc" placeholder="Please Enter Description" ngModel>
+                  </div>
+                </div>
+                <div class="row mb-1">
+                  <div class="col-sm-12">
+                    <input type="hidden" class="form-control" name="amount" value="{{amounts}}" placeholder="Please Enter Description" ngModel>
+                    <span>Total Amount:&#8358; {{amounts}}</span>
+                  </div>
+                </div>
+                <div class="row mb-1">
+                  <div class="col-sm-12">
+                    <button type="submit" class="btn btn-dark ">Create</button>
+                  </div>
+                </div>
+
+              </form><!-- End General Form Elements -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="card recent-sales overflow-auto">
+
+        <div class="card-body">
+          <table small="true" class="table table-sm">
+            <thead>
+              <tr>
+                <td scope="col" class="ng-star-inserted">
+                  Date
+                </td>
+                <td scope="col" class="ng-star-inserted">
+                  Description
+                </td>
+                 <td scope="col" class="ng-star-inserted">
+                  Payer
+                </td>
+                <td scope="col" class="ng-star-inserted">
+                  Account
+                </td>
+                <td scope="col" class="ng-star-inserted">
+                  Amount recieved
+                </td>
+                <td scope="col" class="ng-star-inserted">
+                 Action
+                </td>
+              </tr>
+              <tr class="ng-start-inserted" *ngFor="let a of datas;">
+                <td>{{a.created_at}}</td>
+                <td>{{a.desc}}</td>
+                 <td>{{a.payer}}</td>
+                 <td>{{a.recieved_in}}</td>
+                 <td>&#8358;{{a.amount}}</td>
+                 <td><button class="btn btn-light" value="{{a.id}}" (click)="modals('edit', $event)">Edit</button></td>
+
+              </tr>
+            </thead>
+          </table>
+      </div>
+      <div class="modal fade show mt-5 {{updatebank}}" id="scrollingModal" tabindex="-1" aria-modal="true"
+        role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Update Transfer</h5>
+              <button type="button" (click)="close()" class="btn-close" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+            </div>
+            <div class="modal-body " >
+              <form >
+                <div class="row mb-1">
+                  <label for="inputEmail" class=" col-form-label">Received In</label>
+                  <div class="col-sm-12">
+                    <select name="recieved_in" class="form-control" [(ngModel)]="recieved_in">
+                      <option value="{{recieved_in}}">{{recieved_in}}</option>
+                   </select>
+                  </div>
+                </div>
+                <div class="row mb-1">
+                  <label for="inputEmail" class=" col-form-label">Payer</label>
+                  <div class="col-sm-12">
+                    <select name="payer" class="form-control" [(ngModel)]="payer" disabled>
+                       <option value="Bank">Bank</option>
+                       <option value="Cashier">Cashier</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="row mb-1">
+                  <label for="inputEmail" class=" col-form-label">Payer Name</label>
+                  <div class="col-sm-12">
+                    <select name="payer_name" class="form-control" [(ngModel)]="payer_name" disabled>
+                      <option *ngFor="let a of payer_names" value="{{a.id}}">{{a.name}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row mb-1">
+                  <div class="col-sm-12">
+                  <label for="amount">Description</label>
+                    <input type="text" class="form-control" name="desc" placeholder="Please Enter Description" [(ngModel)]="desc">
+                  </div>
+                </div>
+                <div class="row mb-1">
+                  <div class="col-sm-12">
+                    <input type="hidden" class="form-control" name="amount" value="{{amounts}}" placeholder="Please Enter Description" ngModel>
+                    <span>Total Amount:&#8358; {{amounts}}</span>
+                  </div>
+                </div>
+                <div class="row mb-1">
+                  <div class="col-sm-12">
+                    <button type="submit" (click)="modals('update', $event)" class="btn btn-dark ">Update</button>
+                  </div>
+                </div>
+
+              </form><!-- End General Form Elements -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</main>
+</ion-content>

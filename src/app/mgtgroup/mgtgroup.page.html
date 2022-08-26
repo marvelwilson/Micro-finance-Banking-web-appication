@@ -1,0 +1,582 @@
+<ion-content overflow-scroll="false">
+  <app-sidebars></app-sidebars>
+  <main id="main" class="main">
+  
+    <div class="pagetitle">
+      <h1>Group Management</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a>Accounting</a></li>
+          <li class="breadcrumb-item active">Group Management</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+  <section class="section dashboard">
+    <div class="col-lg-12">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="card recent-sales overflow-auto">
+
+            <div class="card-body">
+              <h5 class="card-title text-dark">Groups</h5>
+              <div class="col-lg-12 ">
+                <div class="btn btn-light col-lg-2" (click)="addgroup()">Create Group</div>
+                <form #searchUser="ngForm" (ngSubmit)="SearchID(searchUser.value)">
+                  <div class="row m-2">
+                    <div class="col-lg-5">
+                      <input type="text" class="form-control" placeholder="Enter Group Name" name="search" ngModel>
+                    </div>
+                    <div class="col-sm-2">
+                    <button type="submit" class="btn btn-dark">Search</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <table class="table table-borderless datatable">
+                <thead>
+                  <tr>
+                    <td scope="col">Group Name</td>
+                    <td scope="col">Start Date</td>
+                    <td scope="col">End Date</td>
+                    <td scope="col">Expected Balance</td>
+                    <td scope="col">Deposits</td>
+                    <td scope="col">Disbursed</td>
+                    <td scope="col">Outstanding</td>
+                    <td scope="col">Over Draft</td>
+                    <td scope="col">Rate</td>
+                    <td scope="col">Members</td>
+                    <td scope="col">Duration</td>
+                    <td scope="col">Actions</td>
+                    <td scope="col">History</td>
+                    <td scope="col">View</td>
+                    <td scope="col">Edit</td>
+
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr *ngFor="let item of items;let i=index;" class="{{missdays[i].days*item.rate>0?'bg-danger text-white':''}} {{overdrafts[i].amount>0?'bg-warning text-white':''}}">
+
+                    <td> {{item.name}}</td>
+                    <td> {{item.duration}}</td>
+                    <td>{{item.updated_day}} </td>
+                    <td>{{item.rate*item.sub_acc_type*item.credits*10}}</td>
+                    <td>{{i>0?(trans_amount[i].depo-trans_amount[i-1].depo):trans_amount[i].depo}}</td>
+                    <td>{{i>0?(trans_amount[i].withdraw-trans_amount[i-1].withdraw):trans_amount[i].withdraw}}</td>
+                    <td>{{i>0?(missdays[i].days*item.rate)-(missdays[i-1].days*item.rate):(missdays[i].days*item.rate)}}</td>
+                    <td>{{i>0?overdrafts[i].amount-overdrafts[(i-1)].amount:overdrafts[i].amount}}</td>
+                    <td> {{item.rate}}</td>
+                    <td> {{item.credits}}</td>
+                    <td> {{item.days*item.credits}} days</td>
+                    <td>
+                      <button class="btn btn-light bi bi-cash" value="{{item.id}}" (click)="fund($event)">
+
+                      </button>
+                      <div class="modal fade show mt-5 {{acc_dis}}" id="scrollingModal" tabindex="-1" aria-modal="true"
+                        role="dialog">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">{{'Group Preview'}}</h5>
+                              <button type="button" (click)="close()" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                            </div>
+                            <section class="section profile">
+                              <div class="row">
+                                <div class="col-xl-12">
+
+                                  <div class="card">
+                                    <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+
+                                      <img src="{{url+edituser.passport}}" alt="Profile" width="200" height="100">
+                                      <h2>{{edituser.name}}</h2>
+                                      <button class="btn btn-light bi bi-person " value="{{edituser.name}}"
+                                        (click)="add($event)">
+                                        +
+                                      </button>
+                                      <div class="modal fade show {{disadd}}" id="verticalycentered" tabindex="-1"
+                                        aria-modal="true" role="dialog">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                              <h5 class="modal-title text-dark">Add A Member</h5>
+                                              <button type="button" (click)="close1()" class="btn-close"
+                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                              <div class="contaner col-lg-12 {{elem==''?'d-none':'d-block'}}">
+                                                <div class="row">
+                                                  <div class="card col-lg-4"
+                                                    *ngFor="let nu of already; let nums of shuffleNumbers;"
+                                                    (click)="getVal()">
+                                                    <div class="card-body text-secondary">
+                                                      {{nu?'Choose Me!':nu}}
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                              <input type="number" class="form-control text-dark" [(ngModel)]="acc_num"
+                                                name="acc_num" placeholder="Enter Account Number">
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" (click)="close1()" class="btn btn-dark"
+                                                data-bs-dismiss="modal">Close</button>
+                                              <button type="button" (click)="sendAcc()" class="btn btn-primary"
+                                                style="background-color: orange;">Add</button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <button style="background:orangered" class="btn bi bi-arrow-down mt-2"
+                                        value="{{edituser.id}}" (click)="deposit($event)">
+                                        Deposit
+                                      </button>
+                                      <div class="modal fade show {{dis}}" id="verticalycentered" tabindex="-1"
+                                        aria-modal="true" role="dialog">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                              <h5 class="modal-title text-dark">Deposit</h5>
+                                              <button type="button" (click)="close1()" class="btn-close"
+                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                              <input type="number" class="form-control text-dark" [(ngModel)]="acc_num"
+                                                name="acc_num" placeholder="Enter Account Number">
+                                            </div>
+                                            <div class="modal-body">
+                                              <input type="number" class="form-control text-dark" [(ngModel)]="amount"
+                                                name="amount" placeholder="Enter Number Of Days(days*rate)">
+                                            </div>
+                                            <div class="modal-body">
+                                              <label for="" class="text-dark">Customer Paid With</label>
+                                              <select id="" class="form-control text-dark" (change)="receipts($event)"
+                                                [(ngModel)]="payment" name="payment">
+                                                <option value="cash">Cash Payment</option>
+                                                <option value="transfer">Bank Transfer</option>
+                                              </select>
+                                            </div>
+                                            <div class="modal-body {{pro_show}}">
+                                              <label for="" class="text-dark">Transfer Receipt </label>
+                                              <input type="file" class="form-control text-dark "
+                                                (change)="provider($event)" [(ngModel)]="receipt" name="receipt">
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" (click)="close1()" class="btn btn-dark"
+                                                data-bs-dismiss="modal">Close</button>
+                                              <button type="button" (click)="depo()" class="btn btn-primary"
+                                                style="background-color: orange;">Deposit</button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <button class="btn btn-danger bi bi-arrow-up mt-2" value="{{edituser.id}}"
+                                        (click)="withdraw($event)"> Withdraw </button>
+                                      <div class="modal fade show {{diss}}" id="verticalycentered" tabindex="-1"
+                                        aria-modal="true" role="dialog">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                              <h5 class="modal-title text-dark">Withdraw</h5>
+                                              <button type="button" (click)="close1()" class="btn-close"
+                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                              <input type="number" class="form-control text-dark" [(ngModel)]="acc_num"
+                                                name="acc_num" placeholder="Enter Account Number">
+                                            </div>
+                                            <div class="modal-body">
+                                              <input type="number" class="form-control text-dark" [(ngModel)]="amount"
+                                                name="amount" placeholder="Enter Amount">
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" (click)="close1()" class="btn btn-dark"
+                                                data-bs-dismiss="modal">Close</button>
+                                              <button type="button" (click)="wtrw()" class="btn"
+                                                style="background-color: orange;">Withdraw</button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <button class="btn btn-danger bi bi-arrow-up mt-2" value="{{edituser.id}}"
+                                      (click)="over($event)">Apply Over Draft </button>
+                                    <div class="modal fade show {{od}}" id="verticalycentered" tabindex="-1"
+                                      aria-modal="true" role="dialog">
+                                      <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h5 class="modal-title text-dark">Over Draft</h5>
+                                            <button type="button" (click)="close1()" class="btn-close"
+                                              data-bs-dismiss="modal" aria-label="Close"></button>
+                                          </div>
+                                          <div class="modal-body">
+                                            <input type="number" class="form-control text-dark" [(ngModel)]="acc_num"
+                                              name="acc_num" placeholder="Enter Account Number">
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button type="button" (click)="close1()" class="btn btn-dark"
+                                              data-bs-dismiss="modal">Close</button>
+                                            <button type="button" (click)="o_d()" class="btn"
+                                              style="background-color: orange;">Apply</button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                      <button class="btn btn-dark bi bi-person mt-2" value="{{edituser.name}}"
+                                        (click)="del($event)">
+                                        -
+                                      </button>
+                                      <div class="modal fade show {{disdel}}" id="verticalycentered" tabindex="-1"
+                                        aria-modal="true" role="dialog">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                              <h5 class="modal-title text-dark">Remove A Member</h5>
+                                              <button type="button" (click)="close1()" class="btn-close"
+                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                              <input type="number" class="form-control text-dark" [(ngModel)]="acc_num"
+                                                name="acc_num" placeholder="Enter Account Number">
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" (click)="close1()" class="btn btn-dark"
+                                                data-bs-dismiss="modal">Close</button>
+                                              <button type="button" (click)="delAcc()" class="btn btn-primary"
+                                                style="background-color: orange;">Remove</button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                </div>
+
+                                <div class="col-xl-12">
+
+                                  <div class="card">
+                                    <div class="card-body pt-3">
+
+                                      <div class="tab-content pt-2">
+
+                                        <div class="tab-pane fade profile-overview active show" id="profile-overview">
+                                          <h5 class="card-title">Profile Details</h5>
+
+                                          <div class="row">
+                                            <div class="col-lg-5">Group Name</div>
+                                            <div class="col-lg-6">{{edituser.name}}</div>
+                                          </div>
+
+                                          <div class="row">
+                                            <div class="col-lg-5 ">Category</div>
+                                            <div class="col-lg-6 ">{{edituser.sub_acc+' Days '+edituser.acc_type}}
+                                            </div>
+                                          </div>
+                                          <div class="row">
+                                            <div class="col-lg-5">Runing Balance</div>
+                                            <div class="col-lg-6">{{bal[0]}}</div>
+                                          </div>
+                                          <div class="row">
+                                            <div class="col-lg-5 ">Withdrawable balance</div>
+                                            <div class="col-lg-6 ">{{bal[1]}}</div>
+                                          </div>
+                                          <div class="row">
+                                            <div class="col-lg-5">Members</div>
+                                            <div class="col-lg-6">{{edituser.credits}}</div>
+                                          </div>
+                                          <div class="row">
+                                            <div class="col-lg-5 ">Payment Rate</div>
+                                            <div class="col-lg-6 ">{{edituser.rate}}</div>
+                                          </div>
+                                          <div class="row">
+                                            <div class="col-lg-5 ">Group Cordinator</div>
+                                            <div class="col-lg-6">{{staffname}}</div>
+                                          </div>
+                                          <div class="row">
+                                            <div class="col-lg-5">Status</div>
+                                            <div class="col-lg-6">{{edituser.status}}</div>
+                                          </div>
+                                          <div class="row">
+                                            <div class="col-lg-5 ">Address</div>
+                                            <div class="col-lg-6">{{edituser.address}}</div>
+                                          </div>
+
+                                        </div>
+
+                                      </div><!-- End Bordered Tabs -->
+
+                                    </div>
+                                  </div>
+
+                                </div>
+                              </div>
+                            </section>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <button class="btn btn-light bi bi-eye" value="{{item.id}}" (click)="view($event)"></button>
+                      <div class="modal fade show mt-5 {{display}} col-lg-12" id="scrollingModal" tabindex="-1"
+                        aria-modal="true" role="dialog">
+                        <div class="">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">Account Statement</h5>
+                              <button type="button" (click)="close()" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body" style="min-height: 100vh;">
+                              <div class="card recent-sales overflow-auto">
+                                <div class="card-body {{statecon}}">
+                                  <div class="col-lg-12 ">
+                                    <form #searchUser="ngForm" (ngSubmit)="SearchState(searchUser.value)">
+                                      <div class="row">
+                                        <div class="col-lg-12 pb-2">
+                                          <label for="">From</label>
+                                          <input type="datetime-local" class="form-control"
+                                            placeholder="Enter From Date" name="from" ngModel>
+                                        </div>
+                                        <div class="col-lg-12 pb-2">
+                                          <label for="">To</label>
+                                          <input type="datetime-local" class="form-control" placeholder="Enter To Data"
+                                            name="to" ngModel>
+                                        </div>
+                                        <button type="submit" class="btn mb-3"
+                                          style="background-color: orangered;">Filter</button>
+                                      </div>
+                                    </form>
+                                    <div class="col-lg-12 pb-2">
+                                      <label for="">To</label>
+                                      <input type="text" class="form-control" placeholder="Enter To Account Number"
+                                        name="acc_num" ngModel>
+                                    </div>
+                                    <div class="card">
+                                      <div class="card-body">
+                                        <div class="content row text-dark">
+                                          <div class="col-lg-6">
+                                            <u>Staff's</u><br>
+                                            Name : {{ staff.name }}<br> Phone Number :{{ staff.phone }}<br> Email: {{
+                                            staff.email }}<br>
+                                            Role :{{ staff.acc_type }}<br> Address :{{ staff.address }}
+                                          </div>
+                                          <div class="col-lg-6 pl-3">
+                                            <u>Groups's</u><br>
+                                            Name :{{ edituser.name }} <br>
+                                            Address : {{ edituser.address }}
+                                          </div>
+                                        </div>
+                                        {{sumer}}
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <table small="true" class="table table-sm table-borderless" id="statement">
+
+                                    <thead>
+                                      <tr>
+                                        <td scope="col">Receipts</td>
+                                        <td scope="col">Trans(Date/Time)</td>
+                                        <td scope="col">Account Number</td>
+                                        <td scope="col">Trans ID</td>
+                                        <td scope="col">Trans Details</td>
+                                        <td scope="col">Trans Type</td>
+                                        <td scope="col">Amount</td>
+                                        <td scope="col">Balance</td>
+                                        <td scope="col">Officer</td>
+
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr *ngFor="let item of sm;" class="ng-start-inserted">
+                                        <td><img src='{{url+item.reciept}}' class="{{item.reciept==''?'d-none':''}}" width="100">{{item.reciept==''?'No Receipt':''}}</td>
+                                        <td> {{item.created_at}}</td>
+                                        <td> {{item.acc_num}}</td>
+                                        <td> {{item.transid}}</td>
+                                        <td> {{item.transD}}</td>
+                                        <td> {{item.transType}}</td>
+                                        <td> {{item.amount}}</td>
+                                        <td> {{item.balance}}</td>
+                                        <td> {{item.staff_name}}</td>
+                                        <td *ngIf="item.receipt!=''">
+                                          <button class="btn btn-secondary" value="{{item.receipt}}"
+                                            (click)="pre_rec($event)">View</button>
+                                          <div class="modal fade show {{recpre}}" id="verticalycentered" tabindex="-1"
+                                            aria-modal="true" role="dialog">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                              <div class="modal-content">
+                                                <div class="modal-header">
+                                                  <h5 class="modal-title text-dark">Receipt Preview</h5>
+                                                  <button type="button" (click)="close1()" class="btn-close"
+                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                  <img src="{{re_pre}}" alt="Receipt..." width="100">
+                                                </div>
+                                                <div class="modal-footer">
+                                                  <button type="button" (click)="close1()" class="btn btn-dark"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </td>
+
+                                      </tr>
+                                      <div class="text-left" *ngFor="let sum of sums;">
+                                        <td>Debits:</td>
+                                        <td>{{sum.debits}}</td><br>
+                                        <td>Credits:</td>
+                                        <td>{{sum.credits}}</td><br>
+                                        <td>Balance:</td>
+                                        <td>{{sum.balance}}</td>
+                                      </div>
+                                      <tr>
+                                        <td> ____________________ <br>
+                                          Customer's Signature
+                                        </td>
+                                        <td></td>
+                                        <td> </td>
+                                        <td> </td>
+                                        <td> </td>
+                                        <td> </td>
+                                        <td> </td>
+                                        <td class="border-less"> ____________________ <br>
+                                          Staff's Signature
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                  <div>
+                                    <button type="submit" class="btn mb-3 col-lg-12" style="background-color: orangered;"
+                                      (click)="printStatement()">Print <i class="bi bi-printer"></i></button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <button class="btn btn-light bi bi-person" value="{{item.id}}" (click)="edits($event)">
+
+                      </button>
+                      <div class="modal fade show mt-5 {{users}} col-lg-12" id="scrollingModal" tabindex="-1"
+                        aria-modal="true" role="dialog">
+                        <div class="">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">Group Members</h5>
+                              <button type="button" (click)="close()" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body" style="min-height: 100vh;">
+                              <div class="card recent-sales overflow-auto">
+                                <div class="card-body {{statecon}}">
+                                  <div class="col-lg-12 ">
+                                  </div>
+                                  <table small="true" class="table table-sm" id="statement">
+
+                                    <thead>
+                                      <tr>
+                                        <td scope="col">Full Name</td>
+                                        <td scope="col">Account Number</td>
+                                        <td scope="col">Duration</td>
+                                        <td scope="col">Expected Balance</td>
+                                        <td scope="col">Disbursement Number</td>
+                                        <td scope="col">Disbursement Date</td>
+                                        <td scope="col">Prev Card</td>
+                                        <td scope="col">Todays Card</td>
+                                        <td scope="col">Completed Circles</td>
+                                        <td scope="col">Outstanding</td>
+                                        <td scope="col">Over Draft</td>
+                                        <td scope="col">Running Balance</td>
+                                        <td scope="col">Withdrawable Balance</td>
+                                        <td scope="col">Action</td>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr *ngFor="let item of sm; let i=index;" class="{{item.m_d>0?'bg-danger text-white':''}} {{item.o_d>0?'bg-warning text-white':''}} ng-start-inserted">
+                                        <td> {{names[i].name}}</td>
+                                        <td> {{item.amount}}</td>
+                                        <td> {{group.days}} Days</td>
+                                        <td> {{group.rate*group.days}}</td>
+                                        <td> {{item.icon}}</td>
+                                        <td> {{item.date}}</td>
+                                        <td> {{(group.days-item.gtype)-item.card>0?(group.days-item.gtype)-item.card:0}}</td>
+                                        <td> {{item.card}}</td>
+                                        <td> {{item.staffid}}</td>
+                                        <td> {{group.rate*item.m_d}}</td>
+                                        <td> {{item.o_d}}</td>
+                                        <td> {{item.balance}}</td>
+                                        <td> {{item.wallet}}</td>
+                                        <td><button class="btn btn-light" value="{{item.id}}" (click)="changeDate($event)">Reset</button></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <button class="btn btn-light bi bi-person" value="{{item.id}}"
+                        (click)="group_updates('edit',$event)"></button>
+                      <div class="modal fade show mt-5 {{edit}}" id="scrollingModal" tabindex="-1" aria-modal="true"
+                        role="dialog">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">Update Group</h5>
+                              <button type="button" (click)="close()" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <form>
+                                <div class="row mb-1">
+                                  <label for="inputEmail" class=" col-form-label">Starting date</label>
+                                  <div class="col-sm-12">
+                                    <input type="date" class="form-control" name="start_date" [(ngModel)]="start_date">
+                                  </div>
+                                </div>
+                                <div class="row mb-1">
+                                  <label for="inputEmail" class=" col-form-label">Ending date</label>
+                                  <div class="col-sm-12">
+                                    <input type="date" class="form-control" name="end_date" [(ngModel)]="end_date">
+                                  </div>
+                                </div>
+                                <div class="row mb-1">
+                                  <label for="inputEmail" class=" col-form-label">Group Name</label>
+                                  <div class="col-sm-12">
+                                    <input type="text" class="form-control" placeholder="Please Enter Name" name="name"
+                                      [(ngModel)]="name">
+                                  </div>
+                                </div>
+                                <div class="row mb-1">
+                                  <div class="col-sm-2">
+                                    <button type="submit" class="btn btn-dark"
+                                      (click)="group_updates('update')">Update</button>
+                                  </div>
+                                </div>
+                              </form><!-- End General Form Elements -->
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  </main>
+</ion-content>

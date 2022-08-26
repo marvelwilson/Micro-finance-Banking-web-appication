@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Approve disbursment</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form>
+    <div class="row mb-3">
+      <label for="inputText" class=" col-form-label">Staff's Profile</label>
+      <div class="col-sm-12">
+        <input type="date" class="form-control" name="profile">
+       
+      </div>
+    </div>
+    </form>
+
+  <ion-list>
+
+    <ion-item>
+      <ion-label position="stacked">Disbursment date</ion-label>
+      <ion-input [(ngModel)]="disbursment_date" type="date" min="1997-01-01" max="2030-12-31" placeholder="dd-mm-yyyy"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">FIrst repayment</ion-label>
+      <ion-input [(ngModel)]="start_date" type="date"></ion-input>
+    </ion-item>
+
+    <ion-button (click)="approve_disbursment()" expand="block" min="1997-01-01" max="2030-12-31" placeholder="dd-mm-yyyy">Approve</ion-button>
+  </ion-list>
+
+</ion-content>

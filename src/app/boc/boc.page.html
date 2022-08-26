@@ -1,0 +1,428 @@
+<ion-header>
+  <ion-toolbar>
+    <span class="card-header" style="color:orange;"><span class="btn btn-dark text-white" (click)="backtohome()"><i
+          class="bi bi-arrow-left"></i></span> <span style=" float: right;">Buy On Credit</span></span>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <section class="section dashboard">
+    <div class="row">
+      <!-- Left side columns -->
+      <div class="col-lg-12">
+        <div class="row">
+
+          <!-- Sales Card -->
+          <div class=" col-md-4">
+            <div class="card info-card sales-card">
+
+
+              <div class="card-body">
+                <h5 class="card-title">No Of Customers <span>| All Time</span></h5>
+
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"
+                    (click)="modals('noc')">
+                    <i class="bi bi-people"></i>
+                  </div>
+                  <div class="ps-3">
+                    <h6>577</h6>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="modal fade show mt-5 {{noc}} col-lg-12" id="scrollingModal" tabindex="-1" aria-modal="true"
+              role="dialog">
+              <div class="">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Customers</h5>
+                    <button type="button" (click)="close()" class="btn-close" data-bs-dismiss="modal"
+                      aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body" style="min-height: 100vh;">
+                    <div class="card recent-sales overflow-auto">
+                      <div class="card-body statecon">
+                        <div class="col-lg-12 ">
+                          <form #searchUser="ngForm" (ngSubmit)="SearchID(searchUservalue)">
+                            <div class="row">
+                              <div class="col-12 pb-2">
+                                <label for="">Search</label>
+                                <input type="text" class="form-control" placeholder="Find ..." name="search" ngModel>
+                              </div>
+                              <button type="submit" class="btn text-white mb-3 col-sm-2"
+                                style="background-color: darkorange;">Search</button>
+                            </div>
+                          </form>
+                        </div>
+                        <table class="table table-borderless datatable" id="statement">
+
+                          <thead>
+                            <tr>
+                              <th scope="col">Trans(Date/Time)</th>
+                              <th scope="col">Account Number</th>
+                              <th scope="col">Trans ID</th>
+                              <th scope="col">Trans Details</th>
+                              <th scope="col">Trans Type</th>
+                              <th scope="col">Amount</th>
+                              <th scope="col">Balance</th>
+                              <th scope="col">Account Type</th>
+
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let item of sm;let i = index;">
+
+                              <td> itemcreated_at</td>
+                              <td> itemacc_num</td>
+                              <td> itemtransid</td>
+                              <td> itemtransD</td>
+                              <td> itemtransType</td>
+                              <td> itemamount</td>
+                              <td> itembalance</td>
+                              <td> itemaccType</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <div>
+                          <button type="submit" class="btn text-white mb-3 col-sm-2"
+                            style="background-color: darkorange;" (click)="printStatement()">Print <i
+                              class="bi bi-printer"></i></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Sales Card -->
+
+          <!-- Revenue Card -->
+          <div class=" col-lg-4">
+            <div class="card info-card revenue-card">
+
+
+              <div class="card-body">
+                <h5 class="card-title">Total Sales <span>| All Time</span></h5>
+
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-items"></i>
+                  </div>
+                  <div class="ps-3">
+                    <h6>80</h6>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div><!-- End Revenue Card -->
+          <div class=" col-lg-4">
+            <div class="card info-card sales-card">
+
+
+              <div class="card-body">
+                <h5 class="card-title">Pending Orders <span>| All Time</span></h5>
+
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-cart"></i>
+                  </div>
+                  <div class="ps-3">
+                    <h6>78888</h6>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div><!-- End Sales Card -->
+          <!-- Sales Card -->
+          <div class=" col-lg-3">
+            <div class="card info-card sales-card">
+
+              <div class="card-body">
+                <h5 class="card-title">Completed Orders <span>| All Time</span></h5>
+
+                <div class="d-flex align-items-center">
+                  <div (click)="modals('co')"
+                    class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-cart"></i>
+                  </div>
+                  <div class="ps-3">
+                    <h6>976</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade show mt-5 {{co}} col-lg-12" id="scrollingModal" tabindex="-1" aria-modal="true"
+                role="dialog">
+                <div class="">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Completed Orders</h5>
+                      <button type="button" (click)="close()" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" style="min-height: 100vh;">
+                      <div class="card recent-sales overflow-auto">
+                        <div class="card-body statecon">
+                          <div class="col-lg-12 ">
+                            <form #searchUser="ngForm" (ngSubmit)="SearchID(searchUservalue)">
+                              <div class="row">
+                                <div class="col-12 pb-2">
+                                  <label for="">Search</label>
+                                  <input type="text" class="form-control" placeholder="Find ..." name="search" ngModel>
+                                </div>
+                                <button type="submit" class="btn text-white mb-3 col-sm-2"
+                                  style="background-color: darkorange;">Search</button>
+                              </div>
+                            </form>
+                          </div>
+                          <table class="table table-borderless datatable" id="statement">
+
+                            <thead>
+                              <tr>
+                                <th scope="col">Trans(Date/Time)</th>
+                                <th scope="col">Account Number</th>
+                                <th scope="col">Trans ID</th>
+                                <th scope="col">Trans Details</th>
+                                <th scope="col">Trans Type</th>
+                                <th scope="col">Amount</th>
+                                <th scope="col">Balance</th>
+                                <th scope="col">Account Type</th>
+
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let item of sm;let i = index;">
+
+                                <td> itemcreated_at</td>
+                                <td> itemacc_num</td>
+                                <td> itemtransid</td>
+                                <td> itemtransD</td>
+                                <td> itemtransType</td>
+                                <td> itemamount</td>
+                                <td> itembalance</td>
+                                <td> itemaccType</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <div>
+                            <button type="submit" class="btn text-white mb-3 col-sm-2"
+                              style="background-color: darkorange;" (click)="printStatement()">Print <i
+                                class="bi bi-printer"></i></button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Sales Card -->
+          <!-- Sales Card -->
+          <div class=" col-lg-3">
+            <div class="card info-card sales-card">
+
+
+
+              <div class="card-body">
+                <h5 class="card-title">Sales Profit <span>| All Time</span></h5>
+
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-cash"></i>
+                  </div>
+                  <div class="ps-3">
+                    <h6>NGN9877</h6>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div><!-- End Sales Card -->
+          <!-- Sales Card -->
+          <div class=" col-md-3">
+            <div class="card info-card sales-card">
+
+
+              <div class="card-body">
+                <h5 class="card-title">Credit Balance<span>| Total</span></h5>
+
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-cash"></i>
+                  </div>
+                  <div class="ps-3">
+                    <h6>NGN 0999</h6>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div><!-- End Sales Card -->
+
+          <div class=" col-md-3">
+            <div class="card info-card sales-card">
+
+
+              <div class="card-body">
+                <h5 class="card-title">Products</h5>
+
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"
+                    (click)="modals('pro')">
+                    <i class="bi bi-cart"></i>
+                  </div>
+                  <div class="ps-3">
+                    <h6>999</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade show mt-5 {{pro}} col-lg-12" id="scrollingModal" tabindex="-1" aria-modal="true"
+                role="dialog">
+                <div class="">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Products</h5>
+                      <button type="button" (click)="close()" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" style="min-height: 100vh;">
+                      <div class="card recent-sales overflow-auto">
+                        <div class="card-body statecon">
+                          <div class="col-lg-12 ">
+                            <form #searchUser="ngForm" (ngSubmit)="SearchID(searchUservalue)">
+                              <div class="row">
+                                <div class="col-12 pb-2">
+                                  <label for="">Search</label>
+                                  <input type="text" class="form-control" placeholder="Find ..." name="search" ngModel>
+                                </div>
+                                <button type="submit" class="btn text-white mb-3 col-sm-2"
+                                  style="background-color: darkorange;">Search</button>
+                              </div>
+                            </form>
+                          </div>
+                          <button type="submit" (click)="modals('addpro')" class="btn btn-dark mb-3 col-sm-2">Add</button>
+                          <table class="table table-borderless datatable" id="statement">
+
+                            <thead>
+                              <tr>
+                                <th scope="col">Category</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Brand</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Amount</th>
+                                <th scope="col">Image</th>
+                                <th scope="col">Edit</th>
+                                <th scope="col">Delete</th>
+
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let i of prolist;">
+                                <td> {{i.pcat}}</td>
+                                <td> {{i.ptype}}</td>
+                                <td> {{i.pbrand}}</td>
+                                <td> {{i.pname}}</td>
+                                <td> {{i.pamount}}</td>
+                                <td> <img src="{{url+i.pimage}}" alt="" width="100"></td>
+                                <td><button class="btn btn-success bi bi-check" value="{{i.id}}" (click)="modals('editpro',$event)"></button>
+
+                                  <div class="modal fade show mt-5 {{editpro}} col-lg-12" id="scrollingModal" tabindex="-1"
+                                    aria-modal="true" role="dialog">
+                                    <div class="">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title">Update Product</h5>
+                                          <button type="button" (click)="closeform()" class="btn-close"
+                                            data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body" style="min-height: 100vh;">
+                                          <div class="card recent-sales overflow-auto">
+                                            <div class="card-body statecon">
+                                              <div class="col-lg-12 ">
+                                                <form>
+                                                  <div class="row mb-3">
+                                                    <label class=" col-form-label">Product Category</label>
+                                                    <div class="col-sm-12">
+                                                      <input type="text" value="{{editable.pcat}}" class="form-control "
+                                                        placeholder="{{editable.pcat}}" [(ngModel)]="pcat" name="pcat" >
+                                                    </div>
+                                                  </div>
+
+                                                  <div class="row mb-3">
+                                                    <label for="inputEmail" class=" col-form-label">Product Type</label>
+                                                    <div class="col-sm-12">
+                                                      <input type="text"  value="{{editable.ptype}}" class="form-control "
+                                                        placeholder="{{editable.ptype}}" [(ngModel)]="pcat" name="ptype">
+                                                    </div>
+                                                  </div>
+
+                                                  <div class="row mb-3">
+                                                    <label class=" col-form-label">Product Brand</label>
+                                                    <div class="col-sm-12">
+                                                      <input type="text" name="pbrand" value="{{editable.pbrand}}" class="form-control "
+                                                        placeholder="{{editable.pbrand}}" [(ngModel)]="pbrand"  name="pbrand">
+                                                    </div>
+                                                  </div>
+                                                  <div class="row mb-3">
+                                                    <label class=" col-form-label">Product Name</label>
+                                                    <div class="col-sm-12">
+                                                      <input type="text" name="pname" value="{{editable.pname}}" class="form-control "
+                                                        placeholder="{{editable.pname}}" [(ngModel)]="pname"  name="pname">
+                                                    </div>
+                                                  </div>
+                                                  <div class="row mb-3 ">
+                                                    <label class=" col-form-label">Amount</label>
+                                                    <div class="col-sm-12">
+                                                      <input type="text"  value="{{editable.pamount}}" class="form-control "
+                                                        placeholder="{{editable.pamount}}"  [(ngModel)]="amount" name="amount">
+                                                    </div>
+                                                  </div>
+                                                  <div class="row mb-3 ">
+                                                    <label class=" col-form-label">Product Image</label>
+                                                    <div class="col-sm-12">
+                                                      <input type="file" (change)="pimage($event)" name="image"
+                                                        class="form-control ">
+                                                        <input type="hidden" class="form-control " value="{{editable.id}}" [(ngModel)]="id" name="id">
+                                                    </div>
+                                                  </div>
+                                                  <div class="row mb-3">
+                                                    <div class="col-sm-12">
+                                                      <button type="submit" (click)="onSubmit()" class="btn btn-dark">Update</button>
+                                                    </div>
+                                                  </div>
+
+                                                </form><!-- End General Form Elements -->
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td><button value="{{i.id}}" (click)="modals('delpro',$event)" class="btn btn-danger bi bi-trash"></button></td>
+
+                              </tr>
+                            </tbody>
+                          </table>
+                          <div>
+                            <button type="submit" class="btn text-white mb-3 col-sm-2"
+                              style="background-color: darkorange;" (click)="printStatement()">Print <i
+                                class="bi bi-printer"></i></button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Sales Card -->
+        </div>
+      </div><!-- End Left side columns -->
+    </div>
+  </section>
+</ion-content>

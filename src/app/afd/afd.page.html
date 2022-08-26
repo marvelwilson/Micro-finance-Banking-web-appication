@@ -1,0 +1,85 @@
+<ion-content overflow-scroll="false">
+    <app-sidebars></app-sidebars>
+    <main id="main" class="main">
+
+      <div class="pagetitle">
+        <h1 style="color:orangered; ">Active Fixed Account</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a>Home</a></li>
+            <li class="breadcrumb-item active">Fixed Account</li>
+          </ol>
+        </nav>
+      </div><!-- End Page Title -->
+  <section class="section dashboard">
+      <div class="col-lg-12">
+          <div class="row">
+              <div class="col-xxl-4 col-xl-12">
+
+                  <div class="card info-card customers-card">
+                      <div class="card-body">
+
+
+                      </div>
+                  </div>
+
+              </div>
+              <div class="col-12">
+
+                  <div class="card recent-sales overflow-auto">
+
+                      <div class="card-body">
+                          <h5 class="card-title text-dark">Active Fixed Deposit</h5>
+                          <div class="col-lg-12 mb-3">
+                              <form #searchUser="ngForm" (ngSubmit)="onSubmit(searchUser.value)">
+                                  <div class="row">
+                                      <div class="col-lg-5 ">
+                                          <input type="text" class="form-control"
+                                              placeholder="Enter Reqular Account" name="acc_num" ngModel>
+                                      </div>
+                                      <button type="submit" class="btn btn-dark col-sm-2">Search</button>
+                                  </div>
+                              </form>
+                          </div>
+                          <div>
+                              {{sumer}}
+                          </div>
+                          <table class="table table-borderless datatable">
+                              <thead>
+                                  <tr>
+                                      <th scope="col">Fullname</th>
+                                      <th scope="col">Account Number</th>
+                                      <th scope="col">Start Date</th>
+                                      <th scope="col">End Date</th>
+                                      <th scope="col">Expected Balance</th>
+                                      <th scope="col">Balance</th>
+                                      <th scope="col">Duration</th>
+                                  </tr>
+                              </thead>
+                             
+                              <tbody>
+                                  <tr *ngFor="let item of details;">
+
+                                      <td> {{item.name}}</td>
+                                      <td> {{item.acc_num}}</td>
+                                      <td> {{item.created_at}}</td>
+                                      <td> After {{item.days}} Days</td>
+                                      <td> {{item.duration*item.balance/100+item.balance}}</td>
+                                      <td> {{item.balance}}</td>
+                                      <td> {{item.rate}} Months</td>
+                                      <td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                          <div>
+                              <button type="submit" class="btn btn-light mb-3 col-sm-2" (click)="printStatement()">Print <i class="bi bi-printer"></i></button>
+                          </div>
+                      </div>
+
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+  </main>
+</ion-content>

@@ -1,0 +1,132 @@
+<ion-content overflow-scroll="false">
+  <app-sidebars></app-sidebars>
+  <main id="main" class="main">
+  
+    <div class="pagetitle">
+      <h1>Bank Reconcilations</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a>Accounting</a></li>
+          <li class="breadcrumb-item active">Bank Reconcilations</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+      <button class="btn btn-light mb-5" (click)="modals('newbank')">New Reconcilations</button>
+      <div class="modal fade show mt-5 {{newbank}}" id="scrollingModal" tabindex="-1" aria-modal="true"
+        role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Create a new reconcilation</h5>
+              <button type="button" (click)="close()" class="btn-close" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+            </div>
+            <div class="modal-body " >
+
+              
+              <form #userPost="ngForm" (ngSubmit)="onSubmit(userPost.value)">
+                
+                <div class="row mb-1">
+                  <label for="inputEmail" class=" col-form-label">Bank</label>
+                  <div class="col-sm-12">
+                    <select name="name" class="form-control" ngModel>
+                      <option *ngFor="let a of banks" value="{{a.name}}">{{a.name}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row mb-1">
+                  <div class="col-sm-12">
+                    <input type="number" class="form-control" name="amount"  placeholder="Enter Statement Amount" ngModel>
+                  </div>
+                </div>
+                <div class="row mb-1">
+                  <div class="col-sm-12">
+                    <button type="submit" class="btn btn-dark ">Create</button>
+                  </div>
+                </div>
+              </form><!-- End General Form Elements -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="card recent-sales overflow-auto">
+
+        <div class="card-body">
+          <table small="true" class="table table-sm">
+            <thead>
+              <tr>
+                <td scope="col" class="ng-star-inserted">
+                  Date
+                </td>
+                <td scope="col" class="ng-star-inserted">
+                  Bank account
+                </td>
+                 <td scope="col" class="ng-star-inserted">
+                  Statement balance
+                </td>
+                <td scope="col" class="ng-star-inserted">
+                  Discrepancy
+                </td>
+                <td scope="col" class="ng-star-inserted">
+                 Status
+                </td>
+                <td scope="col" class="ng-star-inserted">
+                 Action
+                </td>
+              </tr>
+              <tr class="ng-start-inserted" *ngFor="let a of items;">
+                <td>{{a.created_at}}</td>
+                <td>{{a.bank}}</td>
+                 <td>&#8358;{{a.statement}}</td>
+                 <td>&#8358;{{a.discrepancy}}</td>
+                 <td> <button class="{{0>a.discrepancy?'btn btn-danger':'btn btn-success'}}">{{0>a.discrepancy?'Not Reconciled':'Reconciled'}}</button></td>
+                 <td><button class="btn btn-light" value="{{a.id}}" (click)="modals('edit', $event)">Edit</button></td>
+
+              </tr>
+            </thead>
+          </table>
+      </div>
+    </div>
+
+    <div class="modal fade show mt-5 {{updatebank}}" id="scrollingModal" tabindex="-1" aria-modal="true"
+    role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Update new reconcilation</h5>
+          <button type="button" (click)="close()" class="btn-close" data-bs-dismiss="modal"
+            aria-label="Close"></button>
+        </div>
+        <div class="modal-body " >
+
+          
+          <form>
+            
+            <div class="row mb-1">
+              <label for="inputEmail" class=" col-form-label">Bank</label>
+              <div class="col-sm-12">
+                <select name="name" class="form-control" [(ngModel)]="name">
+                  <option *ngFor="let a of banks" value="{{a.name}}">{{a.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="row mb-1">
+              <div class="col-sm-12">
+                <input type="number" class="form-control" name="amount"  placeholder="Enter Statement Amount" [(ngModel)]="amount">
+              </div>
+            </div>
+            <div class="row mb-1">
+              
+                <button type="submit" (click)="modals('update')" class="btn btn-dark  col-sm-2">Update</button>
+                <button type="submit" (click)="modals('delete')" class="btn btn-danger col-sm-2">Delete</button>
+
+            </div>
+          </form><!-- End General Form Elements -->
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+</ion-content>
