@@ -31,7 +31,6 @@ url = 'https://agilfinance.net/service/storage/';
    
   ngOnInit() {
     this.getuserinfo();
-
   }
 
  
