@@ -13,7 +13,7 @@ export class FixedassetPage implements OnInit {
   edituser: any;
   dis: string;
   newbank='d-none';
-  url = 'https://agilfinance.net/service/storage/';
+  url = 'https://agilfinance.net/service/storage/app/public/';
   specific = 'd-block'
   amount:any;
   acc_cost: number;

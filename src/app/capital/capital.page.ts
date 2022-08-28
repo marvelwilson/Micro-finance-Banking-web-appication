@@ -12,7 +12,7 @@ export class CapitalPage implements OnInit {
   items: any;
   newbank = 'd-none';
   updatebank= 'd-none'
-  url = 'https://agilfinance.net/service/storage/';
+  url = 'https://agilfinance.net/service/storage/app/public/';
   specific = 'd-block'
   name='';
   date='';

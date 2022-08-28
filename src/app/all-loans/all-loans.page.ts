@@ -17,7 +17,7 @@ export class AllLoansPage implements OnInit {
   edituser: any;
   dis: string;
   display: string;
-  url = 'https://agilfinance.net/service/storage/';
+  url = 'https://agilfinance.net/service/storage/app/public/';
   specific = 'd-block'
 
   constructor(

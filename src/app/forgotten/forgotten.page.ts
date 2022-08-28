@@ -12,7 +12,7 @@ import { NgxPrintModule } from 'ngx-print';
 })
 export class ForgottenPage implements OnInit {
   items: any;
-  url = 'https://agilfinance.net/service/storage/';
+  url = 'https://agilfinance.net/service/storage/app/public/';
   id: any;
   amount: any;
   payment: any;

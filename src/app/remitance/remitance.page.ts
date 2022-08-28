@@ -15,7 +15,7 @@ export class RemitancePage implements OnInit {
   edituser: any;
   dis: string;
   newbank = 'd-none';
-url = 'https://agilfinance.net/service/storage/';
+url = 'https://agilfinance.net/service/storage/app/public/';
   specific = 'd-block'
   thrift: any;
   payer_names: any;

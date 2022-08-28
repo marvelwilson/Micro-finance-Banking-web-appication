@@ -19,7 +19,7 @@ export class SidebarsComponent implements OnInit {
   a = false;
   userInfo: any;
   userType: any;
-url = 'https://agilfinance.net/service/storage/';
+url = 'https://agilfinance.net/service/storage/app/public/';
   pendingcounter: any;
   
   constructor(

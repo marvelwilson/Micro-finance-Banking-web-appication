@@ -12,7 +12,7 @@ export class ExpPage implements OnInit {
   bal=[0,1];
   items: any;
   staffname=''
-  url = 'https://agilfinance.net/service/storage/';
+  url = 'https://agilfinance.net/service/storage/app/public/';
   id:any;
   amount:any;
   payment:any;

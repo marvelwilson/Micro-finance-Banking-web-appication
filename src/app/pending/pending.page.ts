@@ -12,7 +12,7 @@ export class PendingPage implements OnInit {
 
   items: any;
   users: any;
-url = 'https://agilfinance.net/service/storage/';
+url = 'https://agilfinance.net/service/storage/app/public/';
   cv:any;
   display='d-none';
   dis='d-none';

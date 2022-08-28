@@ -12,7 +12,7 @@ import { NgxPrintModule } from 'ngx-print';
 export class SignupPage implements OnInit {
   items: any;
   users: any;
-url = 'https://agilfinance.net/service/storage/';
+url = 'https://agilfinance.net/service/storage/app/public/';
   id: any;
   amount: any;
 

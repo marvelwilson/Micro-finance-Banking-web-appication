@@ -13,7 +13,7 @@ export class BocPage implements OnInit {
   co = 'd-none';
   pro = 'd-none';
   prolist: any;
-  url = 'https://agilfinance.net/service/storage/';
+  url = 'https://agilfinance.net/service/storage/app/public/';
   editpro = 'd-none'
   editable: { id: any; pname: any; ptype: any; pamount: any; pbrand: any; pcat: any; pimage: any; };
   file_properties='';
