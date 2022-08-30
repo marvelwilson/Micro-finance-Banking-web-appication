@@ -325,7 +325,7 @@
                           <div class="modal-content">
                             <div class="modal-header">
                               <h5 class="modal-title">Account Statement</h5>
-                              <button type="button" (click)="close()" class="btn-close" data-bs-dismiss="modal"
+                              <button type="button" (click)="close()" class="btn btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                             </div>
                             <div class="modal-body" style="min-height: 100vh;">
@@ -336,21 +336,20 @@
                                       <div class="row">
                                         <div class="col-lg-12 pb-2">
                                           <label for="">From</label>
-                                          <input type="datetime-local" class="form-control"
+                                          <input type="datetime-local" class="form-control col-lg-4"
                                             placeholder="Enter From Date" name="from" ngModel>
                                         </div>
                                         <div class="col-lg-12 pb-2">
                                           <label for="">To</label>
-                                          <input type="datetime-local" class="form-control" placeholder="Enter To Data"
+                                          <input type="datetime-local" class="form-control col-lg-4" placeholder="Enter To Data"
                                             name="to" ngModel>
                                         </div>
-                                        <button type="submit" class="btn mb-3"
-                                          style="background-color: orangered;">Filter</button>
+                                        <button type="submit" class="btn btn-dark mb-3">Filter</button>
                                       </div>
                                     </form>
                                     <div class="col-lg-12 pb-2">
                                       <label for="">To</label>
-                                      <input type="text" class="form-control" placeholder="Enter To Account Number"
+                                      <input type="text" class="form-control col-lg-4" placeholder="Enter To Account Number"
                                         name="acc_num" ngModel>
                                     </div>
                                     <div class="card">
@@ -363,7 +362,7 @@
                                             Role :{{ staff.acc_type }}<br> Address :{{ staff.address }}
                                           </div>
                                           <div class="col-lg-6 pl-3">
-                                            <u>Groups's</u><br>
+                                            <u>Group's</u><br>
                                             Name :{{ edituser.name }} <br>
                                             Address : {{ edituser.address }}
                                           </div>
