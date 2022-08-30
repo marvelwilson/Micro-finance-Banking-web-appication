@@ -39,6 +39,22 @@
                     <!-- <label for="">Search Type</label> -->
                   </div>
                 </form>
+                <form #searchUser="ngForm" (ngSubmit)="filter(searchUser.value)">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <label for="">From</label>
+                      <input type="datetime-local" class="form-control" placeholder="Search" name="from" ngModel>
+                    </div>
+                    <div class="col-lg-6">
+                      <label for="">To</label>
+                      <input type="datetime-local" class="form-control" placeholder="Search" name="to" ngModel>
+                    </div>
+                    <div class="col-lg-6">
+                      <input type="submit" class="btn btn-dark" value="Filter">
+                    </div>
+                    <!-- <label for="">Search Type</label> -->
+                  </div>
+                </form>
                 <div class="row">
                   <div class="col-lg-2">
                     <label for="">Thrift Officer</label>
@@ -65,7 +81,7 @@
                 </div>
                 </div>
                 
-              <table id="example" class="table table-borderless datatable">
+              <table class="table table-borderless datatable">
                 <thead>
                   <tr>
 
