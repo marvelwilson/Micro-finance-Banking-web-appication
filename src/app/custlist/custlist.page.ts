@@ -316,6 +316,9 @@ async updateCust(){
     } 
   })
 }
+async filter(event){
+ console.log(event)
+}
   
   bunb(e) {
     var id = e.target.value;
