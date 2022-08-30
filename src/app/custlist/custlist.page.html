@@ -39,15 +39,15 @@
                     <!-- <label for="">Search Type</label> -->
                   </div>
                 </form>
-                <form #searchUser="ngForm" (ngSubmit)="filter(searchUser.value)">
+                <form #FilterUser="ngForm" (ngSubmit)="filter(FilterUser.value)">
                   <div class="row">
                     <div class="col-lg-6">
                       <label for="">From</label>
-                      <input type="datetime-local" class="form-control" placeholder="Search" name="from" ngModel>
+                      <input type="datetime-local" class="form-control" name="from" ngModel>
                     </div>
                     <div class="col-lg-6">
                       <label for="">To</label>
-                      <input type="datetime-local" class="form-control" placeholder="Search" name="to" ngModel>
+                      <input type="datetime-local" class="form-control" name="to" ngModel>
                     </div>
                     <div class="col-lg-6">
                       <input type="submit" class="btn btn-dark" value="Filter">
