@@ -80,7 +80,7 @@ export class CustlistPage implements OnInit {
           const e = this.thrift[i];
           if (e.acc_type=='Thrift') {
             this.th_off.push(e)
-          }else if(e.acc_type=='Marketer'){
+          }else if(e.acc_type=='Credit&Marketing'){
             this.acc_off.push(e)
           }
           
