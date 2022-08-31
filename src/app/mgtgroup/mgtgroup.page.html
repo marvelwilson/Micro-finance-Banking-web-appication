@@ -339,11 +339,14 @@
                                           <input type="datetime-local" class="form-control"
                                             placeholder="Enter From Date" name="from" ngModel>
                                         </div>
+                                        <div class="col-lg-5"></div>
                                         <div class="col-lg-4 pb-2">
                                           <label for="">To</label>
                                           <input type="datetime-local" class="form-control" placeholder="Enter To Data"
                                             name="to" ngModel>
                                         </div>
+                                        <div class="col-lg-5"></div>
+
                                         <div class="col-lg-6">
                                           <button type="submit" class="btn btn-dark">Filter</button>
                                         </div>
@@ -351,10 +354,14 @@
                                     </form>
                                     <div class="col-lg-4 pb-2">
                                       <label for="">Members</label>
-                                      <select name="" id="" class="form-control">
-                                        <option value="name">name</option>
+                                      <select (change)="eventListener('users', $event)" class="form-control">
+                                        <option value="" disabled selected>Select</option>
+                                        <option *ngFor="let i of userList" value="{{i.acc_num}}">{{i.acc_num}}--{{i.name}}</option>
                                       </select>
                                      
+                                    </div>
+                                    <div class="col-lg-6">
+                                       <button class="btn btn-light" (click)="reset()">Reset</button>
                                     </div>
                                     <div class="card">
                                       <div class="card-body">
@@ -392,7 +399,7 @@
                                       </tr>
                                     </thead>
                                     <tbody>
-                                      <tr *ngFor="let item of sm;" class="ng-start-inserted">
+                                      <tr *ngFor="let item of his;" class="ng-start-inserted">
                                         <td><img src='{{url+item.reciept}}' class="{{item.reciept==''?'d-none':''}}" width="100">{{item.reciept==''?'No Receipt':''}}</td>
                                         <td> {{item.created_at}}</td>
                                         <td> {{item.acc_num}}</td>
@@ -452,8 +459,7 @@
                                     </tbody>
                                   </table>
                                   <div>
-                                    <button type="submit" class="btn mb-3 col-lg-12" style="background-color: orangered;"
-                                      (click)="printStatement()">Print <i class="bi bi-printer"></i></button>
+                                    <button type="submit" class="btn btn-light col-lg-2" (click)="printStatement()">Print <i class="bi bi-printer"></i></button>
                                   </div>
                                 </div>
                               </div>

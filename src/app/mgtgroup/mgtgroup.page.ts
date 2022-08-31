@@ -54,11 +54,10 @@ export class MgtgroupPage implements OnInit {
   trans_amount: any[];
   missdays: any[];
   overdrafts: any;
-
-
+  userList: any;
+  his: any;
 
   //edit fields inputs
-
   constructor(
     public router: Router,
     private Httpnetwork: NetworkService,
@@ -84,12 +83,9 @@ export class MgtgroupPage implements OnInit {
       message: "<img src='assets/img/Check.gif'> <br> <br> <h2>Your Number Is :" + this.shuffleNumbers[0] + "</h2>",
       buttons: ['OK']
     })
-
     alert.present();
     this.elem = ''
     this.picked = this.shuffleNumbers[0]
-
-
   }
   async edits(id) {
     let alert = await this.alertController.create({
@@ -866,6 +862,55 @@ export class MgtgroupPage implements OnInit {
 
     }
   }
+  reset(){
+    this.his = this.sm
+    let debit = 0;
+    let credit = 0;
+    for (let i = 0; i < this.his.length; i++) {
+      const element = this.his[i];
+      if (element.transType == 'Deposit') {
+        credit += Number(element.amount)
+      } else if (element.transType == 'Withdraw') {
+        debit += Number(element.amount)
+
+      }
+    }
+    this.sums = [{
+      'credits': credit,
+      'debits': debit,
+      'balance': credit - debit,
+    }]
+  }
+  eventListener(val, e){
+    e = e.target.value
+   let emptyarr=[]
+    if (val=='users') {
+       this.sm.map(a=>{
+
+        if (e==a.acc_num) {
+          emptyarr.push(a)
+        }
+       })
+    }
+    this.his=emptyarr
+
+    let debit = 0;
+    let credit = 0;
+    for (let i = 0; i < this.his.length; i++) {
+      const element = this.his[i];
+      if (element.transType == 'Deposit') {
+        credit += Number(element.amount)
+      } else if (element.transType == 'Withdraw') {
+        debit += Number(element.amount)
+
+      }
+    }
+    this.sums = [{
+      'credits': credit,
+      'debits': debit,
+      'balance': credit - debit,
+    }]
+  }
   async view(e) {
     let alert = await this.alertController.create({
       backdropDismiss: true,
@@ -883,9 +928,12 @@ export class MgtgroupPage implements OnInit {
         alert.buttons = ['OK']
         alert.present()
       } else {
+
         this.sm = res.his;
+        this.his = this.sm;
         this.edituser = res.customer;
         this.staff = res.officer
+        this.userList = res.users
         let debit = 0;
         let credit = 0;
         for (let i = 0; i < this.sm.length; i++) {
