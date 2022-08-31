@@ -135,13 +135,14 @@ export class CustlistPage implements OnInit {
 
   async filter(event){
     let e = event
-    this.items=this.hold_items
+    this.items=[]
     if (e.to && e.from) {
       for (let i = 0; i < this.hold_items.length; i++) {
         const a = this.hold_items[i];
-        console.log(e.from >= a.created_at)
-        if (e.from >= a.created_at && e.to <= a.created_at) {
+       let cat = a.created_at.split(' ')[0];
+        if (e.from <= cat && (e.to >= cat)) {
            this.items.push(a)
+           console.log('hello')
         }
       }
      console.log(this.items)

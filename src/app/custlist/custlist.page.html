@@ -43,13 +43,14 @@
                   <div class="row">
                     <div class="col-lg-6">
                       <label for="">From</label>
-                      <input type="datetime-local" class="form-control" name="from" ngModel>
+                      <input type="date" class="form-control" name="from" ngModel>
                     </div>
+                    <div class="col-lg-4"></div>
                     <div class="col-lg-6">
                       <label for="">To</label>
-                      <input type="datetime-local" class="form-control" name="to" ngModel>
+                      <input type="date" class="form-control" name="to" ngModel>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-7">
                       <input type="submit" class="btn btn-dark" value="Filter">
                     </div>
                     <!-- <label for="">Search Type</label> -->
@@ -75,7 +76,7 @@
                       <option value="email">Email</option>
                     </select>
                   </div>
-                  <div class="col-lg-2">
+                  <div class="col-lg-7">
                     <button class="btn btn-light" (click)="modals('reset', $event)">Reset</button>
                   </div>
                 </div>
