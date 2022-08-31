@@ -133,6 +133,18 @@ export class CustlistPage implements OnInit {
      }
   }
 
+  async filter(event){
+    let e = event
+    this.items=this.hold_items
+    for (let i = 0; i < this.hold_items.length; i++) {
+      const a = this.hold_items[i];
+      if (e.from >= a.created_at && e.to >= a.created_at) {
+         this.items.push(a)
+      }
+    }
+   console.log(this.items)
+    }
+
   getCustomers() {
 
     this.users = JSON.parse(localStorage.getItem('userid')).user;
@@ -316,9 +328,7 @@ async updateCust(){
     } 
   })
 }
-async filter(event){
- console.log(event)
-}
+
   
   bunb(e) {
     var id = e.target.value;
