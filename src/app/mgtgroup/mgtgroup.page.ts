@@ -77,15 +77,22 @@ export class MgtgroupPage implements OnInit {
     this.router.navigate(['/addgroup'])
   }
   async getVal() {
+    this.elem = ''
+    this.picked = this.shuffleNumbers[0]
     let alert = await this.alertController.create({
       backdropDismiss: true,
       cssClass: 'text-center h-1 text-secondary',
       message: "<img src='assets/img/Check.gif'> <br> <br> <h2>Your Number Is :" + this.shuffleNumbers[0] + "</h2>",
-      buttons: ['OK']
+      buttons: [{
+        text:'OK',
+        handler: ()=>{
+          this.sendAcc();
+          
+        }
+      }]
     })
     alert.present();
-    this.elem = ''
-    this.picked = this.shuffleNumbers[0]
+ 
   }
   async edits(id) {
     let alert = await this.alertController.create({
@@ -475,6 +482,7 @@ export class MgtgroupPage implements OnInit {
           } else {
             this.amount = ''
             this.dis = 'd-none'
+            this.close()
             this.items = res.success
             alert.header = 'Success'
             alert.message = 'Account Has Being Added Successfully'
