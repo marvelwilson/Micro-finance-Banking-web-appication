@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "bank",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
