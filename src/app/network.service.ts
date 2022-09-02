@@ -32,8 +32,10 @@ export class NetworkService {
     this.b = { headers: this.bearer };
   }
   smsRequestHeader(){
-    
+  
+    this.token = btoa('username:a9Vvq7Eg')
     this.basic = new HttpHeaders()
+      .set('Authorization', 'Basic ' + this.token)
       .set('Accept', 'application/json')
       .set('Access-Control-Allow-Origin','*')
 
@@ -61,7 +63,7 @@ export class NetworkService {
         "systemId": "NG.102.0722"
       }
     }
-    this.requestHeader()
+    this.smsRequestHeader()
     return this.http.post(this.point + 'rest/sms/submit', data, this.b)
 
   }
