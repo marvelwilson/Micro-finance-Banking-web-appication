@@ -33,9 +33,7 @@ export class NetworkService {
   }
   smsRequestHeader(){
     
-    this.token ={username:'NG.102.0722', password:'a9Vvq7Eg'}
     this.basic = new HttpHeaders()
-      .set('Authorization', 'Basic ' + this.token)
       .set('Accept', 'application/json')
       .set('Access-Control-Allow-Origin','*')
 
