@@ -33,11 +33,12 @@ export class NetworkService {
   }
   smsRequestHeader(){
   
-    this.token = btoa('username:a9Vvq7Eg')
     this.basic = new HttpHeaders()
-      .set('Authorization', 'Basic ' + this.token)
-      .set('Accept', 'application/json')
-      .set('Access-Control-Allow-Origin','*')
+      .set('Authorization', 'Basic TkcuMTAyLjA3MjI6YTlWdnE3RWc=')
+      .set('Content-Type', 'aplication/json')
+      .set('Access-Control-Allow-Methods', 'POST, GET, DELETE, HEAD, OPTIONS')
+      .set('Access-Control-Allow-Origin','https://www.agilfinance.net/home')
+      .set('Accept', '*/*')
 
     this.b = { headers: this.basic };
   }
