@@ -8,9 +8,12 @@ export class NetworkService {
 
   // url = 'http://localhost:8000/api/';
   url = 'https://agilfinance.net/service/api/';
+   point="https://sms.vanso.com/";
 
   token: any;
   bearer: any;
+  basic: any;
+
   b: { headers: any; } | undefined;
 
   constructor(public http: HttpClient) { }
@@ -28,6 +31,17 @@ export class NetworkService {
 
     this.b = { headers: this.bearer };
   }
+  smsRequestHeader(){
+    
+    this.token ={username:'NG.102.0722', password:'a9Vvq7Eg'}
+    this.basic = new HttpHeaders()
+      .set('Authorization', 'Basic ' + this.token)
+      .set('Accept', 'application/json')
+      .set('Access-Control-Allow-Origin','*')
+
+    this.b = { headers: this.basic };
+  }
+  
   // <-Admin request functions->
   // customers resgistration api
   RegCusts(data) {
@@ -36,6 +50,23 @@ export class NetworkService {
 
   }
 
+  sms() {
+    let data = {
+      "sms": {
+        "dest": "+2347082575907",
+        "src": "AGIL",
+        "text": "anim laborum",
+        "unicode": false
+      },
+      "account": {
+        "password": "a9Vvq7Eg",
+        "systemId": "NG.102.0722"
+      }
+    }
+    this.requestHeader()
+    return this.http.post(this.point + 'rest/sms/submit', data, this.b)
+
+  }
   // customers resgistration api
   updateCusts(data) {
     this.requestHeader()

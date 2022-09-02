@@ -33,6 +33,7 @@ export class HomePage {
   ) {
     this.getuserinfo();
     this.getDatas()
+    this.sms()
   }
 
   peroid(value) {
@@ -171,6 +172,13 @@ export class HomePage {
     }
   }
 
+  sms(){
+    this.Httpnetwork.sms().subscribe((res: any)=>{
+     console.log('message has being sent')
+    },(error: any)=>{
+      console.log(error)
+    })
+  }
   getuserinfo() {
     var data = JSON.parse(localStorage.getItem('userid'));
     this.userInfo = data;
