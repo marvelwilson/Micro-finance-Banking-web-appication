@@ -35,9 +35,8 @@ export class NetworkService {
   
     this.basic = new HttpHeaders()
       .set('Authorization', 'Basic TkcuMTAyLjA3MjI6YTlWdnE3RWc=')
-      .set('Content-Type', 'aplication/json')
-      .set('Access-Control-Allow-Methods', 'POST, GET, DELETE, HEAD, OPTIONS')
-      .set('Access-Control-Allow-Origin','https://www.agilfinance.net/home')
+      .set('Access-Control-Allow-Methods', '*')
+      .set('Access-Control-Allow-Origin','*')
       .set('Accept', '*/*')
 
     this.b = { headers: this.basic };
