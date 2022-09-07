@@ -32,8 +32,13 @@ export class HomePage {
     public route: Router
   ) {
     this.getuserinfo();
-    this.getDatas()
-    this.sms()
+    this.getDatas();
+    this.sms();
+  }
+  ngOnInit(){
+  setInterval(()=>{
+    this.autoUpdate()
+  }, ((1000*60)*60)*12)
   }
 
   peroid(value) {
@@ -172,6 +177,13 @@ export class HomePage {
     }
   }
 
+  autoUpdate(){
+    this.Httpnetwork.autoUpdate().subscribe((res:any)=>{
+     console.log(res)
+    },(error:any)=>{
+      console.log(error)
+    })
+  }
   sms(){
     this.Httpnetwork.sms().subscribe((res: any)=>{
      console.log('message has being sent')

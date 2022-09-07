@@ -31,10 +31,12 @@ export class NetworkService {
 
     this.b = { headers: this.bearer };
   }
+  //SMS API Header
   smsRequestHeader(){
-    this.token = btoa('NG.102.0722:a9Vvq7Eg');
+    var token = btoa('NG.102.0722:a9Vvq7Eg');
     this.basic = new HttpHeaders()
-      .set('Authorization', 'Basic '+this.token)
+      .set('Authorization', 'Basic '+token)
+      .set('Access-Control-Allow-Origin','*')
       .set('Accept', 'application/json')
       .set('Content-Type', 'applicatio/json')
 
@@ -49,6 +51,11 @@ export class NetworkService {
 
   }
 
+  autoUpdate(){
+    this.requestHeader()
+    return this.http.get(this.url + 'AutoConnect', this.b)
+  }
+  // SMS API CALLS
   sms() {
     let data = {
       "sms": {
