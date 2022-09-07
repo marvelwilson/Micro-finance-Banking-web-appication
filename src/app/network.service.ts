@@ -32,14 +32,13 @@ export class NetworkService {
     this.b = { headers: this.bearer };
   }
   smsRequestHeader(){
-  
+    this.token = btoa('NG.102.0722:a9Vvq7Eg');
     this.basic = new HttpHeaders()
-      .set('Authorization', 'Basic TkcuMTAyLjA3MjI6YTlWdnE3RWc=')
-      .set('Access-Control-Allow-Methods', '*')
-      .set('Access-Control-Allow-Origin','*')
-      .set('Accept', '*/*')
+      .set('Authorization', 'Basic '+this.token)
+      .set('Accept', 'application/json')
+      .set('Content-Type', 'applicatio/json')
 
-    this.b = { headers: this.basic };
+      this.b = { headers: this.basic };
   }
   
   // <-Admin request functions->
