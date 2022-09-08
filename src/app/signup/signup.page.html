@@ -84,7 +84,7 @@
 
                     </div>
                     <div class="col-lg-12">
-                        <div class="card recent-sales overflow-auto"  id="printStatement">
+                        <div class="card recent-sales overflow-auto" id="printStatement">
                             <div class="card-body">
                                 <table class="table datatable">
                                     <thead>
@@ -120,15 +120,15 @@
 
                                             <td>
                                                 <button class="btn btn-secondary bi bi-eye"
-                                                    value="{{item.userid}}h{{item.customerid}}h{{item.id}}h"
+                                                    value="{{item.userid}}h{{item.customerid}}h{{item.id}}h{{item.accType}}"
                                                     (click)="deposit($event)">
 
                                                 </button>
                                                 <div class="modal fade show d-none " tabindex="-1"
-                                                    id="modalsid_{{item.id}}" aria-modal="true" role="dialog">
+                                                    id="savings_{{item.id}}" aria-modal="true" role="dialog">
                                                     <div class="modal-dialog modal-dialog-centered">
                                                         <div class="modal-content">
-                                                            <div class="modal-body" id="printreceipt">
+                                                            <div class="modal-body" id="printsreceipt">
                                                                 <div class="col-lg-12">
 
                                                                     <h5 class=" text-center"><b>RECEIPT
@@ -137,26 +137,30 @@
                                                                     </p>
 
                                                                     <div class="row">
-                                                                        <div style="display:flex; justify-content: space-between;">
+                                                                        <div
+                                                                            style="display:flex; justify-content: space-between;">
                                                                             <p class="col-lg-7">
                                                                                 {{staff.acc_type}}</p>
                                                                             <p class="col-lg-5">
                                                                                 {{item.staff_name}}</p>
                                                                         </div>
 
-                                                                        <div style="display:flex; justify-content: space-between;">
+                                                                        <div
+                                                                            style="display:flex; justify-content: space-between;">
                                                                             <p class="col-lg-7">Transaction
                                                                                 Date</p>
                                                                             <p class="col-lg-5">
                                                                                 {{item.created_at}}</p>
                                                                         </div>
-                                                                        <div style="display:flex; justify-content: space-between;">
+                                                                        <div
+                                                                            style="display:flex; justify-content: space-between;">
                                                                             <p class="col-lg-7">Issuer</p>
                                                                             <p class="col-lg-5">AgilFinance
                                                                             </p>
 
                                                                         </div>
-                                                                        <div style="display:flex; justify-content: space-between;">
+                                                                        <div
+                                                                            style="display:flex; justify-content: space-between;">
                                                                             <p class="col-lg-7">Branch</p>
                                                                             <p class="col-lg-5">{{
                                                                                 'No.'+addr.number+', '+
@@ -165,7 +169,9 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <p><b>__ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __</b>
+                                                                <p><b>__ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __
+                                                                        __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __
+                                                                        __ __ __ __ __ __ __ __ __</b>
                                                                 </p>
                                                                 <center>
                                                                     <div class="center">
@@ -176,38 +182,43 @@
                                                                 <p><b>--------------------------------------------------------------------------------------------------------------------</b>
                                                                 </p>
                                                                 <div class="row">
-                                                                    <div style="display:flex; justify-content: space-between;">
-                                                                    <p class="col-lg-7">Receipiant Name
-                                                                    </p>
-                                                                    <p class="col-lg-5">{{cust.name}}
-                                                                    </p>
-                                                                </div>
-                                                                <div style="display:flex; justify-content: space-between;">
-                                                                    <p class="col-lg-7">Account number
-                                                                    </p>
-                                                                    <p class="col-lg-5">{{item.acc_num}}
-                                                                    </p>
-                                                                </div>
-                                                                <div style="display:flex; justify-content: space-between;">
-                                                                    <p class="col-lg-7">Account Type</p>
-                                                                    <p class="col-lg-5">
-                                                                        {{item.accType.toUpperCase()}}
-                                                                    </p>
-                                                                </div>
-                                                                <div  style="display:flex; justify-content: space-between;">
-                                                                    <p class="col-lg-7">Transaction Type
-                                                                    </p>
-                                                                    <p class="col-lg-5">
-                                                                        {{item.transType.toUpperCase()}}
-                                                                    </p>
-                                                                </div>
-                                                                <div  style="display:flex; justify-content: space-between;">
-                                                                    <p class="col-lg-7">Transaction Detail
-                                                                    </p>
-                                                                    <p class="col-lg-5">
-                                                                        {{item.transD}}
-                                                                    </p>
-                                                                </div>
+                                                                    <div
+                                                                        style="display:flex; justify-content: space-between;">
+                                                                        <p class="col-lg-7">Receipiant Name
+                                                                        </p>
+                                                                        <p class="col-lg-5">{{cust.name}}
+                                                                        </p>
+                                                                    </div>
+                                                                    <div
+                                                                        style="display:flex; justify-content: space-between;">
+                                                                        <p class="col-lg-7">Account number
+                                                                        </p>
+                                                                        <p class="col-lg-5">{{item.acc_num}}
+                                                                        </p>
+                                                                    </div>
+                                                                    <div
+                                                                        style="display:flex; justify-content: space-between;">
+                                                                        <p class="col-lg-7">Account Type</p>
+                                                                        <p class="col-lg-5">
+                                                                            {{item.accType.toUpperCase()}}
+                                                                        </p>
+                                                                    </div>
+                                                                    <div
+                                                                        style="display:flex; justify-content: space-between;">
+                                                                        <p class="col-lg-7">Transaction Type
+                                                                        </p>
+                                                                        <p class="col-lg-5">
+                                                                            {{item.transType.toUpperCase()}}
+                                                                        </p>
+                                                                    </div>
+                                                                    <div
+                                                                        style="display:flex; justify-content: space-between;">
+                                                                        <p class="col-lg-7">Transaction Detail
+                                                                        </p>
+                                                                        <p class="col-lg-5">
+                                                                            {{item.transD}}
+                                                                        </p>
+                                                                    </div>
                                                                 </div>
                                                                 <p><b>--------------------------------------------------------------------------------------------------------------------</b>
                                                                 </p>
@@ -217,6 +228,91 @@
                                                                 <center>
                                                                     Contact Support On
                                                                     <b>AgilFinance.ng</b>
+                                                                </center>
+                                                            </div>
+                                                            <div class="modal-footer btnprint">
+                                                                <button type="button" value="{{item.id}}"
+                                                                    (click)="close($event)" class="btn btn-dark"
+                                                                    data-bs-dismiss="modal">Close</button>
+                                                                <button type="button" printSectionId="printsreceipt"
+                                                                    styleSheetFile="assets/vendor/bootstrap/css/bootstrap.min.css"
+                                                                    ngxPrint class="btn btn-primary"
+                                                                    style="background-color: orange;">Print <i
+                                                                        class="bi bi-printer"></i></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal fade show d-none " tabindex="-1"
+                                                    id="modalsid_{{item.id}}" aria-modal="true" role="dialog">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <div class="modal-body" id="printreceipt">
+                                                                <div class="col-lg-12">
+                                                                    <div
+                                                                        class="d-flex  align-items-center justify-content-center">
+                                                                        <img src="assets/img/logo/logo3.jpeg" alt=""
+                                                                            width="30">
+                                                                        <h5 class=" "><span
+                                                                                style="color:orangered; font-family:Arial, Helvetica, sans-serif; font-size: 30px;"><span
+                                                                                    class="text-dark">Agil</span>Finance</span>
+                                                                        </h5>
+                                                                    </div>
+                                                                    <div class="text-center">
+                                                                        <b>180, 2nd East Circular Road, Benin City</b>
+
+                                                                    </div>
+                                                                        <div>
+                                                                            <b>{{staff.acc_type}}:
+                                                                                {{item.staff_name}}</b><br>
+                                                                            <b>Terminal ID:Ag{{zeros}}</b><br>
+                                                                            <b class="col-lg-7">Date: {{item.created_at}}</b><br>
+                                                                            <b>Txn. ID:#{{item.transid}}</b><br>
+                                                                            <h5 class="text-center">{{item.transType=='Deposit'?'CASH-IN':item.transType}}</h5>
+                                                                            <b>Customer Name:
+                                                                                {{cust.name}}</b><br>
+                                                                            <b>Acc No.: {{item.acc_num}}</b><br>
+                                                                            <b class="col-lg-7">Acc Type:{{item.created_at}}-{{cust.rate}}</b><br>
+                                                                            <b>{{item.transType}}:{{item.amount}}</b><br>
+                                                                            <b>Circle Bal:&#8358;{{cust.balance}}</b><br>
+                                                                            <b>Available Bal:&#8358;{{cust.wallet}}</b><br>
+                                                                           <b>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</b><br>
+                                                                           <h5 class="text-center">Transaction History</h5>
+                                                                           <table>
+                                                                            <tr>
+                                                                                <th>S/N</th>
+                                                                                <th>Date</th>
+                                                                                <th>Amt</th>
+                                                                                <th>Bal</th>
+                                                                            </tr>
+                                                                          <tr>
+                                                                            <td>1</td>
+                                                                            <td>{{item.created_at}}</td>
+                                                                            <td>{{item.amount}}</td>
+                                                                            <td>{{item.balance}}</td>
+                                                                          </tr>
+                                                                           </table>
+                                                                           
+                                                                           
+                                                                        </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <p><b>------------------------------------------------------------------------------------------------------</b></p>
+                                                                    <div
+                                                                        style="display:flex; justify-content: space-between;">
+                                                                        <p class="col-lg-9">Total:
+                                                                        </p>
+                                                                        <p class="col-lg-3">&#8358;{{item.balance}}
+                                                                        </p>
+                                                                    </div>
+                                                                   
+                                                                </div>
+                                                                <span class="text-center">
+                                                                    <h5>***CUSTOER'S COPY*** <br> POWER BY <br> AGIL TECHNOLOGY LTD</h5>
+                                                                </span>
+                                                                <center>
+                                                                    <u>www.AgilFinance.ng</u>
+                                                                    <P>09076208848</P>
                                                                 </center>
                                                             </div>
                                                             <div class="modal-footer btnprint">
@@ -238,7 +334,8 @@
                                 </table>
                                 <div>
                                     <button type="submit" class="btn text-white mb-3 col-lg-4"
-                                        printSectionId="printStatement" styleSheetFile="assets/vendor/bootstrap/css/bootstrap.min.css" ngxPrint
+                                        printSectionId="printStatement"
+                                        styleSheetFile="assets/vendor/bootstrap/css/bootstrap.min.css" ngxPrint
                                         style="background-color: darkorange;">Print <i
                                             class="bi bi-printer"></i></button>
                                 </div>

@@ -33,6 +33,7 @@ url = 'https://agilfinance.net/service/storage/app/public/';
   cust = '';
   address: string;
   addr='';
+  zeros: any;
 
   //edit fields inputs
 
@@ -237,8 +238,23 @@ url = 'https://agilfinance.net/service/storage/app/public/';
     this.id = e.target.value.split('h')[0]
     let custid = e.target.value.split('h')[1]
     let id = e.target.value.split('h')[2]
-    
-   let modalsid = document.getElementById('modalsid_'+id)
+    var accType = e.target.value.split('h')[3]
+     accType = accType.split(' ')[accType.split(' ').length-1]
+
+     let modalsid;
+    if (accType.toLocaleLowerCase()=='savings') {
+      modalsid = document.getElementById('savings_'+id)
+    }else{
+      modalsid = document.getElementById('modalsid_'+id)
+    }
+   this.zeros = ['0','0','0','0'];
+   this.zeros = this.zeros.splice(this.zeros.length-this.id.length,this.id.length)
+   let addup ='';
+   this.zeros.map((e)=>{
+    addup+=e
+   })
+   this.zeros = addup+this.id
+
    modalsid.setAttribute('class',`modal fade show ${this.dis} `)
 
     for (let i = 0; i < this.hole.length; i++) {
@@ -249,7 +265,6 @@ url = 'https://agilfinance.net/service/storage/app/public/';
           const eg = this.branches[a];
           if (e.address == eg.id) {
             this.addr = eg
-
           }
         }
       }
@@ -258,10 +273,8 @@ url = 'https://agilfinance.net/service/storage/app/public/';
       let e = this.customers[i];
       if (custid == e.id) {
         this.cust = e
-
       }
     }
-
   }
 
   withdraw(e) {
