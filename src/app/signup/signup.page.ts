@@ -57,35 +57,42 @@ url = 'https://agilfinance.net/service/storage/app/public/';
 
   modals(param, use) {
     let name = use.target.value
+    var hold_items=this.hold_items
     this.sm = []
     if (param == 'transtype') {
-      for (let i = 0; i < this.hold_items.length; i++) {
-        const e = this.hold_items[i];
+      for (let i = 0; i < hold_items.length; i++) {
+        const e = hold_items[i];
         if (e.transType == name) {
           this.sm.push(e)
+          hold_items.push(e)
         } else if (name == e.staff_name) {
           this.sm.push(e)
+          hold_items.push(e)
+
         }
       }
     } else if (param == 'Officer') {
-      for (let i = 0; i < this.hold_items.length; i++) {
-        const e = this.hold_items[i];
+      for (let i = 0; i < hold_items.length; i++) {
+        const e = hold_items[i];
         if (name == e.staff_name) {
           this.sm.push(e)
+          hold_items.push(e)
+
         }
       }
     } else if (param == 'acc_type') {
-      for (let i = 0; i < this.hold_items.length; i++) {
-        const e = this.hold_items[i];
+      for (let i = 0; i < hold_items.length; i++) {
+        const e = hold_items[i];
         if ((e.accType.toLowerCase()) == (name.toLowerCase())) {
           this.sm.push(e)
+          hold_items.push(e)
+
         }
       }
     }
     else if (param == 'reset') {
       this.sm = this.hold_items
     }
-
   }
 
   async revert(param) {
