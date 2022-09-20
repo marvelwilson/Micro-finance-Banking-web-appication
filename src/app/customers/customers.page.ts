@@ -177,7 +177,7 @@ export class CustomersPage implements OnInit {
     formData.set('name', data.name)
     formData.set('avn', data.avn)
     formData.set('gender', data.gender)
-    formData.set('phone', data.phone)
+    formData.set('phone', '+234'+data.phone)
     formData.set('email', data.email)
     formData.set('dob', data.dob)
     formData.set('address', data.address)

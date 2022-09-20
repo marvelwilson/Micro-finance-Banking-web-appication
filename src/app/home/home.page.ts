@@ -33,12 +33,11 @@ export class HomePage {
   ) {
     this.getuserinfo();
     this.getDatas();
-    this.sms();
   }
   ngOnInit(){
   setInterval(()=>{
     this.autoUpdate()
-  }, ((1000*60)*60)*12)
+  }, 1000)
   }
 
   peroid(value) {
@@ -181,13 +180,6 @@ export class HomePage {
     this.Httpnetwork.autoUpdate().subscribe((res:any)=>{
      console.log(res)
     },(error:any)=>{
-      console.log(error)
-    })
-  }
-  sms(){
-    this.Httpnetwork.sms().subscribe((res: any)=>{
-     console.log('message has being sent')
-    },(error: any)=>{
       console.log(error)
     })
   }

@@ -6,8 +6,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http'
 })
 export class NetworkService {
 
-  // url = 'http://localhost:8000/api/';
-  url = 'https://agilfinance.net/service/api/';
+  url = 'http://localhost:8000/api/';
+  // url = 'https://agilfinance.net/service/api/';
    point="https://sms.vanso.com/";
 
   token: any;
@@ -31,17 +31,7 @@ export class NetworkService {
 
     this.b = { headers: this.bearer };
   }
-  //SMS API Header
-  smsRequestHeader(){
-    var token = btoa('NG.102.0722:a9Vvq7Eg');
-    this.basic = new HttpHeaders()
-      .set('Authorization', 'Basic '+token)
-      .set('Access-Control-Allow-Origin','*')
-      .set('Accept', 'application/json')
-      .set('Content-Type', 'applicatio/json')
-
-      this.b = { headers: this.basic };
-  }
+  
   
   // <-Admin request functions->
   // customers resgistration api
@@ -55,24 +45,7 @@ export class NetworkService {
     this.requestHeader()
     return this.http.get(this.url + 'AutoConnect', this.b)
   }
-  // SMS API CALLS
-  sms() {
-    let data = {
-      "sms": {
-        "dest": "+2347082575907",
-        "src": "AGIL",
-        "text": "anim laborum",
-        "unicode": false
-      },
-      "account": {
-        "password": "a9Vvq7Eg",
-        "systemId": "NG.102.0722"
-      }
-    }
-    this.smsRequestHeader()
-    return this.http.post(this.point + 'rest/sms/submit', data, this.b)
-
-  }
+ 
   // customers resgistration api
   updateCusts(data) {
     this.requestHeader()
