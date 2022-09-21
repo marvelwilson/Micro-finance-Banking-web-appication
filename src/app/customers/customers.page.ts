@@ -194,7 +194,7 @@ export class CustomersPage implements OnInit {
 
     } else if (data.acc_type == 'savings') {
       formData.set('reg_fee', data.reg_fee)
-      formData.set('rate', '0')
+      formData.set('rate', '1')
       formData.set('durations', '0')
 
     } else if (data.sub_acc_type == 'Regular Fixed') {
