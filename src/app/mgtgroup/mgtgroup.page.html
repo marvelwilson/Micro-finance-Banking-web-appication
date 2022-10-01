@@ -259,13 +259,14 @@
                                   <div class="card">
                                     <div class="card-body pt-3">
                                       <div class="form-group">
-                                        <select name="customers" id="" class="form-control col-lg-5">
-                                           <option value="">Option</option>
+                                        <select name="customers" id="" class="form-control col-lg-5" (change)="getMember($event)">
+                                           <option selected disabled >Select</option>
+                                           <option *ngFor="let i of members" value="{{i.acc_num}}">{{i.acc_num}}--{{i.name}}</option>
                                         </select>
                                       </div>
                                       <div class="tab-content pt-2">
 
-                                        <div class="tab-pane fade profile-overview active show" id="profile-overview">
+                                        <div class="tab-pane fade profile-overview active {{hideDetails}}" id="profile-overview">
                                           <h5 class="card-title">Profile Details</h5>
 
                                           <div class="row">

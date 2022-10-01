@@ -56,6 +56,8 @@ export class MgtgroupPage implements OnInit {
   overdrafts: any;
   userList: any;
   his: any;
+  members: any;
+  hideDetails='show';
 
   //edit fields inputs
   constructor(
@@ -296,6 +298,22 @@ export class MgtgroupPage implements OnInit {
 
     }
   }
+//Get Members History
+getMember(value){
+  this.hideDetails = 'd-none';
+  let accNum = value.target.value
+  let memHis = []
+  //  let userdate = this.edituser.circle_start.split('-')[0]+'-'+this.edituser.circle_start.split('-')[1]
+  for (let i = 0; i < this.trans.length; i++) {
+    const e = this.trans[i];
+    if(e.acc_num==accNum){
+      memHis.push(e)
+    }
+    
+  }
+  console.log(memHis)
+}
+
   async fund(e) {
     const alert = await this.alertController.create({
       message: "loading <img src='assets/img/ajax_clock_small.gif'>",
@@ -317,6 +335,7 @@ export class MgtgroupPage implements OnInit {
       this.bal = [runing, available];
       this.staffname = res.officer.name;
       this.groups = res.groups;
+      this.members = res.members;
 
       alert.remove()
     }, (error: any) => {

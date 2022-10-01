@@ -30,7 +30,7 @@ export class ForgottenPage implements OnInit {
   address: any;
   hold_items: any;
   pro_show = 'd-none'
-  receipt: any;
+  receipt='';
 
   //edit fields inputs
 
