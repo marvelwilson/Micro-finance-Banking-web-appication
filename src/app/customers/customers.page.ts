@@ -187,6 +187,7 @@ export class CustomersPage implements OnInit {
     formData.set('signature', this.sign)
     formData.set('ass_id', data.ass_id)
     formData.set('acc_off', data.acc_off)
+    formData.set('sms', data.sms?'on':'')
     if (data.sub_acc_type == 'personal') {
       formData.set('reg_fee', data.reg_fee)
       formData.set('rate', data.rate)

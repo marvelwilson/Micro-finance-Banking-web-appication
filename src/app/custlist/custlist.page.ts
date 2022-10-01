@@ -41,11 +41,13 @@ export class CustlistPage implements OnInit {
   urlpass='';
   sig='';
   officer='';
+  sms='';
   acc_offs='';
 
   th_off: any[];
   acc_off: any[];
   hold_items: any;
+  temp_items: any;
 
   constructor(
     public router: Router,
@@ -101,35 +103,38 @@ export class CustlistPage implements OnInit {
     let name = use.target.value
     this.items=[]
      if(param=='acc_off'){
-      for (let i = 0; i < this.hold_items.length; i++) {
-        const e = this.hold_items[i];
+      for (let i = 0; i < this.temp_items.length; i++) {
+        const e = this.temp_items[i];
         if (e.officer==name) {
           this.items.push(e)
         }
       }
+      this.temp_items=this.items
      }else if(param=='th_off'){
-      for (let i = 0; i < this.hold_items.length; i++) {
-        const e = this.hold_items[i];
+      for (let i = 0; i < this.temp_items.length; i++) {
+        const e = this.temp_items[i];
         if (e.userid==name) {
           this.items.push(e)
         }
         
       }
+      this.temp_items=this.items
      }else if(param=='messaging'){
       if (name=='sms') {
-        this.items=this.hold_items
+        this.items=this.temp_items
       }else if(name=='email'){
-        for (let i = 0; i < this.hold_items.length; i++) {
-          const e = this.hold_items[i];
+        for (let i = 0; i < this.temp_items.length; i++) {
+          const e = this.temp_items[i];
           if (e.email!='') {
             this.items.push(e)
           }
         }
+        this.temp_items=this.items
       }
-      
      }
      else if(param=='reset'){
       this.items=this.hold_items
+      this.temp_items=this.items
      }
   }
 
@@ -137,15 +142,14 @@ export class CustlistPage implements OnInit {
     let e = event
     this.items=[]
     if (e.to && e.from) {
-      for (let i = 0; i < this.hold_items.length; i++) {
-        const a = this.hold_items[i];
+      for (let i = 0; i < this.temp_items.length; i++) {
+        const a = this.temp_items[i];
        let cat = a.created_at.split(' ')[0];
         if (e.from <= cat && (e.to >= cat)) {
            this.items.push(a)
-           console.log('hello')
         }
       }
-     console.log(this.items)
+      this.temp_items = this.items
     }
    
     }
@@ -158,8 +162,8 @@ export class CustlistPage implements OnInit {
         console.log("")
       } else {
         this.items = res;
+        this.temp_items = this.items
         this.hold_items = this.items
-
       
       }
     }, (error: any) => {
@@ -219,6 +223,8 @@ export class CustlistPage implements OnInit {
          this.acc_mood = element.acc_mood
          this.ass_id = element.userid
          this.officer = element.officer
+         this.sms = element.sms
+
          
          
          this.sig = this.url+this.signature
@@ -295,6 +301,9 @@ async updateCust(){
   formData.set('signature', this.signature)
   formData.set('ass_id', this.ass_id)
   formData.set('officer', this.officer)
+  formData.set('sms', this.sms?'on':'')
+
+  
 
 
   this.Httpnetwork.updateCusts(formData).subscribe((res:any)=>{

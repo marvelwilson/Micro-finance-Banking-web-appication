@@ -29,8 +29,8 @@ export class ForgottenPage implements OnInit {
   permit = '';
   address: any;
   hold_items: any;
-
-
+  pro_show = 'd-none'
+  receipt: any;
 
   //edit fields inputs
 
@@ -86,12 +86,26 @@ export class ForgottenPage implements OnInit {
       console.log("Please Check Your Internet Connect")
     })
   }
+
+  //toggle receipt upload
+  receipts(e) {
+    if (e.target.value == 'transfer') {
+      this.pro_show = 'd-block';
+    } else if (e.target.value == 'cash') {
+      this.pro_show = 'd-none';
+    }
+  }
+  
+  //upload receipt
+  provider(e) {
+    this.receipt = e.target.files[0]
+  }
+  
   async SearchID(data) {
     var alert = await this.alertController.create({
       header: '',
       message: '',
       buttons: ['OK'],
-
     })
     if (data.from == '') {
       alert.header = "Required";
@@ -141,11 +155,9 @@ export class ForgottenPage implements OnInit {
       }, (error: any) => {
 
       })
-
-
-
     }
   }
+
   fund(e) {
     this.acc_dis = 'd-block';
     for (let index = 0; index < this.items.length; index++) {
@@ -227,6 +239,7 @@ export class ForgottenPage implements OnInit {
       var formData = new FormData()
       formData.append('amount', this.amount)
       formData.append('payment', this.payment)
+      formData.append('receipt', this.receipt)
       formData.append('id', this.id)
       this.Httpnetwork.deposit(formData).subscribe((res: any) => {
         if (res.error) {

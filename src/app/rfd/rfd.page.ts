@@ -13,7 +13,7 @@ export class RfdPage implements OnInit {
   bal = [0, 1];
   items: any;
   staffname = ''
-url = 'https://agilfinance.net/service/storage/app/public/';
+  url = 'https://agilfinance.net/service/storage/app/public/';
   id: any;
   amount: any;
   payment: any;
@@ -42,6 +42,10 @@ url = 'https://agilfinance.net/service/storage/app/public/';
   recpre = 'd-none';
   disser: string;
   od: string;
+  his: any;
+  cashIn: any[];
+  zeros: any;
+  depositAmount: any;
 
 
   //edit fields inputs
@@ -114,7 +118,9 @@ url = 'https://agilfinance.net/service/storage/app/public/';
       } else {
 
         alert.remove()
-        this.items = res;
+        this.items = res.save;
+        this.his = res.his;
+
         for (let index = 0; index < this.items.length; index++) {
           const element = this.items[index];
           this.staff = {
@@ -143,10 +149,7 @@ url = 'https://agilfinance.net/service/storage/app/public/';
             'm_d': element.m_d,
             'o_d': element.o_d,
             'debit': element.debit,
-
-
-
-
+            'circle_start':element.circle_start,
           }
 
           // this.cv=e.target.value
@@ -212,11 +215,34 @@ url = 'https://agilfinance.net/service/storage/app/public/';
 
 
       }
+
+        
+      //Cash In history
+      let cashIn = []
+      let userdate = this.edituser.circle_start.split('-')[0]+'-'+this.edituser.circle_start.split('-')[1]
+
+        for (let i = 0; i < this.his.length; i++) {
+          const element = this.his[i];
+          let hisdate = element.created_at.split(' ')[0]
+          hisdate = hisdate.split('-')[0]+'-'+hisdate.split('-')[1]
+          if (e.target.value == element.customerid && element.staff_name !== 'Head Office' && userdate>=hisdate) {
+            let hisdate = element.created_at.split(' ')[0]
+            hisdate = hisdate.split('-')[2]+'/'+hisdate.split('-')[1]
+            element.created_at = hisdate
+            cashIn.push(element)
+          }
+        }
+
+      this.cashIn = cashIn
+      this.depositAmount = this.cashIn[cashIn.length-1].amount;
+      this.zeros = res.officer.id;
+
       this.bal = [runing, available];
       this.staffname = res.officer.name;
       alert.remove()
+
     }, (error: any) => {
-      console.warn(error)
+      console.warn(error)     
     })
     this.acc_dis = 'd-block';
     for (let index = 0; index < this.items.length; index++) {
@@ -246,7 +272,7 @@ url = 'https://agilfinance.net/service/storage/app/public/';
           'm_d': element.m_d,
           'o_d': element.o_d,
           'debit': element.debit,
-
+          'circle_start':element.circle_start,
 
         }
 

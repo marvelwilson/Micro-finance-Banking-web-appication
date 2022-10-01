@@ -351,7 +351,9 @@ url = 'https://agilfinance.net/service/storage/app/public/';
     this.rev = 'd-none';
    if (e) {
     let modalsid = document.getElementById('modalsid_'+e.target.value)
-    modalsid.setAttribute('class',`modal fade show ${this.dis} `)
+    modalsid.setAttribute('class',`modal fade hide ${this.dis} `)
+    let savings = document.getElementById('savings_'+e.target.value)
+    savings.setAttribute('class',`modal fade hide ${this.dis} `)
    }
   }
 

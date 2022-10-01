@@ -110,12 +110,17 @@
                                                   name="amount" placeholder="Enter Amount">
                                               </div>
                                               <div class="modal-body">
-                                                <label for="" class="text-dark">Paying With</label>
-                                                <select id="" class="form-control text-dark" [(ngModel)]="payment"
-                                                  name="payment">
+                                                <label for="" class="text-dark">Payment Method</label>
+                                                <select id="" class="form-control text-dark" (change)="receipts($event)"
+                                                  [(ngModel)]="payment" name="payment">
                                                   <option value="cash">Cash Payment</option>
                                                   <option value="transfer">Bank Transfer</option>
                                                 </select>
+                                              </div>
+                                              <div class="modal-body {{pro_show}}">
+                                                <label for="" class="text-dark">Transfer Receipt </label>
+                                                <input type="file" class="form-control text-dark "
+                                                  (change)="provider($event)" [(ngModel)]="receipt" name="receipt">
                                               </div>
                                               <div class="modal-footer">
                                                 <button type="button" (click)="close()" class="btn btn-dark"

@@ -258,7 +258,11 @@
 
                                   <div class="card">
                                     <div class="card-body pt-3">
-
+                                      <div class="form-group">
+                                        <select name="customers" id="" class="form-control col-lg-5">
+                                           <option value="">Option</option>
+                                        </select>
+                                      </div>
                                       <div class="tab-content pt-2">
 
                                         <div class="tab-pane fade profile-overview active show" id="profile-overview">
@@ -496,7 +500,7 @@
                                         <td scope="col">Expected Balance</td>
                                         <td scope="col">Disbursement Number</td>
                                         <td scope="col">Disbursement Date</td>
-                                        <th scope="col" >Prev. Mark</th>
+                                        <th scope="col">Prev. Mark</th>
                                         <th scope="col" >Todays MarK</th>
                                         <td scope="col">Completed Circles</td>
                                         <td scope="col">Outstanding</td>
@@ -507,7 +511,7 @@
                                       </tr>
                                     </thead>
                                     <tbody>
-                                      <tr *ngFor="let item of sm; let i=index;" class="{{item.m_d>0?'bg-danger text-white':''}} {{item.o_d>0?'bg-warning text-white':''}} ng-start-inserted">
+                                      <tr *ngFor="let item of sm; let i=index;" >
                                         <td> {{names[i].name}}</td>
                                         <td> {{item.amount}}</td>
                                         <td> {{group.days}} Days</td>

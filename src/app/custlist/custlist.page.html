@@ -185,7 +185,7 @@
                                 <div class="row mb-1">
                                   <label for="inputEmail" class=" col-form-label">Phone Number</label>
                                   <div class="col-sm-12">
-                                    <input type="number" class="form-control" value="{{phone}}"
+                                    <input type="text" class="form-control" value="{{phone}}"
                                       placeholder="Please Enter Name" [(ngModel)]="phone" name="phone">
                                   </div>
                                 </div>
@@ -225,6 +225,15 @@
                                       (change)="ass($event)" [(ngModel)]="officer" name="officer">
                                       <option *ngFor="let a of acc_off" value="{{a.name}}">{{a.name}}</option>
                                     </select>
+                                  </div>
+                                </div>
+                                <div class="row mb-1">
+                                  <div class="col-sm-12 {{sms}}" >
+                                  
+                                    <ion-item >
+                                      <ion-checkbox name="sms" [(ngModel)]="sms"></ion-checkbox>
+                                      <ion-lable class="col-form-label"> Allow SMS</ion-lable>
+                                    </ion-item>
                                   </div>
                                 </div>
                                 <div class="row mb-1">

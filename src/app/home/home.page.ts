@@ -35,9 +35,7 @@ export class HomePage {
     this.getDatas();
   }
   ngOnInit(){
-  setInterval(()=>{
-    this.autoUpdate()
-  }, 1000)
+ 
   }
 
   peroid(value) {
@@ -176,13 +174,7 @@ export class HomePage {
     }
   }
 
-  autoUpdate(){
-    this.Httpnetwork.autoUpdate().subscribe((res:any)=>{
-     console.log(res)
-    },(error:any)=>{
-      console.log(error)
-    })
-  }
+
   getuserinfo() {
     var data = JSON.parse(localStorage.getItem('userid'));
     this.userInfo = data;
@@ -217,6 +209,9 @@ export class HomePage {
           }
 
         }
+        this.deposit = Math.round(this.deposit)
+        this.withdraw = Math.round(this.withdraw)
+
         this.inc = 0;
         for (let i = 0; i < res.inc.length; i++) {
           const e = res.inc[i];
@@ -228,6 +223,8 @@ export class HomePage {
           this.exp += Number(e.expAmount)
         }
         alert.remove()
+        this.exp = Math.round(this.exp)
+
       }
     }, (error: any) => {
       console.log(error)

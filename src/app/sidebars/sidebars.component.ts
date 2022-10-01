@@ -31,9 +31,20 @@ url = 'https://agilfinance.net/service/storage/app/public/';
    
   ngOnInit() {
     this.getuserinfo();
+    setInterval(()=>{
+      this.autoUpdate()
+    }, 60000)
   }
 
  
+  autoUpdate(){
+    this.xhr.autoUpdate().subscribe((res:any)=>{
+     console.log(res)
+    },(error:any)=>{
+      console.log(error)
+    })
+  }
+
   getuserinfo() {
     var data = JSON.parse(localStorage.getItem('userid'));
     this.userInfo = data;
