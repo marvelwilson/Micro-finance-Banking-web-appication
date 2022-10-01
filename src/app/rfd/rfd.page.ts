@@ -225,7 +225,7 @@ export class RfdPage implements OnInit {
           const element = this.his[i];
           let hisdate = element.created_at.split(' ')[0]
           hisdate = hisdate.split('-')[0]+'-'+hisdate.split('-')[1]
-          if (e.target.value == element.customerid && element.staff_name !== 'Head Office' && userdate>=hisdate) {
+          if (e.target.value == element.customerid && element.staff_name !== 'Head Office' && userdate<=hisdate ) {
             let hisdate = element.created_at.split(' ')[0]
             hisdate = hisdate.split('-')[2]+'/'+hisdate.split('-')[1]
             element.created_at = hisdate
