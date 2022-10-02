@@ -58,6 +58,11 @@ export class MgtgroupPage implements OnInit {
   his: any;
   members: any;
   hideDetails='show';
+  groupID: any;
+  memHis: any[];
+  depositAmount: any;
+  zeros: any;
+  staffDetails: any;
 
   //edit fields inputs
   constructor(
@@ -299,22 +304,40 @@ export class MgtgroupPage implements OnInit {
     }
   }
 //Get Members History
-getMember(value){
+async getMember(value){
   this.hideDetails = 'd-none';
   let accNum = value.target.value
   let memHis = []
-  //  let userdate = this.edituser.circle_start.split('-')[0]+'-'+this.edituser.circle_start.split('-')[1]
+  let singleUser:any;
+  for(let i = 0; i < this.members.length; i++){
+    let e = this.members.length
+   if (e.acc_num==accNum) {
+     singleUser=e
+   }
+  }
+ console.log(singleUser)
+   let userdate = singleUser.circle_starts.split('-')[0]+'-'+singleUser.circle_starts.split('-')[1]
   for (let i = 0; i < this.trans.length; i++) {
     const e = this.trans[i];
-    if(e.acc_num==accNum){
+    let hisdate = e.created_at.split(' ')[0]
+    hisdate = hisdate.split('-')[0]+'-'+hisdate.split('-')[1]
+    if (e.transType=='Deposit' && e.staff_name!='Head Office') {
+    if((e.acc_num==accNum &&  this.groupID==e.customerid) && (userdate<=hisdate)){
+      hisdate = e.created_at.split(' ')[0]
+      hisdate = hisdate.split('-')[2]+'/'+hisdate.split('-')[1]
+      e.created_at = hisdate
       memHis.push(e)
     }
+  }
     
   }
-  console.log(memHis)
+  this.memHis = memHis
+  this.depositAmount = this.memHis.length>0?this.memHis[memHis.length-1].amount:0;
+  this.zeros = this.staffDetails.id;
 }
 
   async fund(e) {
+    this.groupID = e.target.value
     const alert = await this.alertController.create({
       message: "loading <img src='assets/img/ajax_clock_small.gif'>",
       backdropDismiss: true,
@@ -334,6 +357,8 @@ getMember(value){
       }
       this.bal = [runing, available];
       this.staffname = res.officer.name;
+      this.staffDetails = res.officer;
+
       this.groups = res.groups;
       this.members = res.members;
 

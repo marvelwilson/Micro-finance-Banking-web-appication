@@ -310,6 +310,83 @@
 
                                         </div>
 
+                                        
+                                        <div class="modal-body {{hideDetails=='d-none'?'d-block':'d-none'}}" id="printreceipt">
+                                          <div class="col-lg-12">
+                                            <div class="d-flex  align-items-center justify-content-center">
+                                              <img src="assets/img/logo/logo3.jpeg" alt="" width="50" style="padding-right:2px;"> 
+                                              
+                                              <h1 class="h1 pl-3">  <span
+                                                  style="color:orangered; font-family:Arial, Helvetica, sans-serif; font-size: 55px;"><span
+                                                    class="text-dark">Agil</span>Finance</span>
+                                              </h1>
+                                            </div>
+                                            <div class="text-center text-black">
+                                               <b>180, 2nd East Circular Road, Benin City</b>
+                                            </div>
+
+                                            <br>
+                                            <div class="text-black">
+                                              <b>Field Cashier:
+                                                {{staffname}}</b><br>
+                                               <b>Terminal ID:Ag{{zeros}}</b><br>
+                                              <b class="col-lg-7">Date: {{edituser.circle_start}}</b><br>
+                                              <b>Txn. ID:trx</b><br>
+                                              <h5 class="text-center">
+                                                CASH-IN</h5>
+                                              <b>Customer Name:
+                                                {{edituser.name}}</b><br>
+                                              <b>Acc No.: {{edituser.acc_num}}</b><br>
+                                              <b class="col-lg-7">Acc Type:{{edituser.sub_acc}} {{edituser.acc_type}}</b><br>
+                                             <b>Deposit:{{depositAmount}}</b><br>
+                                              <b>Circle Bal:&#8358;{{edituser.balance}}</b><br>
+                                             <b>Available Bal:&#8358;{{edituser.wallet}}</b><br>
+                                              <b>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</b><br>
+                                              <h5 class="text-center">Transaction History</h5>
+                                               <table class="table table-borderless">
+                                                <tr>
+                                                  <th>S/N</th>
+                                                  <th>Date</th>
+                                                  <th>Amt</th>
+                                                  <th>Bal</th>
+                                                </tr>
+                                                <tr *ngFor="let item of memHis; let i = index">
+                                                  <td>{{i+1}}</td>
+                                                  <td>{{item.created_at}}</td>
+                                                  <td>N{{item.amount}}</td>
+                                                  <td>N{{item.balance}}</td>
+                                                </tr>
+                                              </table>
+                                            </div>
+                                          </div>
+                                          <div class="row text-black">
+                                            <p>
+                                              <b>------------------------------------------------------------------------------------------------------</b>
+                                            </p>
+                                            <div style="display:flex; justify-content: space-between;">
+                                              <p class="col-lg-9">Total:
+                                              </p>
+                                              <p class="col-lg-3">&#8358;{{edituser.balance}}
+                                              </p>
+                                            </div>
+
+                                          </div>
+                                          <span class="text-center text-black">
+                                            <h5>***CUSTOMER'S COPY*** <br> POWER BY <br> AGIL TECHNOLOGY LTD</h5>
+                                          </span>
+                                          <center class="text-black">
+                                            <u>www.AgilFinance.ng</u>
+                                            <P>09076208848</P>
+                                          </center>
+                                        </div>
+                                     <div class="modal-footer btnprint">
+                                          <button type="button" (click)="close()"
+                                            class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                                          <button type="button" printSectionId="printreceipt"
+                                            styleSheetFile="assets/vendor/bootstrap/css/bootstrap.min.css" ngxPrint
+                                            class="btn btn-primary" style="background-color: orange;">Print <i
+                                              class="bi bi-printer"></i></button>
+                                        </div>
                                       </div><!-- End Bordered Tabs -->
 
                                     </div>

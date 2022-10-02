@@ -35,6 +35,7 @@ export class CustomersPage implements OnInit {
 
   thrift: any;
   marketer: any[];
+  forgroup='d-none';
   constructor(
     private router: Router,
     public Httpnetwork: NetworkService,
@@ -118,6 +119,7 @@ export class CustomersPage implements OnInit {
     this.forpersonal = 'd-none';
     this.rfd = 'd-none'
     this.forsavings = 'd-block';
+    this.forgroup = 'd-none';
   }
   personal(e) {
     var val = e.target.value
@@ -125,17 +127,21 @@ export class CustomersPage implements OnInit {
       this.forpersonal = 'd-block';
       this.rfd = 'd-none';
       this.forsavings = 'd-none';
+      this.forgroup = 'd-none';
 
     } else if (val == 'group') {
       this.forpersonal = 'd-none';
       this.forsavings = 'd-none';
+      this.forgroup = 'd-block';
+
+
 
     }
     else if (val == 'Regular Fixed') {
       this.rfd = 'd-block';
       this.forpersonal = 'd-block';
       this.forsavings = 'd-none';
-
+      this.forgroup = 'd-none';
 
     }
   }
@@ -207,6 +213,8 @@ export class CustomersPage implements OnInit {
       let date = d.getDate() + '-' + (d.getMonth()+1) + '-' + d.getFullYear()
       formData.set('durations', data.durations)
       formData.set('ending',date)
+    }else{
+      formData.set('gacc_type', data.gacc_type)
     }
 
     this.Httpnetwork.RegCusts(formData).subscribe((res: any) => {
