@@ -234,7 +234,8 @@ export class RfdPage implements OnInit {
         }
 
       this.cashIn = cashIn
-      this.depositAmount = this.cashIn[cashIn.length-1].amount;
+     
+      this.depositAmount = this.cashIn.length>0?this.cashIn[cashIn.length-1].amount:0;
       this.zeros = res.officer.id;
 
       this.bal = [runing, available];
