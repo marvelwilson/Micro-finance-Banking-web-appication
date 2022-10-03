@@ -6,8 +6,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http'
 })
 export class NetworkService {
 
-  url = 'http://localhost:8000/api/';
-  // url = 'https://agilfinance.net/service/api/';
+  // url = 'http://localhost:8000/api/';
+  url = 'https://agilfinance.net/service/api/';
 
   token: any;
   bearer: any;
