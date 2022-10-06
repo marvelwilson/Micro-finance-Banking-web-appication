@@ -259,7 +259,7 @@
                                   <div class="card">
                                     <div class="card-body pt-3">
                                       <div class="form-group">
-                                        <select name="customers" id="" class="form-control col-lg-5" (change)="getMember($event)">
+                                        <select name="customers" id="{{item.name}}" class="form-control col-lg-5" (change)="getMember($event)">
                                            <option selected disabled >Select</option>
                                            <option *ngFor="let i of members" value="{{i.acc_num}}">{{i.acc_num}}--{{i.name}}</option>
                                         </select>
@@ -337,7 +337,7 @@
                                               <b>Customer Name:
                                                 {{edituser.name}}</b><br>
                                               <b>Acc No.: {{edituser.acc_num}}</b><br>
-                                              <b class="col-lg-7">Acc Type:{{edituser.sub_acc}} {{edituser.acc_type}}</b><br>
+                                              <b class="col-lg-7">Acc Type:{{edituser.sub_acc_type}} {{edituser.acc_type}}</b><br>
                                              <b>Deposit:{{depositAmount}}</b><br>
                                               <b>Circle Bal:&#8358;{{edituser.balance}}</b><br>
                                              <b>Available Bal:&#8358;{{edituser.wallet}}</b><br>
@@ -352,7 +352,7 @@
                                                 </tr>
                                                 <tr *ngFor="let item of memHis; let i = index">
                                                   <td>{{i+1}}</td>
-                                                  <td>{{item.created_at}}</td>
+                                                  <td>{{item.updated_at}}</td>
                                                   <td>N{{item.amount}}</td>
                                                   <td>N{{item.balance}}</td>
                                                 </tr>

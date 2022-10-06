@@ -308,24 +308,40 @@ async getMember(value){
   this.hideDetails = 'd-none';
   let accNum = value.target.value
   let memHis = []
+ let gname = value.target.id
   let singleUser:any;
+  let single:any;
+
+  for (let i = 0; i < this.user.length; i++) {
+      const e = this.user[i];
+      if (e.gname==gname && e.amount==accNum) {
+         single = e
+      }
+  }
   for(let i = 0; i < this.members.length; i++){
-    let e = this.members.length
+    let e = this.members[i]
    if (e.acc_num==accNum) {
      singleUser=e
+
    }
   }
- console.log(singleUser)
-   let userdate = singleUser.circle_starts.split('-')[0]+'-'+singleUser.circle_starts.split('-')[1]
+  singleUser.balance=single.balance
+  singleUser.wallet=single.wallet
+
+  this.edituser = singleUser;
+  let userdate = singleUser.circle_starts.split('-')[0]+'-'+singleUser.circle_starts.split('-')[1]
   for (let i = 0; i < this.trans.length; i++) {
     const e = this.trans[i];
     let hisdate = e.created_at.split(' ')[0]
     hisdate = hisdate.split('-')[0]+'-'+hisdate.split('-')[1]
+
     if (e.transType=='Deposit' && e.staff_name!='Head Office') {
+
     if((e.acc_num==accNum &&  this.groupID==e.customerid) && (userdate<=hisdate)){
+      
       hisdate = e.created_at.split(' ')[0]
       hisdate = hisdate.split('-')[2]+'/'+hisdate.split('-')[1]
-      e.created_at = hisdate
+      e.updated_at = hisdate
       memHis.push(e)
     }
   }
