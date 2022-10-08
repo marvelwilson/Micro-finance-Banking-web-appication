@@ -158,7 +158,7 @@ export class MgtgroupPage implements OnInit {
         let overdrafts = 0;
 
 
-       
+       console.log(this.items)
 
         for (let i = 0; i < this.items.length; i++) {
           const el = this.items[i];
@@ -167,7 +167,7 @@ export class MgtgroupPage implements OnInit {
             if (el.id==h.customerid) {
               if (h.transType=='Deposit') {
                depo+=Number(h.amount)
-              }else if (h.transType=='Wthdraw') {
+              }else if (h.transType=='Withdraw') {
                withdraw+=Number(h.amount)
               }
 
@@ -245,6 +245,7 @@ export class MgtgroupPage implements OnInit {
           }
           // this.cv=e.target.value
         }
+        console.log(this.trans_amount)
       }
     }, (error: any) => {
       console.log("Please Check Your Internet Connect")

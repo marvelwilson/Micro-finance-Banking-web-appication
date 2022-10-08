@@ -589,7 +589,7 @@
                                       </tr>
                                     </thead>
                                     <tbody>
-                                      <tr *ngFor="let item of sm; let i=index;" >
+                                      <tr *ngFor="let item of sm; let i=index;" class="{{item.m_d>0?'bg-danger text-white':''}} {{item.o_d>0?'bg-warning text-white':''}}">
                                         <td> {{names[i].name}}</td>
                                         <td> {{item.amount}}</td>
                                         <td> {{group.days}} Days</td>

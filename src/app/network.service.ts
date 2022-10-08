@@ -7,7 +7,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http'
 export class NetworkService {
 
   // url = 'http://localhost:8000/api/';
-  url = 'https://agilfinance.net/service/api/';
+  url = 'https://agilfinance.net/service/api/s';
 
   token: any;
   bearer: any;
@@ -221,9 +221,9 @@ export class NetworkService {
     return this.http.get(this.url + 'getgroups', this.b)
   }
 
-  getGroupsAmount(){
+  getGroupsAmount(filter){
     this.requestHeader()
-    return this.http.get(this.url + 'getGroupsAmount', this.b)
+    return this.http.post(this.url + 'getGroupsAmount',filter, this.b)
   }
   sendAcc(data){
     this.requestHeader()
@@ -375,13 +375,13 @@ export class NetworkService {
     this.requestHeader()
     return this.http.post(this.url + 'searchIn',data, this.b)
   }
-  getall_incomes(){
+  getall_incomes(filter){
     this.requestHeader()
-    return this.http.get(this.url + 'admin/getall_income', this.b);
+    return this.http.post(this.url + 'admin/getall_income',filter, this.b);
   }
-  getall_expenses(){
+  getall_expenses(filter){
     this.requestHeader()
-    return this.http.get(this.url + 'admin/getall_expenses', this.b);
+    return this.http.post(this.url + 'admin/getall_expenses',filter, this.b);
   }
   addPro(data){
     this.requestHeader()
@@ -507,9 +507,9 @@ export class NetworkService {
     this.requestHeader()
     return this.http.post(this.url +'updateAsset',data, this.b)
   }
-  accounting(){
+  accounting(filter){
     this.requestHeader()
-    return this.http.get(this.url +'accounting', this.b)
+    return this.http.post(this.url +'accounting',filter, this.b)
   }
 
   revert(data){

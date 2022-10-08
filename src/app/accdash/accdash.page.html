@@ -15,20 +15,25 @@
       <div class="col-lg-12 ">
         <h2 class="card-title text-dark">Dashboard</h2>
         <div class="col-12 mb-3">
-          <form #searchUser="ngForm" (ngSubmit)="Search(searchUser.value)">
+          <form #searchUser="ngForm" (ngSubmit)="filterBtn(searchUser.value)">
             <div class="row">
               <div class="col-lg-3">
-                <input type="date" class="form-control" placeholder="Search" name="search" ngModel>
+                <input type="date" class="form-control" placeholder="Search" name="from" ngModel>
               </div>
               <div class="col-lg-3">
-                <input type="date" class="form-control" placeholder="Search" name="search" ngModel>
+                <input type="date" class="form-control" placeholder="Search" name="to" ngModel>
               </div>
               <div class="col-1">
                 <button class="btn btn-dark">
                   Filter</button>
               </div>
+              <div class="col-1">
+                <button type="button" (click)="resetFilterBtn()" class="btn btn-light">
+                  Reset</button>
+              </div>
             </div>
           </form>
+          
         </div>
 
         <div class="row">

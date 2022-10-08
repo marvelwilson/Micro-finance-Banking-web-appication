@@ -39,7 +39,7 @@ export class AccdashPage implements OnInit {
   ]
   liabilties = [
     'Account payable',
-    'Regular contributions',
+    'Regular Fixed contributions',
     'Personal Contribution',
     'Group Contribution',
     'Regular Savings',
@@ -106,7 +106,9 @@ export class AccdashPage implements OnInit {
   exp_amount = 0;
   nets=0;
 
-
+ //filter var
+  
+  filter={from:'',to:''}
 
   constructor(
     public router: Router,
@@ -131,10 +133,12 @@ export class AccdashPage implements OnInit {
   }
 
   getgroup() {
-    this.xhr.getGroupsAmount().subscribe((res: any) => {
+
+    this.xhr.getGroupsAmount(this.filter).subscribe((res: any) => {
       let me = 0;
       for (let i = 0; i < res.length; i++) {
         me += Number(res[i].wallet);
+        me += Number(res[i].balance);
       }
       this.group = me;
 
@@ -147,7 +151,7 @@ export class AccdashPage implements OnInit {
       backdropDismiss: false,
     })
     alert.present();
-    this.xhr.accounting().subscribe((res: any) => {
+    this.xhr.accounting(this.filter).subscribe((res: any) => {
       if (res.error) {
         alert.header = 'Failed'
         alert.message = res.error,
@@ -261,8 +265,12 @@ export class AccdashPage implements OnInit {
           } else if (a.acc_type == 'contribution') {
             if (a.sub_acc_type == 'personal') {
               personal += Number(a.wallet)
-            } else if (a.sub_acc_type == 'regular') {
+              personal += Number(a.balance)
+
+            } else if (a.sub_acc_type == 'Regular Fixed') {
               cregular += Number(a.wallet)
+              cregular += Number(a.balance)
+
             }
           }
 
@@ -328,14 +336,14 @@ export class AccdashPage implements OnInit {
   inc() {
     //Income Management
     this.income_amount = []
-    this.xhr.getall_incomes().subscribe((res: any) => {
+    this.xhr.getall_incomes(this.filter).subscribe((res: any) => {
       for (let i = 0; i < res.length; i++) {
         let a = {
           'amount': res[i],
           'name': this.incomes[i],
 
         }
-        this.inc_amount += res[i]
+        this.inc_amount += Number(res[i])
         this.income_amount.push(a)
 
       }
@@ -349,7 +357,7 @@ export class AccdashPage implements OnInit {
   exp(){
      //Expense Management
      this.expenses_amount = []
-     this.xhr.getall_expenses().subscribe((res: any) => {
+     this.xhr.getall_expenses(this.filter).subscribe((res: any) => {
        for (let i = 0; i < res.length; i++) {
          let a = {
            'amount': res[i],
@@ -371,8 +379,24 @@ export class AccdashPage implements OnInit {
  
   }
 
- 
-
+ async filterBtn(data) {
+  this.filter = data
+  this.exp_amount=0
+  this.inc_amount=0
+  this.getgroup()
+  this.accounting()
+  this.inc()
+  this.exp()
+ }
+ async resetFilterBtn(){
+  this.filter = {from:'', to:''}
+  this.exp_amount=0
+  this.inc_amount=0
+  this.getgroup()
+  this.accounting()
+  this.inc()
+  this.exp()
+ }
 
 
 }

@@ -90,7 +90,8 @@ async Inc_Exp(){
 
   })
   alert.present();
-  this.xhr.getall_incomes().subscribe((res:any)=>{
+ let filter = {from:'', to:''}
+  this.xhr.getall_incomes(filter).subscribe((res:any)=>{
    alert.remove()
    let dinc_amount =0;
   this.income_amount=[]
@@ -111,7 +112,8 @@ async Inc_Exp(){
     alert.present()
     this.router.navigate(['/home'])
   })
-  this.xhr.getall_expenses().subscribe((res:any)=>{
+  let filtr = {from:'', to:''}
+  this.xhr.getall_expenses(filtr).subscribe((res:any)=>{
     let dexp_amount = 0;
     this.expenses_amount=[]
     for (let i = 0; i < res.length; i++) {
