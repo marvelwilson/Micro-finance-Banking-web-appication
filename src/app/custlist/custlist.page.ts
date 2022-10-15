@@ -344,9 +344,12 @@ async updateCust(){
 }
 
   
-  bunb(e) {
-    var id = e.target.value;
+  bunb(e, val) {
+    var id = e+"bn"+val;
+   
     this.Httpnetwork.bunb(id).subscribe((res: any) => {
+      this.getCustomers()
+
       if (res.block) {
         e.target.innerText = 'block'
         e.target.setAttribute('class', 'btn btn-danger')
@@ -354,6 +357,8 @@ async updateCust(){
         e.target.innerText = 'unblock'
         e.target.setAttribute('class', 'btn btn-warning')
       }
+
+    
     }, (error: any) => {
 
     })

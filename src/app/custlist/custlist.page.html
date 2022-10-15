@@ -96,6 +96,8 @@
                     <th scope="col">wallet</th>
                     <th scope="col">Status</th>
                     <th scope="col">Actions</th>
+                    <th scope="col">Del</th>
+
                   </tr>
                 </thead>
                 <tbody>
@@ -108,8 +110,7 @@
                     <td> {{ item.avn}}</td>
                     <td> {{ item.acc_type=='contribution'?(item.balance-1)+(item.wallet-1)+2:item.balance }}</td>
                     <td> {{ item.status}}</td>
-                    <td><button class="{{ item.stats=='block'?'btn btn-warning':'btn btn-danger'}}" value="{{item.id}}"
-                        (click)="bunb($event)">{{ item.stats=='block'?'unblock':'block'}}</button>
+                    <td><button class="{{ item.stats=='block'?'btn btn-warning':'btn btn-danger'}}" (click)="bunb(item.id,'view')">{{ item.stats=='block'?'unblock':'block'}}</button>
                     </td>
                     <td>
                       <button class="btn btn-light bi bi-check" value="{{item.id}}" (click)="edit($event)"> </button>
@@ -246,6 +247,9 @@
                           </div>
                         </div>
                       </div>
+                    </td>
+                    <td>
+                    <ion-button color="danger" (click)="bunb(item.id,'del')"><ion-icon name="trash-outline"></ion-icon></ion-button>
                     </td>
                   </tr>
                 </tbody>

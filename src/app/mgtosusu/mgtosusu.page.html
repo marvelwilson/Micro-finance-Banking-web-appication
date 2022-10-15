@@ -64,8 +64,8 @@
                       <td scope="col" class="ng-star-inserted"> {{item.created_at}}</td>
                       <td scope="col" class="ng-star-inserted"> {{item.rate*30}}</td>
                       <td scope="col" class="ng-star-inserted">
-                        {{31-item.duration-item.debit>0?31-item.duration-item.debit:0}} </td>
-                      <td scope="col" class="ng-star-inserted"> {{item.debit}} </td>
+                        {{item.todaycard==todaydate?(31-item.duration-item.debit>0?31-item.duration-item.debit:0):(31-item.duration-item.debit>0?31-item.duration-item.debit:0)+item.debit}} </td>
+                      <td scope="col" class="ng-star-inserted"> {{item.todaycard==todaydate?item.debit:0}} </td>
                       <td scope="col" class="ng-star-inserted"> {{item.credits}}</td>
                       <td scope="col" class="ng-star-inserted"> {{item.balance}}</td>
                       <td scope="col" class="ng-star-inserted"> {{item.wallet}}</td>

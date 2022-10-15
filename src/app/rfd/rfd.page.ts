@@ -46,6 +46,7 @@ export class RfdPage implements OnInit {
   cashIn: any[];
   zeros: any;
   depositAmount: any;
+  todaydate: any;
 
 
   //edit fields inputs
@@ -120,7 +121,8 @@ export class RfdPage implements OnInit {
         alert.remove()
         this.items = res.save;
         this.his = res.his;
-
+        this.todaydate = res.todaysdate;
+        
         for (let index = 0; index < this.items.length; index++) {
           const element = this.items[index];
           this.staff = {

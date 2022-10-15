@@ -18,13 +18,14 @@ export class HomePage {
   amount: any;
   pendingcounter: any;
   staff: any;
-  deposit: number;
-  withdraw: number;
-  inc: number;
-  exp: number;
+  deposit: any;
+  withdraw: any;
+  inc: any;
+  exp: any;
   hold_res: any;
   check_peroid: any;
   dates: any;
+  balance: string;
 
   constructor(
     public Httpnetwork: NetworkService,
@@ -64,6 +65,11 @@ export class HomePage {
         const e = res.exp[i];
         this.exp += Number(e.expAmount)
       }
+      this.balance = Math.round(this.deposit-this.withdraw).toLocaleString('en')
+      this.deposit = Math.round(this.deposit).toLocaleString('en')
+      this.withdraw = Math.round(this.withdraw).toLocaleString('en')
+      this.exp = Math.round(this.exp).toLocaleString('en')
+      this.inc = Math.round(this.inc).toLocaleString('en')
     } else {
 
       if (value == 'Today') {
@@ -98,6 +104,11 @@ export class HomePage {
           this.exp += Number(e.expAmount)
         }
       }
+      this.balance = Math.round(this.deposit-this.withdraw).toLocaleString('en')
+      this.deposit = Math.round(this.deposit).toLocaleString('en')
+      this.withdraw = Math.round(this.withdraw).toLocaleString('en')
+      this.exp = Math.round(this.exp).toLocaleString('en')
+      this.inc = Math.round(this.inc).toLocaleString('en')
       } else if (value == 'This Month') {
         let todays_date = date_.split('-');
         todays_date = todays_date[0]+'-'+todays_date[1];
@@ -133,6 +144,11 @@ export class HomePage {
             this.exp += Number(e.expAmount)
           }
         }
+        this.balance = Math.round(this.deposit-this.withdraw).toLocaleString('en')
+      this.deposit = Math.round(this.deposit).toLocaleString('en')
+      this.withdraw = Math.round(this.withdraw).toLocaleString('en')
+      this.exp = Math.round(this.exp).toLocaleString('en')
+      this.inc = Math.round(this.inc).toLocaleString('en')
       } else if (value == 'This year') {
          let todays_date = date_.split('-');
         todays_date = todays_date[0];
@@ -168,6 +184,11 @@ export class HomePage {
             this.exp += Number(e.expAmount)
           }
         }
+        this.balance = Math.round(this.deposit-this.withdraw).toLocaleString('en')
+      this.deposit = Math.round(this.deposit).toLocaleString('en')
+      this.withdraw = Math.round(this.withdraw).toLocaleString('en')
+      this.exp = Math.round(this.exp).toLocaleString('en')
+      this.inc = Math.round(this.inc).toLocaleString('en')
       }
 
  
@@ -209,8 +230,9 @@ export class HomePage {
           }
 
         }
-        this.deposit = Math.round(this.deposit)
-        this.withdraw = Math.round(this.withdraw)
+        this.balance = Math.round(this.deposit-this.withdraw).toLocaleString('en')
+        this.deposit = Math.round(this.deposit).toLocaleString('en')
+        this.withdraw = Math.round(this.withdraw).toLocaleString('en')
 
         this.inc = 0;
         for (let i = 0; i < res.inc.length; i++) {
@@ -223,7 +245,9 @@ export class HomePage {
           this.exp += Number(e.expAmount)
         }
         alert.remove()
-        this.exp = Math.round(this.exp)
+        this.exp = Math.round(this.exp).toLocaleString('en')
+        this.inc = Math.round(this.inc).toLocaleString('en')
+
 
       }
     }, (error: any) => {

@@ -596,8 +596,8 @@
                                         <td> {{group.rate*group.days}}</td>
                                         <td> {{item.icon}}</td>
                                         <td> {{item.date}}</td>
-                                        <td> {{(group.days-item.gtype)-item.card>0?(group.days-item.gtype)-item.card:0}}</td>
-                                        <td> {{item.card}}</td>
+                                        <td> {{item.todaycard==group.todaysdate?((group.days-item.gtype)-item.card>0?(group.days-item.gtype)-item.card:0):((group.days-item.gtype)-item.card>0?(group.days-item.gtype)-item.card:0)+item.card}}</td>
+                                        <td> {{item.todaycard==group.todaysdate?item.card:0}}</td>
                                         <td> {{item.staffid}}</td>
                                         <td> {{group.rate*item.m_d}}</td>
                                         <td> {{item.o_d}}</td>

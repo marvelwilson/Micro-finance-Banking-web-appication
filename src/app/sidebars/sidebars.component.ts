@@ -34,6 +34,7 @@ url = 'https://agilfinance.net/service/storage/app/public/';
     setInterval(()=>{
       this.autoUpdate()
     }, (60000*60)*22)
+    // 
   }
 
  
