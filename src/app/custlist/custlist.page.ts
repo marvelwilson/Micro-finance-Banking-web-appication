@@ -154,8 +154,15 @@ export class CustlistPage implements OnInit {
    
     }
 
-  getCustomers() {
+  async getCustomers() {
+    var alert = await this.alertController.create({
+      header: '',
+      cssClass:'text-center',
+      message: "Loading<img src='assets/img/ajax_clock_small.gif'>",
+      buttons: ['OK'],
 
+    })
+    alert.present()
     this.users = JSON.parse(localStorage.getItem('userid')).user;
     this.Httpnetwork.getCustomers().subscribe((res: any) => {
       if (res == "error") {
@@ -164,7 +171,7 @@ export class CustlistPage implements OnInit {
         this.items = res;
         this.temp_items = this.items
         this.hold_items = this.items
-      
+        alert.remove()
       }
     }, (error: any) => {
       console.log("Please Check Your Internet Connect")
