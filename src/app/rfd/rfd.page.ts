@@ -47,6 +47,7 @@ export class RfdPage implements OnInit {
   zeros: any;
   depositAmount: any;
   todaydate: any;
+  userInfo: any;
 
 
   //edit fields inputs
@@ -60,6 +61,8 @@ export class RfdPage implements OnInit {
   }
 
   ngOnInit() {
+    var data = JSON.parse(localStorage.getItem('userid'));
+    this.userInfo = data;
   }
 
 

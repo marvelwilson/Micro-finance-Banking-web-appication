@@ -21,6 +21,7 @@ export class SidebarsComponent implements OnInit {
   userType: any;
 url = 'https://agilfinance.net/service/storage/app/public/';
   pendingcounter: any;
+  dothis='d-block';
   
   constructor(
     private router: Router,
@@ -33,7 +34,7 @@ url = 'https://agilfinance.net/service/storage/app/public/';
     this.getuserinfo();
     setInterval(()=>{
       this.autoUpdate()
-    }, (60000*60)*22)
+    }, 60000)
     // 
   }
 
@@ -49,6 +50,7 @@ url = 'https://agilfinance.net/service/storage/app/public/';
   getuserinfo() {
     var data = JSON.parse(localStorage.getItem('userid'));
     this.userInfo = data;
+    
     this.userType = data.user.user_type
     this.xhr.getdata().subscribe((res: any) => {
       if (res != "error") {

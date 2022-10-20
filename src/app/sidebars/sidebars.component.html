@@ -95,13 +95,13 @@
 
 <ul class="sidebar-nav" id="sidebar-nav">
 
-  <li class="nav-item">
+  <li class="nav-item {{userInfo.user.acc_type=='Credit&Marketing'?'d-none':''}}">
     <a class="nav-link " (click)="backtodashboard()">
       <i class="bi bi-grid text-dark"></i>
       <span class="text-dark">Dashboard</span>
     </a>
   </li><!-- End Dashboard Nav -->
-  <li class="nav-item">
+  <li class="nav-item {{userInfo.user.acc_type=='Credit&Marketing'?'d-none':''}}">
     <a class="nav-link collapsed"  data-bs-target="#branch-nav" data-bs-toggle="collapse" href="#">
       <i class="bi bi-info-circle text-dark"></i><span class="text-dark">Branch Management</span><i class="bi bi-chevron-down ms-auto text-dark"></i>
     </a> 
@@ -118,11 +118,11 @@
       </li>
     </ul>
   </li><!-- End customer Nav -->
-  <li class="nav-item">
+  <li class="nav-item {{userInfo.user.acc_type=='Credit&Marketing'?'d-none':''}}">
     <a class="nav-link collapsed"  data-bs-target="#customer-nav" data-bs-toggle="collapse" href="#">
       <i class="bi bi-people text-dark"></i><span class="text-dark">Customer Management</span><i class="bi bi-chevron-down ms-auto text-dark"></i>
     </a> 
-    <ul id="customer-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+    <ul id="customer-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
       <li>
         <a  (click)="open_virtual()">
           <i class="bi bi-circle text-dark"></i><span class="text-dark">Virtual Account</span>
@@ -148,7 +148,7 @@
   </li><!-- End customer Nav -->
   
   
- <li class="nav-item {{userType=='admin'?'':'d-none'}}">
+ <li class="nav-item {{userInfo.user.acc_type=='Credit&Marketing'?'d-none':''}}">
     <a class="nav-link collapsed"  data-bs-target="#Staff-nav" data-bs-toggle="collapse" href="#">
       <i class="bi bi-people text-dark"></i><span class="text-dark">Staff Management</span><i class="bi bi-chevron-down ms-auto text-dark"></i>
     </a> 
@@ -166,7 +166,7 @@
     </ul>
   </li><!-- End Staff Nav -->
 
-  <li class="nav-item">
+  <li class="nav-item {{userInfo.user.acc_type=='Credit&Marketing'?'d-none':''}}">
     <a class="nav-link collapsed" data-bs-target="#fixed-nav"  data-bs-toggle="collapse" href="#">
       <i class="bi bi-bar-chart text-dark"></i><span class="text-dark">Savings Management</span><i class="bi bi-chevron-down ms-auto text-dark"></i>
     </a>
@@ -188,7 +188,7 @@
       </li> -->
     </ul>
   </li>
-  <li class="nav-item">
+  <li class="nav-item {{userInfo.user.acc_type=='Credit&Marketing'?'d-none':''}}">
     <a class="nav-link collapsed" data-bs-target="#charts-nav"  data-bs-toggle="collapse" href="#">
       <i class="bi bi-bar-chart text-dark"></i><span class="text-dark">Fixed Management</span><i class="bi bi-chevron-down ms-auto text-dark"></i>
     </a>
@@ -264,34 +264,34 @@
       </li>
     </ul>
   </li>
-  <li class="nav-item">
+  <li class="nav-item {{userInfo.user.acc_type=='Credit&Marketing'?'d-none':''}}">
     <a class="nav-link collapsed" (click)="vendors()" >
       <i class="bi bi-printer"></i>
       <span class="text-dark">POS Vendors</span>
     </a>
   </li><!-- End Contact Page Nav -->
 
-  <li class="nav-item">
+  <li class="nav-item {{userInfo.user.acc_type=='Credit&Marketing'?'d-none':''}}">
     <a class="nav-link collapsed" (click)="w2w()" >
       <i class="bi bi-box-arrow-in-right"></i>
       <span class="text-dark">Wallet To Wallet Transfer</span>
     </a>
   </li><!-- End Login Page Nav -->
 
-  <li class="nav-item">
+  <li class="nav-item {{userInfo.user.acc_type=='Credit&Marketing'?'d-none':''}}">
     <a class="nav-link collapsed" (click)="exp()"  >
       <i class="bi bi-file-earmark"></i>
       <span class="text-dark">Expenses Management</span>
     </a>
   </li><!-- End Blank Page Nav -->
   
-  <li class="nav-item">
+  <li class="nav-item {{userInfo.user.acc_type=='Credit&Marketing'?'d-none':''}}">
     <a class="nav-link collapsed" (click)="inc()" >
       <i class="bi bi-file-earmark"></i>
       <span class="text-dark">Income Management</span>
     </a>
   </li><!-- End Blank Page Nav -->
-  <li class="nav-item">
+  <li class="nav-item {{userInfo.user.acc_type=='Credit&Marketing'?'d-none':''}}">
     <a class="nav-link collapsed"  data-bs-target="#accounting-nav" data-bs-toggle="collapse" href="#">
       <i class="bi bi-people text-dark"></i><span class="text-dark">Accounting</span><i class="bi bi-chevron-down ms-auto text-dark"></i>
     </a> 
@@ -353,7 +353,7 @@
       </li>
     </ul>
   </li><!-- End customer Nav -->
-  <li class="nav-item">
+  <li class="nav-item {{userInfo.user.acc_type=='Credit&Marketing'?'d-none':''}}">
     <a class="nav-link collapsed" (click)="boc()"  >
       <i class="bi bi-list"></i>
       <span class="text-dark">Asset Loan</span>

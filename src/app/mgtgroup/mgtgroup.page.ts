@@ -63,6 +63,7 @@ export class MgtgroupPage implements OnInit {
   depositAmount: any;
   zeros: any;
   staffDetails: any;
+  userInfo: any;
 
   //edit fields inputs
   constructor(
@@ -74,6 +75,8 @@ export class MgtgroupPage implements OnInit {
   }
 
   ngOnInit() {
+    var data = JSON.parse(localStorage.getItem('userid'));
+    this.userInfo = data;
   }
 
 
@@ -127,6 +130,8 @@ export class MgtgroupPage implements OnInit {
     })
   }
   async getGroups() {
+    
+    
     let alert = await this.alertController.create({
       backdropDismiss: true,
       cssClass: 'text-center',

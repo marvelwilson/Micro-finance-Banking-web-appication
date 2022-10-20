@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgModule } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { NetworkService } from '../network.service';
@@ -31,6 +31,7 @@ export class ExpPage implements OnInit {
   custid:any;
   sumer:any;
   staff:any;
+  filterTerm:string
 
 
   //edit fields inputs
@@ -39,6 +40,7 @@ export class ExpPage implements OnInit {
     public router: Router,
     private Httpnetwork: NetworkService,
     public alertController: AlertController,
+
   ) {
     this.getExp()
   }

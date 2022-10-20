@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxPrintModule } from 'ngx-print';
+import { Pipe, PipeTransform } from '@angular/core';
 
 @NgModule({
   declarations: [AppComponent],

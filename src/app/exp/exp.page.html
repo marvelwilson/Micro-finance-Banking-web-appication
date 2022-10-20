@@ -35,9 +35,8 @@
                 <form #searchUser="ngForm" (ngSubmit)="SearchID(searchUser.value)">
                   <div class="row">
                     <div class="col-5 pb-2">
-                      <input type="text" class="form-control col-lg-3" placeholder="Enter Expenses Type" name="search" ngModel>
+                      <ion-searchbar color="light" [(ngModel)]="filterTerm" animated="true"></ion-searchbar>
                     </div>
-                    <button type="submit" class="btn btn-dark mb-3 col-sm-2">Search</button>
                   </div>
                 </form>
               </div>
@@ -56,7 +55,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let item of items;">
+                  <tr *ngFor="let item of items">
 
                     <td> {{item.expType}}</td>
                     <td> {{item.expAmount}}</td>

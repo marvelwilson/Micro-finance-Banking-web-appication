@@ -46,6 +46,7 @@ export class MgtosusuPage implements OnInit {
   zeros: any;
   depositAmount: any;
   todaydate: any;
+  userInfo: any;
 
 
   //edit fields inputs
@@ -59,6 +60,8 @@ export class MgtosusuPage implements OnInit {
   }
 
   ngOnInit() {
+    var data = JSON.parse(localStorage.getItem('userid'));
+    this.userInfo = data;
   }
 
 

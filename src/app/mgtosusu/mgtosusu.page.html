@@ -136,7 +136,7 @@
                                             </div>
                                           </div>
                                         </div>
-                                        <button class="btn btn-danger bi bi-arrow-up mt-2" value="{{edituser.id}}"
+                                        <button class="btn btn-danger bi bi-arrow-up mt-2 {{userInfo.user.acc_type=='Credit&Marketing'?'d-none':''}}" value="{{edituser.id}}"
                                           (click)="withdraw($event)"> Withdraw </button>
                                         <div class="modal fade show {{diss}}" id="verticalycentered" tabindex="-1"
                                           aria-modal="true" role="dialog">
